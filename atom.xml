@@ -111,29 +111,6 @@
   </entry>
   
   <entry>
-    <title>图论——最小生成树</title>
-    <link href="http://example.com/2022/09/12/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
-    <id>http://example.com/2022/09/12/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/</id>
-    <published>2022-09-12T08:00:00.000Z</published>
-    <updated>2022-12-29T11:43:18.148Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;某些情况下，我们要求一个图的最小生成树（Minimum Spanning Tree,</summary>
-        
-      
-    
-    
-    
-    
-    <category term="图论" scheme="http://example.com/tags/%E5%9B%BE%E8%AE%BA/"/>
-    
-  </entry>
-  
-  <entry>
     <title>图论——最短路算法</title>
     <link href="http://example.com/2022/09/12/%E6%9C%80%E7%9F%AD%E8%B7%AF/"/>
     <id>http://example.com/2022/09/12/%E6%9C%80%E7%9F%AD%E8%B7%AF/</id>
@@ -148,6 +125,29 @@
     <summary type="html">&lt;p&gt;现实生活中，我们要从一个地方到另一个地方，一定会选择一个最短的路径。放在图上也是同理，而为了计算出最短路径的算法我们称它们为&lt;strong&gt;最短路算法&lt;/strong&gt;。最短路算法分为两类：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;em&gt;&lt;strong&gt;单源最短路算法&lt;/strong&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="图论" scheme="http://example.com/tags/%E5%9B%BE%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图论——最小生成树</title>
+    <link href="http://example.com/2022/09/12/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    <id>http://example.com/2022/09/12/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/</id>
+    <published>2022-09-12T08:00:00.000Z</published>
+    <updated>2022-12-29T11:43:18.148Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;某些情况下，我们要求一个图的最小生成树（Minimum Spanning Tree,</summary>
         
       
     
