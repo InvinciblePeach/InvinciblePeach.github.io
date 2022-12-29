@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-cn">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>图论——最短路算法 |  Invincible Peach の小窝</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/InvinciblePeach.png" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Invincible Peach の小窝" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-最短路"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  图论——最短路算法
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/09/12/%E6%9C%80%E7%9F%AD%E8%B7%AF/" class="article-date">
+  <time datetime="2022-09-12T08:00:00.000Z" itemprop="datePublished">2022-09-12</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">7 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>现实生活中，我们要从一个地方到另一个地方，一定会选择一个最短的路径。放在图上也是同理，而为了计算出最短路径的算法我们称它们为<strong>最短路算法</strong>。最短路算法分为两类：</p>
+<ol>
+<li><em><strong>单源最短路算法</strong></em></li>
+<li><em><strong>全源最短路算法</strong></em></li>
+</ol>
+<p><strong>注意：在阅读本文之前，请确保你已了解：<a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/bfs/">广度优先搜索（BFS）</a>，<a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/greedy/">贪心思想</a>。本文若无特殊声明，统一使用邻接列表存图。边结构体定义如下：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> v, w;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="title">edge</span><span class="params">(<span class="type">const</span> <span class="type">int</span> &amp; v_, <span class="type">const</span> <span class="type">int</span> &amp; w_)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;v = v_;</span><br><span class="line">        <span class="keyword">this</span>-&gt;w = w_;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="单源最短路算法"><a href="#单源最短路算法" class="headerlink" title="单源最短路算法"></a>单源最短路算法</h2><p>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4779">P4779 【模板】单源最短路径（标准版）</a></p>
+<h3 id="Dijkstra-算法"><a href="#Dijkstra-算法" class="headerlink" title="Dijkstra 算法"></a>Dijkstra 算法</h3><p>Dijkstra 算法是基于 BFS 的贪心的最短路算法。<strong>在 BFS 遍历图的过程中，优先遍历距离起始节点最近的节点，而并不需要是当前节点的子节点（这又有点不 BFS 了？）。</strong>基于最短路的思想，我们需要维护 <code>dis</code> 数组，<code>dis[i]</code> 表示节点 $i$ 到起点的最短路径长度。设 $u$ 为当前节点，$e$ 是当前的一条边，状态转移方程（???）为：<br>$$<br>dis[e.v] &#x3D; \min{dis[e.v],dis[u] + e.w}<br>$$<br>由于其基于贪心思想，在更新 <code>dis</code> 后我们需要枚举 <code>dis</code> 获得距离起始节点最近的节点，将其加入至遍历队列中。而为了避免出现重复遍历，<code>bool visited[i]</code> 表示有没有以 $i$ 作为根节点 $u$ 过。很容易得出代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dijkstra</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">emplace</span>(s);</span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    dis[s] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp; e : graph[u]) &#123;</span><br><span class="line">            dis[e.v] = <span class="built_in">min</span>(dis[e.v], dis[u] + e.w);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> min_ = INT_MAX;</span><br><span class="line">        <span class="type">int</span> min_index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (dis[i] &lt; min_ &amp;&amp; !visited[i]) &#123;</span><br><span class="line">                min_ = dis[i];</span><br><span class="line">                min_index = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (min_index) &#123;</span><br><span class="line">            q.<span class="built_in">emplace</span>(min_index);</span><br><span class="line">            visited[min_index] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不难看出时间复杂度为：</p>
+<p>$$<br>O(n^2)<br>$$</p>
+<p>这可以通过例题的弱化版，却会在例题中全部 $\color{052242}{TLE}$，考虑优化。</p>
+<h4 id="堆优化的-Dijkstra-算法"><a href="#堆优化的-Dijkstra-算法" class="headerlink" title="堆优化的 Dijkstra 算法"></a>堆优化的 Dijkstra 算法</h4><p>因为每次要得到最小的 <code>dis</code>，可以使用<strong>遍历优先队列</strong>代替原本的先进先出的<strong>遍历队列</strong>，省去了 $O(n)$ 的枚举，代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dijkstra</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    priority_queue&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;, vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt;, greater&lt;&gt;&gt; q;</span><br><span class="line">    q.<span class="built_in">emplace</span>(<span class="number">0</span>, s);</span><br><span class="line">    dis[s] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> u = q.<span class="built_in">top</span>().second;</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (visited[u]) &#123; <span class="keyword">continue</span>; &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; visited[u] = <span class="literal">true</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp; e : graph[u]) &#123;</span><br><span class="line">            dis[e.v] = <span class="built_in">min</span>(dis[e.v], dis[u] + e.w);</span><br><span class="line">            q.<span class="built_in">emplace</span>(dis[e.v], e.v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为每一个节点都会进队一次，所以时间复杂度为：<br>$$<br>O(m \log m)<br>$$<br><em><strong>注意：但是，当图足够稠密时，$n^2 \approx m$，导致堆优化算法慢于普通算法，此时应该通过数据范围来判断使用何种算法。</strong></em></p>
+<h4 id="正确性证明"><a href="#正确性证明" class="headerlink" title="正确性证明"></a>正确性证明</h4><p><del>好长啊，懒得写了，放<a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/shortest-path/#_10">链接</a></del></p>
+<h3 id="Bellman-Ford-算法"><a href="#Bellman-Ford-算法" class="headerlink" title="Bellman-Ford 算法"></a>Bellman-Ford 算法</h3><p>根据 OI-Wiki 证明可知，Dijkstra算法当图中出现了负权边时，可能失效。所以我们需要另一种算法——<strong>Bellman-Ford算法</strong>。</p>
+<ol>
+<li>定义数组 $dis$，代表到目前为止从起点到各个点的最短路径长<br> 度。初始时将 $dis[s]$ 设置为 0，其他点的设置为 $+\infin$。</li>
+<li>对于每一条边 $e$，进行一次松弛（$dis[e.v] &#x3D; \min{dis[e.v], dis[u] + e.w}$）操作。</li>
+<li>重复步骤 2，直到做了 $n - 1$ 遍（因为一条最短路最多只有 $n - 1$ 条边，否则会形成环）。</li>
+</ol>
+<p>不难得出时间复杂度 $O(nm)$。</p>
+<h4 id="SPFA-算法"><a href="#SPFA-算法" class="headerlink" title="SPFA 算法"></a>SPFA 算法</h4><p>可以发现，在 Bellman-Ford 算法中有大量无效的操作，使用队列优化（这有点 BFS ？）。</p>
+<p>第一第三不变，将第二步改为：</p>
+<blockquote>
+<p> 从队列中取出一个点 $u$，对于从 $u$ 出发的每一条边 $e$，进行一次松弛（定义如上）操作，若松弛成功且 $e.v$ 不在队列中，将 $e.v$ 加入队列中。</p>
+</blockquote>
+<p>运行时间有了显著提高，然而时间复杂度不变。在 NOI 2018 的 D1T1 中，出题人使用了特殊的构造卡掉了<br>SPFA 算法并在讲课时说其死了。详情可见：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/292283275">知乎 如何看待 SPFA 算法已死这种说法？</a>，本文不对 SPFA 做任何评价。</p>
+<h4 id="分层图单源最短路算法"><a href="#分层图单源最短路算法" class="headerlink" title="分层图单源最短路算法"></a>分层图单源最短路算法</h4><p>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4822">P4822 [BJWC2012]冻结</a></p>
+<p>例题已经明确的告诉我们，本题可以使用上面提到的单源最短路算法解决。看标签可知，这道题考察的是图的构建。我们可以构建一个 $k$ 层的<strong>分层图</strong>。什么是分层图呢？就是有许多层的图。我们可以用以下方式存一个分层图：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> v, w, level;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="title">edge</span><span class="params">(<span class="type">int</span> v_, <span class="type">int</span> w_, <span class="type">int</span> level_)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;v = v_;</span><br><span class="line">        <span class="keyword">this</span>-&gt;w = w_;</span><br><span class="line">        <span class="keyword">this</span>-&gt;level = level_;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;edge&gt; graph[k][n];</span><br></pre></td></tr></table></figure>
+
+<p>如何建一个分层图呢？每一个节点不只连接它的子节点，还连接它的下一层图子节点，只不过边权不同，这样，我们就可以通过普通的单源最短路来达到题目要求的行为，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i ++) &#123;</span><br><span class="line">    <span class="type">int</span> u, v, w;</span><br><span class="line">    cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= k; j ++) &#123;</span><br><span class="line">        graph[j][u].<span class="built_in">emplace_back</span>(v, w, j);</span><br><span class="line">        graph[j][v].<span class="built_in">emplace_back</span>(u, w, j);</span><br><span class="line">        graph[j][u].<span class="built_in">emplace_back</span>(v, <span class="number">0</span>, j + <span class="number">1</span>);</span><br><span class="line">        graph[j][v].<span class="built_in">emplace_back</span>(u, <span class="number">0</span>, j + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>适用于分层图的堆优化 Dijkstra 如下，其他算法请读者自行实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dijkstra</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    priority_queue&lt;tuple&lt;<span class="type">int</span>/*dis*/, <span class="type">int</span>/*index*/, <span class="type">int</span>/*level*/&gt;, vector&lt;tuple&lt;<span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>&gt;&gt;, greater&lt;&gt;&gt; q;</span><br><span class="line">    q.<span class="built_in">emplace</span>(<span class="number">0</span>, s, <span class="number">0</span>);</span><br><span class="line">    dis[<span class="number">0</span>][s] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="keyword">auto</span> u = <span class="built_in">get</span>&lt;<span class="number">1</span>&gt;(q.<span class="built_in">top</span>()), level = <span class="built_in">get</span>&lt;<span class="number">2</span>&gt;(q.<span class="built_in">top</span>());</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (visited[level][u]) &#123; <span class="keyword">continue</span>; &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; visited[level][u] = <span class="literal">true</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp; e : graph[level][u]) &#123;</span><br><span class="line">            dis[e.level][e.v] = <span class="built_in">min</span>(dis[e.level][e.v], dis[level][u] + e.w);</span><br><span class="line">            q.<span class="built_in">emplace</span>(dis[level][u] + e.w, e.v, e.level);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="多源最短路算法"><a href="#多源最短路算法" class="headerlink" title="多源最短路算法"></a>多源最短路算法</h2><p>简单来看，可以跑 $n$ 轮的单源最短路，也可以使用 <strong>Floyd 算法</strong>。</p>
+<h3 id="Floyd-算法"><a href="#Floyd-算法" class="headerlink" title="Floyd 算法"></a>Floyd 算法</h3><p>Floyd 算法是一种基于动态规划的最短路算法，其状态表示为：$dp[i][u][v]$  表示只允许经过前 $i$ 个点时，$i$ 到 $j$ 的最短路长度。显然的，它的初始状态是：<br>$$<br>dp[i][u][v] &#x3D; \left{\begin{matrix}0<del>(i &#x3D; j)\<br>+\infin</del>(没有从<del>i</del>到<del>j</del>的边)\<br>e.w<del>(有从</del>i<del>到</del>j~的边)<br>\end{matrix}\right.<br>$$<br>状态转移方程便是：<br>$$<br>dp[i][u][v] &#x3D; \min{dp[i - 1][u][v],dp[i - 1][u][i] + dp[i - 1][i][j]}<br>$$<br>实现时只需要枚举 $i, u, v$ 即可，代码很短：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> u = <span class="number">1</span>; j &lt;= n; v ++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> v = <span class="number">1</span>; v &lt;= n; v ++) &#123;</span><br><span class="line">            dp[i][u][v] = <span class="built_in">min</span>(dp[i - <span class="number">1</span>][u][v], dp[i - <span class="number">1</span>][u][i] + dp[i - <span class="number">1</span>][i][v])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不难看出，时间复杂度是 $O(n^3)$，这与跑 $n$ 轮 Dijkstra 算法的时间复杂度是一致的。</p>
+<p><strong>下期预告：图论——最小生成树算法</strong></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/09/12/%E6%9C%80%E7%9F%AD%E8%B7%AF/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2022/09/12/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            图论——最小生成树
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2022/09/12/%E7%BD%91%E7%BB%9C%E6%B5%81/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">网络流</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "D1UJwqULv4zH1cjxxcgTQPDo-gzGzoHsz",
+    app_key: "R2cbX5cyvaUONfIf7fcLZLtc",
+    path: window.location.pathname,
+    avatar: "identicon",
+    placeholder: "来点评论吧qwq~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022
+        <i class="ri-heart-fill heart_icon"></i> Invincible Peach
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/InvinciblePeach.png" alt="Invincible Peach の小窝"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+ 
+<script src="/js/dz.js"></script>
+ 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

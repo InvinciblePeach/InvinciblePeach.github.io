@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>基本动态规划的简单实现方式</title>
+    <url>/2022/10/01/DP/</url>
+    <content><![CDATA[<h3 id="「0-1」-背包模型"><a href="#「0-1」-背包模型" class="headerlink" title="「0-1」 背包模型"></a>「0-1」 背包模型</h3><p>当 有 $n$ 个物品和一个容量为 $m$ 的背包，每个物品有重量 $w[i]$ 和价值 $v[i]$ 两种属性，要求选若干物品放入背包使背包中物品的<strong>总价值最大</strong>且背包中物品的<strong>总重量不超过</strong>背包的容量。 很明显，<em>每个物体只有两种可能的状态（取与不取）</em>，对应二进制中的 $1$ 和 $0$ ，这类问题便被称为「<strong>0-1 背包问题</strong>」。 0-1 背包问题是各类DP中的基础，<strong>大部分DP问题都基于</strong> 0-1 背包问题，可以说，<em>0-1 背包是DP问题的基础</em>。</p>
+<p>显然的，状态表示即为用<strong>数组<code>dp[i][j]</code>表示 $i$ 个物品，背包中有体积不超过 $j$ 的物品的最大价值</strong>。那么，显然的，当 $i &#x3D; 0$ 或 $j &#x3D; 0$ 时（有 $0$ 个物品或物品体积总量为 $0$ 时），$dp[i][j] &#x3D; 0$。<strong>目标状态</strong>为 $dp[n][m]$。之前提到过，<em>每个物体只有两种可能的状态</em>，因此，对于任意 $i$ 和 $j$，有<strong>两种</strong>可能：</p>
+<ol>
+<li>不选择第 $i$ 个物品，很明显，$dp[i][j] &#x3D; dp[i - 1][j]$</li>
+<li>选择第 $i$ 个物品，很明显，$dp[i][j] &#x3D; dp[i - 1][j - w[i]] + v[i]$</li>
+</ol>
+<p>由题意知，对于以上两种情况要取<strong>最大值</strong>，所以，完整的状态转移方程为：<br>$$<br>dp[i][j] &#x3D; \max{dp[i - 1][j - w[i]] + v[i],~~dp[i - 1][j]}<br>$$</p>
+<p>容易得出代码：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = w[i]; j &lt;= m; j++)&#123;</span><br><span class="line">        dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - w[i]] + v[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; dp[n][m] &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+
+<p>显然，「0-1」背包问题的时间复杂度是：<br>$$<br>O(nm)<br>$$</p>
+<h3 id="完全背包模型"><a href="#完全背包模型" class="headerlink" title="完全背包模型"></a>完全背包模型</h3><p>现在考虑如下情况，若每种物品可以选取无限个，其他与「0-1」 背包相同，可选的最大价值是多少？参考「0-1」 背包，可以得出如下状态转移方程：<br>$$<br>dp[i][j] &#x3D; \max{dp[i - 1][j], dp[i][j - w[i]] + v[i]}<br>$$<br>代码就非常好写了：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = w[i]; j &lt;= m; j++)&#123;</span><br><span class="line">        dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j], dp[i][j - w[i]] + v[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; dp[n][m] &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度同上。</p>
+<h3 id="多重背包问题"><a href="#多重背包问题" class="headerlink" title="多重背包问题"></a>多重背包问题</h3><p>类似于「0-1」背包问题， 只不过区别在于每种物品有 $k_i$ 个，而非一个。朴素算法是，把 $k_i$ 个物品转换为有 $k_i$ 个完全相同的物品，进行「0-1」 背包。代码实现为：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>, i &lt;= n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = m; j &gt;= w[i] * k[i]; j--)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">1</span>; k &lt;= K[i]; k++)&#123;</span><br><span class="line">            dp[j] = <span class="built_in">max</span>(dp[j - w[i] * k] + v[i] * k; dp[j]]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; dp[n][m] &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+
+<p>不难得出，时间复杂度是：</p>
+<p>$$<br>O(nm\sum_{1 \leqslant i \leqslant n}k_i)<br>$$</p>
+<h3 id="分组背包模型"><a href="#分组背包模型" class="headerlink" title="分组背包模型"></a>分组背包模型</h3><p>给你多组物品，每组物品只能选取一个，其他同「0-1」 背包。</p>
+<p>与多重背包类似，枚举每一组物品选哪一个物品。时间复杂度同多重背包。</p>
+<h3 id="滚动数组优化背包模型"><a href="#滚动数组优化背包模型" class="headerlink" title="滚动数组优化背包模型"></a>滚动数组优化背包模型</h3><p>现在让我们回顾一下以上的所有背包模型。虽然，与搜索相比，DP的时间复杂度提升了许多，然而，<strong>空间换时间</strong>的定律在此同样产生了作用。显然的，它的空间复杂度为 $O(nm)$ ，设有数组<code>long long dp[n][m]</code>，通过计算得知，<strong>当 $nm  \geqslant  1024<em>1024&#x2F;8  \approx 10^5$ 时，数组大小已经超过了 <code>1MB</code> ，极有可能造成 <code>MLE</code><strong>。难道没有更好的解决方案了吗？实际上，观察 0-1 背包的代码，每一次循环只使用了第 $i$ 行与第 $i - 1$ 行。思考通过反向遍历，因为通过反向更新，每一次更新的不过是第 $i$ 行的数字，并且在 $dp[j]$ 前的并不会被更新，也就是说，</strong></em>通过一维数组即可表示两位的数组</strong>*，因此可以使用一维 <code>dp</code> 数组代替巨大的 <code>dp[m][n]</code>，完美的解决了 <code>dp</code>数组过大的问题，只要 $m \leqslant 1e5$，就<strong>不会</strong>造成 <code>MLE</code>。<strong>这便是滚动数组优化的核心思想</strong>。其他背包模型同理。</p>
+<p>总结一下，滚动数组的优化便是<em><strong>对于更新当前状态所不需要的状态通过某种方式进行隐藏以省去所占用的空间以减少空间复杂度。</strong></em></p>
+<h3 id="区间DP"><a href="#区间DP" class="headerlink" title="区间DP"></a>区间DP</h3><p>现在我们考虑如下问题：</p>
+<blockquote>
+<p>给定 $n$ 个数，每次可以将相邻的两个数合并到一起组成一个新的数，而合并的花费为新数的大小，求把这些数合并成一个数的最小花费。</p>
+</blockquote>
+<p>我们设 $dp[i][j]$ 表示合并 $i$ ~ $j$ 所用的最小花费，状态转移方程是：<br>$$<br>dp[i][j] &#x3D; \max{dp[i][k] + dp[k + 1][j] + \sum_{i \leqslant x \leqslant j} a_i}<br>$$<br>时间复杂度：<br>$$<br>O(n^4)<br>$$<br>假如这些数不是一列而是一个环，怎么办？一个巧妙的办法是：在原序列后接一个一模一样的序列。这种方法就叫：断环成链。</p>
+<h3 id="最长单调子序列问题"><a href="#最长单调子序列问题" class="headerlink" title="最长单调子序列问题"></a>最长单调子序列问题</h3><p><em>给定长度为 $n$ 的序列，求这个序列中最长的单调子序列</em>，这便是最长单调子序列问题。这里以<em>最长上升子序列为例</em>。考虑动态规划的思想，最朴素的想法便是**<code>dp[i]</code> 存储末尾元素为 <code>i</code> 时的最长子序列长度*<em>。考虑状态转移，显然，对于当前状态而言，</em>其上一状态一定是序列中的前一个元素，上一元素一定当前元素相对靠前的位置。因此，对于 <code>dp[i]</code> 须枚举 <code>i</code> 之前的所有元素，<code>j</code>。当 <code>j &lt; i</code>时，元素 <code>i</code> 就有可能拼接至以 <code>j</code> 为结尾的最长子序列上。枚举  <code>j</code> ，通过通用最值算法即可。*状态表示则为：<br>$$<br>dp[i] &#x3D; \max{dp[i], dp[j] + 1}~(nums[i] &gt; nums[j])<br>$$<br>代码则为：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; i++)&#123;</span><br><span class="line">    dp[i] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt; i; j++)&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i] &gt; nums[j])&#123;</span><br><span class="line">            dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然而，显然的，朴素算法的时间复杂度达到了 $O(n^2)$，这使该算法所能处理的数据范围在 $10^3$ 以内，这显然不是一个好的算法。考虑进行优化，我们尝试<code>dp[i]</code> 存储最长子序列长度为 <code>i</code> 时的末尾元素。那么，对于当前状态，可能有多种不同的存储值，很明显，存储较小的那个更容易将后来的元素连接上。由此可以得出，<code>dp</code> 数组是一个<em><strong>单调递增</strong></em>的数组。而在单调的数组中查找元素，时间复杂度为 $O(\log n)$ 的<strong>二分搜索</strong>是最佳的选择。因此，改进后的时间复杂度即为：<br>$$<br>O(n\log n)<br>$$<br>实际上，二分搜索是<strong>极易</strong>写错的，为此，<code>C++</code> 中 <code>&lt;algorithm&gt; </code> 头文件中的  <code>lower_bound</code> 与 <code>upper_bound</code> 是不错的选择，它也是<strong>二分</strong>的搜索算法，不会影响算法时间复杂度，并且以 <code>lower_bound</code> 为例，它会<strong>返回有序序列中第一个大于等于目标元素的元素的迭代器（指针）</strong>。给出代码： </p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">memset</span>(dp, <span class="number">0x3f</span>, <span class="built_in">sizeof</span>(dp));</span><br><span class="line"><span class="type">int</span> ans = INT_MIN;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; i++)&#123;</span><br><span class="line">    <span class="type">int</span> r = <span class="built_in">lower_bound</span>(dp, dp + i, a[i]) - dp - <span class="number">1</span>;</span><br><span class="line">    dp[r + <span class="number">1</span>] = nums[i];</span><br><span class="line">    ans = <span class="built_in">max</span>(ans, r + <span class="number">1</span>);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h3 id="矩阵最短路问题"><a href="#矩阵最短路问题" class="headerlink" title="矩阵最短路问题"></a>矩阵最短路问题</h3><p>给定一个 $n<em>m$ 的矩阵，每一个点都有一个权值，且只能向右或向左移动，求从左上角(0, 0)至右下角(n, m)经过的路径的最大的权值的和(方案数)，这种问题便是：<strong>矩阵最短路问题</strong>，例题是</em>洛谷 P1216 [IOI1994]数字三角形 Number Triangles*。朴素的想法是，从 0,0 开始进行 <code>dfs</code>，直到 n,m 进行返回，不难看出，这种算法的时间复杂度与空间复杂度都较高，因此无法较好的完成此问题。观察之前提到的所有动态规划算法，可以发现，他们都是一个填表的过程，从<code>dp[0][0]</code> 直到 <code>dp[n][m]</code>，因此，很容易得出状态表示，<code>dp[i][j]</code> 存储到达 <code>dp[i][j]</code> 时的最大权值和。不难得出状态转移方程：<br>$$<br>dp[i][j] &#x3D; \max{dp[i - 1][j] + nums[i][j], dp[i][j - 1] + nums[i][j]}<br>$$</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; j++)&#123;</span><br><span class="line">        dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j] + nums[i][j], dp[i][j - <span class="number">1</span>] + nums[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于<em>洛谷 P1002 [NOIP2002 普及组] 过河卒</em>这样有<strong>无法经过的点</strong>的题目，只要预处理所有马的控制点，循环到控制点时直接<code>conitue;</code>，以一般的方案数问题的想法更改状态转移方程即可：<br>$$<br>dp[i][j] &#x3D; dp[i - 1][j] + dp[i][j - 1]<br>$$</p>
+]]></content>
+      <tags>
+        <tag>DP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>KMP 算法</title>
+    <url>/2022/08/30/KMP/</url>
+    <content><![CDATA[<h3 id="mathbf-Part-0-字符串匹配"><a href="#mathbf-Part-0-字符串匹配" class="headerlink" title="$\mathbf{Part~0}$ 字符串匹配"></a>$\mathbf{Part~0}$ 字符串匹配</h3><p>字符串匹配，指给定一个文本串（长度为 $n$），一个模式串（长度为 $n$），要求统计模式串在文本串中出现的次数，位置。朴素的解法便是遍历整个文本串，每一次判断模式串是否匹配。不难得出时间复杂度是 $O(nm)$。然而，所有 $OI$ 竞赛的出题人都不会把应该只有 $20$ 分的东西给你 $100$ 分，<del>当然，蓝桥（水）杯除外，</del>况且，如果只有这么简单的方式我也不会写一篇博客来介绍它<del>来说明我很菜</del>。所以，三位伟大的科学家 $\mathbf{K}nuth$, $\mathbf{M}orris$, $\mathbf{P}ratt$ 发明了 $KMP$ 算法。<del>这么说是不是有点奇怪。</del></p>
+<h3 id="mathbf-Part-1-从朴素算法开始"><a href="#mathbf-Part-1-从朴素算法开始" class="headerlink" title="$\mathbf{Part~1}$ 从朴素算法开始"></a>$\mathbf{Part~1}$ 从朴素算法开始</h3><p>按照朴素算法，我们先从 $1$ 开始匹配，当匹配不成功时，模式串向后移动一位，有什么方式能尽快的移动并不会错过每一个匹配的位置呢？</p>
+<p>一般来说，我们都会利用上一次的状态，如下图，绿色部分是已经匹配好的部分，红色位置是首个匹配不成功的位置：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/e57tnoab.png"></p>
+<p>那么，我们可以再引进蓝色部分，它指的是下一次模式串与上一次匹配好的部分最大的匹配部分，同时，这也是最小的移动范围，完美解决问题。因为模式串不变，因此，可以得到下图：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/6wyyz5hi.png"></p>
+<p>那么下一次的移动范围，也变成了获取蓝色部分的最大长度。</p>
+<h3 id="mathbf-Part-2-前缀串与后缀串"><a href="#mathbf-Part-2-前缀串与后缀串" class="headerlink" title="$\mathbf{Part~2}$ 前缀串与后缀串"></a>$\mathbf{Part~2}$ 前缀串与后缀串</h3><p>什么是前缀串呢？与前缀和一样，<del>是只可意会不可言传的东西，</del>前缀串便是以该字符串头开头的所有字符串，后缀串同理：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ABC</span><br><span class="line">前缀串: A, AB, ABC</span><br><span class="line">后缀串: C, BC, ABC</span><br></pre></td></tr></table></figure>
+
+<p>由图 1-2 可知，蓝色部分既是绿色部分的前缀串，又是其后缀串。问题便变成了求出绿色部分既是它的后缀又是它的前缀的字符串中（它本身除外）最长的长度，我们设 $next[i]$ 表示前 $i$ 位中，最长的蓝色部分的长度，例如 $S$ 为 <code>abcababc</code>，则 $next[5]&#x3D;2$ 。因为 $S$ 的前 $5$ 个字符为 <code>abcab</code>， <code>ab</code> 既是它的后缀又是它的前缀，并且找不到一个更长的字符串满足这个性质。同理，还可得出 $next[1] &#x3D; next[2] &#x3D; next[3] &#x3D; 0$，$next[4] &#x3D; next[6] &#x3D; 1$，$next[7] &#x3D; 2$，$next[8] &#x3D; 3$。利用模式串不变的性质，这个过程可以在模式串上实现。从以上分析我们可以看出，时间复杂应该是：<br>$$<br>O(求next数组 + 移动模式串，比对文本串) &#x3D; O(n + m)<br>$$<br>也有部分资料将 $KMP$ 算法形象的称为“两次匹配”的过程。</p>
+<h3 id="mathbf-Part-3-一些实现细节"><a href="#mathbf-Part-3-一些实现细节" class="headerlink" title="$\mathbf{Part~3}$ 一些实现细节"></a>$\mathbf{Part~3}$ 一些实现细节</h3><p>可以通过如下方式得到 $next$ 数组：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= m; i ++) &#123;</span><br><span class="line">    <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; p[i] != p[j + <span class="number">1</span>]) &#123; j = next[j]; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (p[i] == p[j + <span class="number">1</span>]) &#123; j ++; &#125;</span><br><span class="line"></span><br><span class="line">    next[i] = j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而 $KMP$ 算法的主体部分与其基本相同：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> k = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">    <span class="keyword">while</span> (k &gt; <span class="number">0</span> &amp;&amp; s[i] != p[k + <span class="number">1</span>]) &#123; k = next[k]; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (s[i] == p[k + <span class="number">1</span>]) &#123; k ++; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (k + <span class="number">1</span> == m + <span class="number">1</span>) &#123; cout &lt;&lt; i - m + <span class="number">1</span> &lt;&lt; endl; k = next[k]; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意，$next$ 在<code>bits/stdc++.h</code>中是保留字。</p>
+<h3 id="mathbf-Part-4-部分例题讲解"><a href="#mathbf-Part-4-部分例题讲解" class="headerlink" title="$\mathbf{Part~4}$ 部分例题讲解"></a>$\mathbf{Part~4}$ 部分例题讲解</h3><p><a href="https://www.luogu.com.cn/problem/solution/P4391">P4391 [BOI2009] Radio Transmission 无线传输</a>：</p>
+<p>一般人的想法：</p>
+<blockquote>
+<p>$emmmmm$ 既然需要 $KMP$ 且只有一个字符串，那么一定与 $next$ 有关，输出 $next[n]$？似乎不行，输出 $n - next[n]$？嗯，好，切了。</p>
+</blockquote>
+<p>现在，让我们证明 $ans &#x3D; n - next[n]$：</p>
+<p>首先，将蓝色部分后缀串与绿色部分的空位称为 $0$ 号部分，那么，将蓝色部分以 $0$ 号部分的长度分为若干部分。因为每一部分的对应关系，可以知道，$0$ 号部分即为循环部分。</p>
+<p><a href="https://www.luogu.com.cn/problem/P2375">P2375 [NOI2014] 动物园</a>：</p>
+<p>建议先看一看此题对 $KMP$ 算法的详解。</p>
+<p>可以发现<del>太拉了不能发现看题解图</del>，$next[next[i]]$ 一定也是前 $i$ 位的公共前后缀，同理，无限递归下去知道当前公共前后缀的长度小于 $\frac{i}{2}$，就可以的到不相交的两个公共前后缀。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>对顶堆</title>
+    <url>/2022/09/29/%E5%AF%B9%E9%A1%B6%E5%A0%86/</url>
+    <content><![CDATA[<p>顾名思义，对顶堆就是两个堆顶相对的堆。一般用于<em><strong>动态维护第 k 最值（无修改操作）</strong></em>。</p>
+<h3 id="mathbf-Part-1-把堆看成队列，就好理解了"><a href="#mathbf-Part-1-把堆看成队列，就好理解了" class="headerlink" title="$\mathbf{Part~1}$ 把堆看成队列，就好理解了"></a>$\mathbf{Part~1}$ 把堆看成队列，就好理解了</h3><p>让我们看一道省选题：<a href="https://www.luogu.com.cn/problem/P3871">P3871 [TJOI2010]中位数</a></p>
+<p>再看一道 CSP-J 组 T2：<a href="https://www.luogu.com.cn/problem/P7072">P7072 [CSP-J2020] 直播获奖</a></p>
+<p>之后是一道模板题：<a href="https://www.luogu.com.cn/problem/P1168">P1168 中位数</a></p>
+<p>很明显，这三道题都有一个共同特点：<strong>动态维护第 k 最值</strong>。所以可以用对顶堆来做。</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/gewkx1df.png"></p>
+<p>因为我们只需要第 $k$ 最值，因此最大值、最小值都是我们不需要的。那么，如图，如果堆顶的小顶堆的长度为 $k$，小顶堆的堆顶就是所求值。如何维护小顶堆的长度呢？综合来看，小顶堆与大顶堆的序列是有序的。如果小顶堆的长度大于 $k$，就将它的堆顶放到大顶堆中；如果小顶堆的长度小于 $k$，就加入大顶堆的堆顶。在此之前，我们还需要将新值加入任意堆中，当然，无论加入哪个堆都不会影响时间复杂度和结果。</p>
+<p>了解对顶堆原理后，三道题都非常简单了。</p>
+<h3 id="mathbf-Part-2-代码"><a href="#mathbf-Part-2-代码" class="headerlink" title="$\mathbf{Part~2}$ 代码"></a>$\mathbf{Part~2}$ 代码</h3><p>省选题：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m, cnt;</span><br><span class="line">priority_queue&lt;<span class="type">int</span>&gt; max_q; <span class="comment">// NOLINT</span></span><br><span class="line">priority_queue&lt;<span class="type">int</span>, vector&lt;<span class="type">int</span>&gt;, greater&lt;&gt;&gt; min_q; <span class="comment">// NOLINT</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">check</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> mid = !(cnt % <span class="number">2</span>) ? (cnt / <span class="number">2</span>) : (cnt / <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">while</span> (max_q.<span class="built_in">size</span>() &lt; mid) &#123;</span><br><span class="line">        max_q.<span class="built_in">emplace</span>(min_q.<span class="built_in">top</span>());</span><br><span class="line">        min_q.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (max_q.<span class="built_in">size</span>() &gt; mid) &#123;</span><br><span class="line">        min_q.<span class="built_in">emplace</span>(max_q.<span class="built_in">top</span>());</span><br><span class="line">        max_q.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">emplace</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &lt; max_q.<span class="built_in">top</span>()) &#123; max_q.<span class="built_in">emplace</span>(x); &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123; min_q.<span class="built_in">emplace</span>(x); &#125;</span><br><span class="line">    cnt ++;</span><br><span class="line">    <span class="built_in">check</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    max_q.<span class="built_in">emplace</span>(INT_MAX);</span><br><span class="line">    min_q.<span class="built_in">emplace</span>(INT_MAX);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">        <span class="type">int</span> num;</span><br><span class="line">        cin &gt;&gt; num;</span><br><span class="line">        <span class="built_in">emplace</span>(num);</span><br><span class="line">    &#125;</span><br><span class="line">    cin &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i ++) &#123;</span><br><span class="line">        string opr;</span><br><span class="line">        cin &gt;&gt; opr;</span><br><span class="line">        <span class="keyword">if</span> (opr == <span class="string">&quot;add&quot;</span>) &#123;</span><br><span class="line">            <span class="type">int</span> num;</span><br><span class="line">            cin &gt;&gt; num;</span><br><span class="line">            <span class="built_in">emplace</span>(num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; cout &lt;&lt; max_q.<span class="built_in">top</span>() &lt;&lt; endl; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>J 组 T2：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 写的最早，所以最丑</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, w, now;</span><br><span class="line">priority_queue&lt;<span class="type">int</span>, vector&lt;<span class="type">int</span>&gt;, less&lt;&gt;&gt; max_q; <span class="comment">// NOLINT</span></span><br><span class="line">priority_queue&lt;<span class="type">int</span>, vector&lt;<span class="type">int</span>&gt;, greater&lt;&gt;&gt; min_q; <span class="comment">// NOLINT</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; w;</span><br><span class="line">    max_q.<span class="built_in">emplace</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">        <span class="type">int</span> x;</span><br><span class="line">        cin &gt;&gt; x;</span><br><span class="line">        now = <span class="built_in">max</span>(<span class="number">1</span>, i * w / <span class="number">100</span>);</span><br><span class="line">        <span class="keyword">if</span> (x &lt;= max_q.<span class="built_in">top</span>()) &#123; max_q.<span class="built_in">emplace</span>(x); &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; min_q.<span class="built_in">emplace</span>(x); &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (min_q.<span class="built_in">size</span>() &lt; now) &#123;</span><br><span class="line">            min_q.<span class="built_in">emplace</span>(max_q.<span class="built_in">top</span>());</span><br><span class="line">            max_q.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (min_q.<span class="built_in">size</span>() &gt; now) &#123;</span><br><span class="line">            max_q.<span class="built_in">emplace</span>(min_q.<span class="built_in">top</span>());</span><br><span class="line">            min_q.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; min_q.<span class="built_in">top</span>() &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    &#125; cout &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>模板题：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m, cnt;</span><br><span class="line">priority_queue&lt;<span class="type">int</span>&gt; max_q; <span class="comment">// NOLINT</span></span><br><span class="line">priority_queue&lt;<span class="type">int</span>, vector&lt;<span class="type">int</span>&gt;, greater&lt;&gt;&gt; min_q; <span class="comment">// NOLINT</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">check</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> mid = !(cnt % <span class="number">2</span>) ? (cnt / <span class="number">2</span>) : (cnt / <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">while</span> (max_q.<span class="built_in">size</span>() &lt; mid) &#123;</span><br><span class="line">        max_q.<span class="built_in">emplace</span>(min_q.<span class="built_in">top</span>());</span><br><span class="line">        min_q.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (max_q.<span class="built_in">size</span>() &gt; mid) &#123;</span><br><span class="line">        min_q.<span class="built_in">emplace</span>(max_q.<span class="built_in">top</span>());</span><br><span class="line">        max_q.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">emplace</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &lt; max_q.<span class="built_in">top</span>()) &#123; max_q.<span class="built_in">emplace</span>(x); &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123; min_q.<span class="built_in">emplace</span>(x); &#125;</span><br><span class="line">    cnt ++;</span><br><span class="line">    <span class="built_in">check</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    max_q.<span class="built_in">emplace</span>(INT_MAX);</span><br><span class="line">    min_q.<span class="built_in">emplace</span>(INT_MAX);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">        <span class="type">int</span> num;</span><br><span class="line">        cin &gt;&gt; num;</span><br><span class="line">        <span class="built_in">emplace</span>(num);</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">2</span>) &#123; cout &lt;&lt; max_q.<span class="built_in">top</span>() &lt;&lt; endl; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>平衡树</title>
+    <url>/2022/12/28/%E5%B9%B3%E8%A1%A1%E6%A0%91/</url>
+    <content><![CDATA[<p>qwq</p>
+]]></content>
+      <tags>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图论——拓扑排序</title>
+    <url>/2022/09/12/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<p>拓扑排序要解决的问题是给一个图的所有节点排序。 可以通过以下例子来描述这个过程。如有以下书目：《骗分导论》《算法导论》《信息学竞赛一本通》《深入浅出程序设计竞赛——基础篇》《算法竞赛入门经典》，并且为了看懂《一本通》，还需要看蓝书和《深基》；看这两本书之前还需要看《算法导论》；看《算法导论》之前还需要看《偏分导论》。我们可以通过一个图来表示书与书之间的关系：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/u247hm7z.png"></p>
+<p>如何选课呢？肯定要选一个入度为零，也就是说不需要看其他书的书先看。这个时候，我们把选好的节点的子节点的入度都减一。重复以上步骤，就可以选出看书的顺序。</p>
+<p>但是，书店老板发疯了，他说：<em>必须要看完《一本通》才能看蓝书，看完蓝书才能看《算法导论》。</em>此时，图中形成了环，无法正常的看书，拓扑排序失效。也就是说：<strong>当拓扑排序排序出的节点个数小于图上节点个数时，表明图上形成了环。</strong></p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/0ogshat5.png"></p>
+<p><strong>注意：本文若无特殊声明，统一使用邻接列表存图。边结构体定义如下：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> v;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="title">edge</span><span class="params">(<span class="type">const</span> <span class="type">int</span> &amp; v_)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;v = v_;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Kahn-算法"><a href="#Kahn-算法" class="headerlink" title="Kahn 算法"></a>Kahn 算法</h3><p>算法过程如上文所示，代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">kahn</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="type">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!in_degree[i] &amp;&amp; !visited[i]) &#123;</span><br><span class="line">                ans.<span class="built_in">emplace_back</span>(i);</span><br><span class="line">                visited[i] = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">auto</span> e : graph[i]) &#123;</span><br><span class="line">                    in_degree[e]--;</span><br><span class="line">                &#125;</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很明显，时间复杂度为：<br>$$<br>O(n + m)<br>$$</p>
+]]></content>
+      <tags>
+        <tag>图论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图论——最小生成树</title>
+    <url>/2022/09/12/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/</url>
+    <content><![CDATA[<p>某些情况下，我们要求一个图的最小生成树（Minimum Spanning Tree, <em><strong>MST</strong></em>），求最小生成树的算法就需要<strong>最小生成树算法</strong>，它的作用是求最小生成树。常见的有：</p>
+<ol>
+<li><strong>Kruskal 算法</strong></li>
+<li><strong>Prim 算法</strong></li>
+</ol>
+<p>本文主要介绍这两种算法。例题：<a href="https://www.luogu.com.cn/problem/P3366">P3366 【模板】最小生成树</a></p>
+<p><strong>注意：本文若无特殊声明，统一使用邻接列表存图。边结构体定义如下：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> v, w;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="title">edge</span><span class="params">(<span class="type">const</span> <span class="type">int</span> &amp; v_, <span class="type">const</span> <span class="type">int</span> &amp; w_)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;v = v_;</span><br><span class="line">        <span class="keyword">this</span>-&gt;w = w_;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="最小生成树的定义"><a href="#最小生成树的定义" class="headerlink" title="最小生成树的定义"></a>最小生成树的定义</h3><p>在一张有 $n$个点的图中，我们选择 $n - 1$ 条边，使得这 $n$ 个点与这 $n - 1$ 条边构成一棵树，那么这棵树就是这个图的一棵<strong>生成树</strong>。所有边的边权和最小的生成树是这个图的最小生成树。</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/v5rhf0jk.png"></p>
+<p>比如此图，它的最小生成树就是（总权值为 $7$ ）：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/sjd3a738.png"></p>
+<h3 id="Prim-算法"><a href="#Prim-算法" class="headerlink" title="Prim 算法"></a>Prim 算法</h3><p>Prim 算法需要我们维护一个 <code>dis</code> 数组，表示 $MST$ 到该节点的最小距离，每次贪心地将其中最小的元素加入进生成树中，更新 <code>dis</code> 数组中刚刚加入进生成树的节点的子节点（$dis[e.v] &#x3D; \min{dis[e.v], e.w}$），重复直到生成树中有 $n - 1$ 条边。</p>
+<p>如图：</p>
+<p><img src="https://oi-wiki.org/graph/images/mst-3.apng"></p>
+<p>代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">prim</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">        dis[i] = INT_MAX;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    dis[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (cnt &lt;= n - <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="type">int</span> min_ = INT_MAX, min_index = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (dis[i] &lt; min_ &amp;&amp; !in_tree[i]) &#123;</span><br><span class="line">                min_ = dis[i];</span><br><span class="line">                min_index = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (min_index == <span class="number">-1</span>) &#123; <span class="keyword">return</span>; &#125;</span><br><span class="line"></span><br><span class="line">        ans += min_;</span><br><span class="line">        in_tree[min_index] = <span class="literal">true</span>;</span><br><span class="line">        cnt ++;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp; e : graph[min_index]) &#123;</span><br><span class="line">            dis[e.v] = <span class="built_in">min</span>(dis[e.v], e.w);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为每次加入都要遍历 <code>dis</code> 数组，因此时间复杂度：<br>$$<br>O(n^2)<br>$$</p>
+<h3 id="Kruskal-算法"><a href="#Kruskal-算法" class="headerlink" title="Kruskal 算法"></a>Kruskal 算法</h3><h4 id="前置芝士——连通分量"><a href="#前置芝士——连通分量" class="headerlink" title="前置芝士——连通分量"></a>前置芝士——连通分量</h4><p><del>连通分量都不懂还来看图论？</del></p>
+<p>对于一张连通图 $G$，有一个连通图 $H$ 且不存在连通图 $F$ 使得  $H \nsubseteq F \subseteq G$，则称 $H$ 是 $G$ 的一个连通分量。简单来讲，<strong>一个图的几个节点连在一起的形成的连通图便是这个图的连通分量之一。</strong>一个图的连通分量不止一个。一个图的 $MST$ 一定是这个图的连通分量。</p>
+<h4 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h4><ol start="0">
+<li>对所有边按边权大小进行排序。</li>
+<li>选取最小的边 $e$，<strong>若 $e$ 的两个节点属于不同的连通分量，则将 $e$ 加入至 $MST$ 中，并将两个节点合并成一个连通分量，这保证了 $MST$ 中不会出现环</strong>。</li>
+<li>重复，直至所有节点都在<strong>一个</strong>连通分量中，该连通分量便是 $MST$。</li>
+</ol>
+<p>如图：</p>
+<p><img src="https://oi-wiki.org/graph/images/mst-2.apng"></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">kruskal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123; connect[i] = i; &#125;</span><br><span class="line">    <span class="built_in">sort</span>(edges.<span class="built_in">begin</span>(), edges.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp; e : edges) &#123;</span><br><span class="line">        <span class="keyword">if</span> (connect[e.u] != connect[e.v]) &#123;</span><br><span class="line">            cnt++;</span><br><span class="line">            ans += e.w;</span><br><span class="line">            <span class="keyword">auto</span> tmp = connect[e.v];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (connect[j] == tmp) &#123; connect[j] = connect[e.u]; &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (cnt == n - <span class="number">1</span>) &#123; <span class="keyword">break</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不难得出时间复杂度是： $O(m \log m)$ 排序时间复杂度 $+~O(m \times n)$ 枚举边，更改连通分量时间复杂度。一般来讲，$m &gt; n$，因此，时间复杂度近似为：<br>$$<br>O(m \log m)<br>$$</p>
+]]></content>
+      <tags>
+        <tag>图论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图论——最短路算法</title>
+    <url>/2022/09/12/%E6%9C%80%E7%9F%AD%E8%B7%AF/</url>
+    <content><![CDATA[<p>现实生活中，我们要从一个地方到另一个地方，一定会选择一个最短的路径。放在图上也是同理，而为了计算出最短路径的算法我们称它们为<strong>最短路算法</strong>。最短路算法分为两类：</p>
+<ol>
+<li><em><strong>单源最短路算法</strong></em></li>
+<li><em><strong>全源最短路算法</strong></em></li>
+</ol>
+<p><strong>注意：在阅读本文之前，请确保你已了解：<a href="https://oi-wiki.org/graph/bfs/">广度优先搜索（BFS）</a>，<a href="https://oi-wiki.org/basic/greedy/">贪心思想</a>。本文若无特殊声明，统一使用邻接列表存图。边结构体定义如下：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> v, w;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="title">edge</span><span class="params">(<span class="type">const</span> <span class="type">int</span> &amp; v_, <span class="type">const</span> <span class="type">int</span> &amp; w_)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;v = v_;</span><br><span class="line">        <span class="keyword">this</span>-&gt;w = w_;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="单源最短路算法"><a href="#单源最短路算法" class="headerlink" title="单源最短路算法"></a>单源最短路算法</h2><p>例题：<a href="https://www.luogu.com.cn/problem/P4779">P4779 【模板】单源最短路径（标准版）</a></p>
+<h3 id="Dijkstra-算法"><a href="#Dijkstra-算法" class="headerlink" title="Dijkstra 算法"></a>Dijkstra 算法</h3><p>Dijkstra 算法是基于 BFS 的贪心的最短路算法。<strong>在 BFS 遍历图的过程中，优先遍历距离起始节点最近的节点，而并不需要是当前节点的子节点（这又有点不 BFS 了？）。</strong>基于最短路的思想，我们需要维护 <code>dis</code> 数组，<code>dis[i]</code> 表示节点 $i$ 到起点的最短路径长度。设 $u$ 为当前节点，$e$ 是当前的一条边，状态转移方程（???）为：<br>$$<br>dis[e.v] &#x3D; \min{dis[e.v],dis[u] + e.w}<br>$$<br>由于其基于贪心思想，在更新 <code>dis</code> 后我们需要枚举 <code>dis</code> 获得距离起始节点最近的节点，将其加入至遍历队列中。而为了避免出现重复遍历，<code>bool visited[i]</code> 表示有没有以 $i$ 作为根节点 $u$ 过。很容易得出代码：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dijkstra</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    q.<span class="built_in">emplace</span>(s);</span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    dis[s] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> u = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp; e : graph[u]) &#123;</span><br><span class="line">            dis[e.v] = <span class="built_in">min</span>(dis[e.v], dis[u] + e.w);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> min_ = INT_MAX;</span><br><span class="line">        <span class="type">int</span> min_index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (dis[i] &lt; min_ &amp;&amp; !visited[i]) &#123;</span><br><span class="line">                min_ = dis[i];</span><br><span class="line">                min_index = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (min_index) &#123;</span><br><span class="line">            q.<span class="built_in">emplace</span>(min_index);</span><br><span class="line">            visited[min_index] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不难看出时间复杂度为：</p>
+<p>$$<br>O(n^2)<br>$$</p>
+<p>这可以通过例题的弱化版，却会在例题中全部 $\color{052242}{TLE}$，考虑优化。</p>
+<h4 id="堆优化的-Dijkstra-算法"><a href="#堆优化的-Dijkstra-算法" class="headerlink" title="堆优化的 Dijkstra 算法"></a>堆优化的 Dijkstra 算法</h4><p>因为每次要得到最小的 <code>dis</code>，可以使用<strong>遍历优先队列</strong>代替原本的先进先出的<strong>遍历队列</strong>，省去了 $O(n)$ 的枚举，代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dijkstra</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    priority_queue&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;, vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt;, greater&lt;&gt;&gt; q;</span><br><span class="line">    q.<span class="built_in">emplace</span>(<span class="number">0</span>, s);</span><br><span class="line">    dis[s] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="type">int</span> u = q.<span class="built_in">top</span>().second;</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (visited[u]) &#123; <span class="keyword">continue</span>; &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; visited[u] = <span class="literal">true</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp; e : graph[u]) &#123;</span><br><span class="line">            dis[e.v] = <span class="built_in">min</span>(dis[e.v], dis[u] + e.w);</span><br><span class="line">            q.<span class="built_in">emplace</span>(dis[e.v], e.v);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为每一个节点都会进队一次，所以时间复杂度为：<br>$$<br>O(m \log m)<br>$$<br><em><strong>注意：但是，当图足够稠密时，$n^2 \approx m$，导致堆优化算法慢于普通算法，此时应该通过数据范围来判断使用何种算法。</strong></em></p>
+<h4 id="正确性证明"><a href="#正确性证明" class="headerlink" title="正确性证明"></a>正确性证明</h4><p><del>好长啊，懒得写了，放<a href="https://oi-wiki.org/graph/shortest-path/#_10">链接</a></del></p>
+<h3 id="Bellman-Ford-算法"><a href="#Bellman-Ford-算法" class="headerlink" title="Bellman-Ford 算法"></a>Bellman-Ford 算法</h3><p>根据 OI-Wiki 证明可知，Dijkstra算法当图中出现了负权边时，可能失效。所以我们需要另一种算法——<strong>Bellman-Ford算法</strong>。</p>
+<ol>
+<li>定义数组 $dis$，代表到目前为止从起点到各个点的最短路径长<br> 度。初始时将 $dis[s]$ 设置为 0，其他点的设置为 $+\infin$。</li>
+<li>对于每一条边 $e$，进行一次松弛（$dis[e.v] &#x3D; \min{dis[e.v], dis[u] + e.w}$）操作。</li>
+<li>重复步骤 2，直到做了 $n - 1$ 遍（因为一条最短路最多只有 $n - 1$ 条边，否则会形成环）。</li>
+</ol>
+<p>不难得出时间复杂度 $O(nm)$。</p>
+<h4 id="SPFA-算法"><a href="#SPFA-算法" class="headerlink" title="SPFA 算法"></a>SPFA 算法</h4><p>可以发现，在 Bellman-Ford 算法中有大量无效的操作，使用队列优化（这有点 BFS ？）。</p>
+<p>第一第三不变，将第二步改为：</p>
+<blockquote>
+<p> 从队列中取出一个点 $u$，对于从 $u$ 出发的每一条边 $e$，进行一次松弛（定义如上）操作，若松弛成功且 $e.v$ 不在队列中，将 $e.v$ 加入队列中。</p>
+</blockquote>
+<p>运行时间有了显著提高，然而时间复杂度不变。在 NOI 2018 的 D1T1 中，出题人使用了特殊的构造卡掉了<br>SPFA 算法并在讲课时说其死了。详情可见：<a href="https://www.zhihu.com/question/292283275">知乎 如何看待 SPFA 算法已死这种说法？</a>，本文不对 SPFA 做任何评价。</p>
+<h4 id="分层图单源最短路算法"><a href="#分层图单源最短路算法" class="headerlink" title="分层图单源最短路算法"></a>分层图单源最短路算法</h4><p>例题：<a href="https://www.luogu.com.cn/problem/P4822">P4822 [BJWC2012]冻结</a></p>
+<p>例题已经明确的告诉我们，本题可以使用上面提到的单源最短路算法解决。看标签可知，这道题考察的是图的构建。我们可以构建一个 $k$ 层的<strong>分层图</strong>。什么是分层图呢？就是有许多层的图。我们可以用以下方式存一个分层图：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> v, w, level;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="title">edge</span><span class="params">(<span class="type">int</span> v_, <span class="type">int</span> w_, <span class="type">int</span> level_)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;v = v_;</span><br><span class="line">        <span class="keyword">this</span>-&gt;w = w_;</span><br><span class="line">        <span class="keyword">this</span>-&gt;level = level_;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;edge&gt; graph[k][n];</span><br></pre></td></tr></table></figure>
+
+<p>如何建一个分层图呢？每一个节点不只连接它的子节点，还连接它的下一层图子节点，只不过边权不同，这样，我们就可以通过普通的单源最短路来达到题目要求的行为，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i ++) &#123;</span><br><span class="line">    <span class="type">int</span> u, v, w;</span><br><span class="line">    cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= k; j ++) &#123;</span><br><span class="line">        graph[j][u].<span class="built_in">emplace_back</span>(v, w, j);</span><br><span class="line">        graph[j][v].<span class="built_in">emplace_back</span>(u, w, j);</span><br><span class="line">        graph[j][u].<span class="built_in">emplace_back</span>(v, <span class="number">0</span>, j + <span class="number">1</span>);</span><br><span class="line">        graph[j][v].<span class="built_in">emplace_back</span>(u, <span class="number">0</span>, j + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>适用于分层图的堆优化 Dijkstra 如下，其他算法请读者自行实现：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dijkstra</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    priority_queue&lt;tuple&lt;<span class="type">int</span>/*dis*/, <span class="type">int</span>/*index*/, <span class="type">int</span>/*level*/&gt;, vector&lt;tuple&lt;<span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>&gt;&gt;, greater&lt;&gt;&gt; q;</span><br><span class="line">    q.<span class="built_in">emplace</span>(<span class="number">0</span>, s, <span class="number">0</span>);</span><br><span class="line">    dis[<span class="number">0</span>][s] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">        <span class="keyword">auto</span> u = <span class="built_in">get</span>&lt;<span class="number">1</span>&gt;(q.<span class="built_in">top</span>()), level = <span class="built_in">get</span>&lt;<span class="number">2</span>&gt;(q.<span class="built_in">top</span>());</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (visited[level][u]) &#123; <span class="keyword">continue</span>; &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; visited[level][u] = <span class="literal">true</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp; e : graph[level][u]) &#123;</span><br><span class="line">            dis[e.level][e.v] = <span class="built_in">min</span>(dis[e.level][e.v], dis[level][u] + e.w);</span><br><span class="line">            q.<span class="built_in">emplace</span>(dis[level][u] + e.w, e.v, e.level);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="多源最短路算法"><a href="#多源最短路算法" class="headerlink" title="多源最短路算法"></a>多源最短路算法</h2><p>简单来看，可以跑 $n$ 轮的单源最短路，也可以使用 <strong>Floyd 算法</strong>。</p>
+<h3 id="Floyd-算法"><a href="#Floyd-算法" class="headerlink" title="Floyd 算法"></a>Floyd 算法</h3><p>Floyd 算法是一种基于动态规划的最短路算法，其状态表示为：$dp[i][u][v]$  表示只允许经过前 $i$ 个点时，$i$ 到 $j$ 的最短路长度。显然的，它的初始状态是：<br>$$<br>dp[i][u][v] &#x3D; \left{\begin{matrix}0<del>(i &#x3D; j)\<br>+\infin</del>(没有从<del>i</del>到<del>j</del>的边)\<br>e.w<del>(有从</del>i<del>到</del>j~的边)<br>\end{matrix}\right.<br>$$<br>状态转移方程便是：<br>$$<br>dp[i][u][v] &#x3D; \min{dp[i - 1][u][v],dp[i - 1][u][i] + dp[i - 1][i][j]}<br>$$<br>实现时只需要枚举 $i, u, v$ 即可，代码很短：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> u = <span class="number">1</span>; j &lt;= n; v ++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> v = <span class="number">1</span>; v &lt;= n; v ++) &#123;</span><br><span class="line">            dp[i][u][v] = <span class="built_in">min</span>(dp[i - <span class="number">1</span>][u][v], dp[i - <span class="number">1</span>][u][i] + dp[i - <span class="number">1</span>][i][v])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不难看出，时间复杂度是 $O(n^3)$，这与跑 $n$ 轮 Dijkstra 算法的时间复杂度是一致的。</p>
+<p><strong>下期预告：图论——最小生成树算法</strong></p>
+]]></content>
+      <tags>
+        <tag>图论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线段树</title>
+    <url>/2022/07/01/%E7%BA%BF%E6%AE%B5%E6%A0%91/</url>
+    <content><![CDATA[<p><strong>线段树(Segment Tree)<strong>是一种基于</strong>二叉平衡搜索树</strong>的数据结构，线段树的每个节点都对应一条线段（区间）。非叶节点的值是它所表示的区间的和，也就是其子树的值的和。特别的，线段树的叶子节点的值即为它本身。线段树支持时间复杂度为$O(log~n)$的区间修改。<del>还可以碾过大部分树状数组的题目</del>。</p>
+<p>对于 <code>&#123;10,11,12,13,14&#125;</code>，它的线段树是：<br><img src="https://oi-wiki.org/ds/images/segt1.svg"></p>
+<p><del>OI-wiki怎么会用这么丑的图，我又不想再画一个（逃）。</del></p>
+<h3 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h3><p>在一棵二叉树上， 节点 $i$ 左子节点是 $i \times 2$ ，右子节点是 $i \times 2 + 1$。根据线段树的定义可知，非叶节点 $i$ 的值为 $tree[i * 2] + tree[i * 2 + 1]$。</p>
+<p>此时，便可以简单的给出代码。这里因为树所特有的递归结构，我们以递归的方式来构造一棵线段树。代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">build</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r, <span class="type">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l == r) &#123; tree[p] = nums[l]; <span class="keyword">return</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">build</span>(l, mid, p * <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">build</span>(mid + <span class="number">1</span>, r, p * <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">push_up</span>(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="区间修改"><a href="#区间修改" class="headerlink" title="区间修改"></a>区间修改</h3><h4 id="懒标记"><a href="#懒标记" class="headerlink" title="懒标记"></a>懒标记</h4><p>对于区间修改，朴素解法为遍历区间<code>[l, r]</code>，对每一个节点做修改，但这样的时间复杂度过高。这就需要线段树的精髓：<strong>懒标记</strong>，对于那些正好是线段树节点的区间，我们不继续递归下去，而是进行懒标记，当需要使用到它的<strong>子区间</strong>的时候，再向下<strong>传递</strong>，这就避免了递归所带来的时间开销。这里我们以区间加法为例。 </p>
+<p>此时，我们有三种情况：</p>
+<ol>
+<li>目标区间与当前区间<strong>没有交集</strong></li>
+<li>当前区间是目标区间的<strong>子集</strong></li>
+<li>当前区间<strong>不是</strong>目标区间的<strong>子集</strong>，与目标区间<strong>有交集</strong></li>
+</ol>
+<h4 id="目标区间与当前区间没有交集"><a href="#目标区间与当前区间没有交集" class="headerlink" title="目标区间与当前区间没有交集"></a>目标区间与当前区间没有交集</h4><p>很明显，结束递归。</p>
+<h5 id="当前区间是目标区间的子集"><a href="#当前区间是目标区间的子集" class="headerlink" title="当前区间是目标区间的子集"></a>当前区间是目标区间的子集</h5><p>更新当前区间，记得乘上区间长度，因为其每一个节点都需进行懒标记：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">tree[p] += d * (now_r - now_l + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>打上懒标记：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">mark[p] += d;</span><br></pre></td></tr></table></figure>
+
+<h5 id="当前区间不是目标区间的子集，与目标区间有交集"><a href="#当前区间不是目标区间的子集，与目标区间有交集" class="headerlink" title="当前区间不是目标区间的子集，与目标区间有交集"></a>当前区间不是目标区间的子集，与目标区间有交集</h5><p>此时，进行<strong>二分</strong>，并将懒标记传递给子节点：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> mid = (now_l + now_r) / <span class="number">2</span>;</span><br><span class="line">mark[p * <span class="number">2</span>] += mark[p];</span><br><span class="line">mark[p * <span class="number">2</span> + <span class="number">1</span>] += mark[p];</span><br></pre></td></tr></table></figure>
+
+<p>子节点的值也要更新，并乘区间长度：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">tree[p * <span class="number">2</span>] += mark[p] * (mid - now_l + <span class="number">1</span>);</span><br><span class="line">tree[p * <span class="number">2</span> + <span class="number">1</span>] += mark[p] * (now_r - mid);</span><br></pre></td></tr></table></figure>
+
+<p>此时，这个区间已经处理完成，清除懒标记：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">mark[p] = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>我们一般把下压懒标记的过程封装成一个函数，称为 <code>push_down</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">push_down</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> len)</span></span>&#123;</span><br><span class="line">    mark[p * <span class="number">2</span>] += mark[p];</span><br><span class="line">    mark[p * <span class="number">2</span> + <span class="number">1</span>] += mark[p];</span><br><span class="line">    tree[p * <span class="number">2</span>] += mark[p] * (len - len / <span class="number">2</span>);</span><br><span class="line">    tree[p * <span class="number">2</span> + <span class="number">1</span>] += mark[p] * (len / <span class="number">2</span>);</span><br><span class="line">    mark[p] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时，可以很容易的给出代码：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">update</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r, <span class="type">int</span> now_l, <span class="type">int</span> now_r, <span class="type">int</span> p, <span class="type">int</span> d)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (now_r &lt; l || now_l &gt; r) &#123; <span class="keyword">return</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( now_l &gt;= l &amp;&amp; now_r &lt;= r) &#123; mark[p] += d; tree[p] += d * (now_r - now_l + <span class="number">1</span>); &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">push_down</span>(p, now_r - now_l + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> mid = (now_l + now_r) / <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">update</span>(l, r, now_l, mid, p * <span class="number">2</span>, d);</span><br><span class="line">        <span class="built_in">update</span>(l, r, mid + <span class="number">1</span>, now_r, p * <span class="number">2</span> + <span class="number">1</span>, d);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">push_up</span>(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="区间乘法"><a href="#区间乘法" class="headerlink" title="区间乘法"></a>区间乘法</h4><p>这里，只需要把每一次 <code>mark[p] = 0;</code> 改为 <code>mark[p] = 1;</code> 即可。</p>
+<h3 id="区间查询"><a href="#区间查询" class="headerlink" title="区间查询"></a>区间查询</h3><p>类似于区间修改，也有三种情况：</p>
+<ol>
+<li>目标区间与当前区间<strong>没有交集</strong></li>
+<li>当前区间是目标区间的<strong>子集</strong></li>
+<li>当前区间<strong>不是</strong>目标区间的<strong>子集</strong>，但与目标区间<strong>有交集</strong></li>
+</ol>
+<p>直接给出代码：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r, <span class="type">int</span> now_l, <span class="type">int</span> now_r, <span class="type">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (now_r &lt; l || now_l &gt; r) &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (now_l &gt;= l &amp;&amp; now_r &lt;= r) &#123; <span class="keyword">return</span> tree[p]; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">push_down</span>(p, (now_r - now_l + <span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> mid = (now_l + now_r) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>  <span class="built_in">query</span>(l, r, now_l, mid, p * <span class="number">2</span>) + <span class="built_in">query</span>(l, r, mid + <span class="number">1</span>, now_r, p * <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
+    <title>网络流</title>
+    <url>/2022/09/12/%E7%BD%91%E7%BB%9C%E6%B5%81/</url>
+    <content><![CDATA[<p><strong>网络流</strong>分为两部分：<strong>网络</strong>、<strong>流</strong>。</p>
+<p>网络是一张有向图，与普通的图不同的是，网络有一个入度为零的<strong>源点</strong>和一个出度为零的<strong>汇点</strong>。</p>
+<p>流就是网络上的边。与普通的图不同的是，流的边权表示的是这个流的容量。可以理解为，流是一个点到另一个点的一条水管，流的边权就是水管的直径。我们还规定，<strong>对于任意一个不是源点也不是汇点的中继点，它流入的流量等于流出的流量</strong>。</p>
+<h3 id="mathbf-Part-1-最大流"><a href="#mathbf-Part-1-最大流" class="headerlink" title="$\mathbf{Part~1}$ 最大流"></a>$\mathbf{Part~1}$ 最大流</h3><p>源点流出的流量有无限多，求能流入汇点的最大流量，这便是最大流问题。</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/xp0fns0w.png"></p>
+<p>例如这张网络，源点是 <code>1</code>，汇点是 <code>4</code>，由 <code>1</code> 可以将 $1$ 的流量流入 <code>4</code>，但是注意，由 <code>2</code> 只可以流出 $5$ 的流量，这是因为：</p>
+<blockquote>
+<p>对于任意一个不是源点也不是汇点的中继点，它流入的流量等于流出的流量</p>
+</blockquote>
+<p>接下来我们以这张图作为模板图：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/1du7qh74.png"></p>
+<h4 id="mathbf-Ford-Fulkerson-算法"><a href="#mathbf-Ford-Fulkerson-算法" class="headerlink" title="$\mathbf{Ford-Fulkerson}$ 算法"></a>$\mathbf{Ford-Fulkerson}$ 算法</h4><blockquote>
+<p>该算法时间复杂度过高，过不了模板题。</p>
+</blockquote>
+<p>$\mathbf{Ford-Fulkerson}$ 算法简称 $\mathbf{FF}$ 算法。其核心在于不断寻找<strong>增广路</strong>，直到找不到为止。增广路就是找到一条可行的路线，扣除所有的路径上通过的容量，此时的残余容量我们称之为<strong>残余容量</strong>。</p>
+<p>然而这一定是对的吗，从上图来看，这是不对的。我们引入反向边，这样<del>就变成了 A* 算法</del>，在扣除正向边的容量时，反向边加上相等的容量，这就相当于给了算法一次反悔的机会。时间复杂度 $O(ef)$（$f$ 指最大流量）。可以看到，时间复杂度还是不太稳定的。</p>
+<h4 id="mathbf-Dinic-算法"><a href="#mathbf-Dinic-算法" class="headerlink" title="$\mathbf{Dinic}$ 算法"></a>$\mathbf{Dinic}$ 算法</h4><blockquote>
+<p>这是最为常用的最大流算法。</p>
+</blockquote>
+<p>可以看到，$\mathbf{FF}$ 算法会有许多不必要的増广，也有可能形成回路或绕远路。可以通过以下方式解决：</p>
+<ul>
+<li>每次多路增广，且只有到达汇点才真正增广，然后返回实际增广量。这时，如果还有没用完的容量，就继续尝试输出到其它边。</li>
+<li>进行 $\mathbf{BFS}$ 分层<del>迭代加深</del>。每次尝试给予时，只考虑给予自己下一层的点。</li>
+</ul>
+<p>因此，我们可以先进行 $\mathbf{BFS}$ 遍历每一层，进行多路増广，重复直到找不到增广路。</p>
+]]></content>
+      <tags>
+        <tag>图论</tag>
+      </tags>
+  </entry>
+</search>

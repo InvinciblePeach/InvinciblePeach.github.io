@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Invincible Peach の小窝</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2022-12-29T11:42:24.829Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>Invincible Peach</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>平衡树</title>
+    <link href="http://example.com/2022/12/28/%E5%B9%B3%E8%A1%A1%E6%A0%91/"/>
+    <id>http://example.com/2022/12/28/%E5%B9%B3%E8%A1%A1%E6%A0%91/</id>
+    <published>2022-12-28T06:55:10.000Z</published>
+    <updated>2022-12-29T11:42:24.829Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;qwq&lt;/p&gt;
+</summary>
+        
+      
+    
+    
+    
+    
+    <category term="数据结构" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基本动态规划的简单实现方式</title>
+    <link href="http://example.com/2022/10/01/DP/"/>
+    <id>http://example.com/2022/10/01/DP/</id>
+    <published>2022-09-30T16:00:00.000Z</published>
+    <updated>2022-12-29T11:43:22.808Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;「0-1」-背包模型&quot;&gt;&lt;a href=&quot;#「0-1」-背包模型&quot; class=&quot;headerlink&quot; title=&quot;「0-1」 背包模型&quot;&gt;&lt;/a&gt;「0-1」 背包模型&lt;/h3&gt;&lt;p&gt;当 有 $n$ 个物品和一个容量为 $m$ 的背包，每个物品有重量</summary>
+        
+      
+    
+    
+    
+    
+    <category term="DP" scheme="http://example.com/tags/DP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>对顶堆</title>
+    <link href="http://example.com/2022/09/29/%E5%AF%B9%E9%A1%B6%E5%A0%86/"/>
+    <id>http://example.com/2022/09/29/%E5%AF%B9%E9%A1%B6%E5%A0%86/</id>
+    <published>2022-09-29T04:00:00.000Z</published>
+    <updated>2022-12-29T11:41:49.401Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;顾名思义，对顶堆就是两个堆顶相对的堆。一般用于&lt;em&gt;&lt;strong&gt;动态维护第 k 最值（无修改操作）&lt;/strong&gt;&lt;/em&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;mathbf-Part-1-把堆看成队列，就好理解了&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="数据结构" scheme="http://example.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图论——拓扑排序</title>
+    <link href="http://example.com/2022/09/12/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/"/>
+    <id>http://example.com/2022/09/12/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</id>
+    <published>2022-09-12T08:00:00.000Z</published>
+    <updated>2022-12-29T11:42:33.704Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;拓扑排序要解决的问题是给一个图的所有节点排序。</summary>
+        
+      
+    
+    
+    
+    
+    <category term="图论" scheme="http://example.com/tags/%E5%9B%BE%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图论——最小生成树</title>
+    <link href="http://example.com/2022/09/12/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    <id>http://example.com/2022/09/12/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/</id>
+    <published>2022-09-12T08:00:00.000Z</published>
+    <updated>2022-12-29T11:43:18.148Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;某些情况下，我们要求一个图的最小生成树（Minimum Spanning Tree,</summary>
+        
+      
+    
+    
+    
+    
+    <category term="图论" scheme="http://example.com/tags/%E5%9B%BE%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图论——最短路算法</title>
+    <link href="http://example.com/2022/09/12/%E6%9C%80%E7%9F%AD%E8%B7%AF/"/>
+    <id>http://example.com/2022/09/12/%E6%9C%80%E7%9F%AD%E8%B7%AF/</id>
+    <published>2022-09-12T08:00:00.000Z</published>
+    <updated>2022-12-29T11:43:12.571Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;现实生活中，我们要从一个地方到另一个地方，一定会选择一个最短的路径。放在图上也是同理，而为了计算出最短路径的算法我们称它们为&lt;strong&gt;最短路算法&lt;/strong&gt;。最短路算法分为两类：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;单源最短路算法&lt;/strong&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="图论" scheme="http://example.com/tags/%E5%9B%BE%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络流</title>
+    <link href="http://example.com/2022/09/12/%E7%BD%91%E7%BB%9C%E6%B5%81/"/>
+    <id>http://example.com/2022/09/12/%E7%BD%91%E7%BB%9C%E6%B5%81/</id>
+    <published>2022-09-12T08:00:00.000Z</published>
+    <updated>2022-12-29T11:42:39.779Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;网络流&lt;/strong&gt;分为两部分：&lt;strong&gt;网络&lt;/strong&gt;、&lt;strong&gt;流&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;网络是一张有向图，与普通的图不同的是，网络有一个入度为零的&lt;strong&gt;源点&lt;/strong&gt;和一个出度为零的&lt;strong&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="图论" scheme="http://example.com/tags/%E5%9B%BE%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>KMP 算法</title>
+    <link href="http://example.com/2022/08/30/KMP/"/>
+    <id>http://example.com/2022/08/30/KMP/</id>
+    <published>2022-08-30T04:00:00.000Z</published>
+    <updated>2022-12-29T11:43:32.929Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;mathbf-Part-0-字符串匹配&quot;&gt;&lt;a href=&quot;#mathbf-Part-0-字符串匹配&quot; class=&quot;headerlink&quot; title=&quot;$\mathbf{Part~0}$ 字符串匹配&quot;&gt;&lt;/a&gt;$\mathbf{Part~0}$</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>线段树</title>
+    <link href="http://example.com/2022/07/01/%E7%BA%BF%E6%AE%B5%E6%A0%91/"/>
+    <id>http://example.com/2022/07/01/%E7%BA%BF%E6%AE%B5%E6%A0%91/</id>
+    <published>2022-07-01T04:00:00.000Z</published>
+    <updated>2022-12-29T11:43:03.821Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;线段树(Segment</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>

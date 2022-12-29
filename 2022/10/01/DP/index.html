@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-cn">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>基本动态规划的简单实现方式 |  Invincible Peach の小窝</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/InvinciblePeach.png" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Invincible Peach の小窝" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-DP"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  基本动态规划的简单实现方式
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/10/01/DP/" class="article-date">
+  <time datetime="2022-09-30T16:00:00.000Z" itemprop="datePublished">2022-10-01</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">9 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="「0-1」-背包模型"><a href="#「0-1」-背包模型" class="headerlink" title="「0-1」 背包模型"></a>「0-1」 背包模型</h3><p>当 有 $n$ 个物品和一个容量为 $m$ 的背包，每个物品有重量 $w[i]$ 和价值 $v[i]$ 两种属性，要求选若干物品放入背包使背包中物品的<strong>总价值最大</strong>且背包中物品的<strong>总重量不超过</strong>背包的容量。 很明显，<em>每个物体只有两种可能的状态（取与不取）</em>，对应二进制中的 $1$ 和 $0$ ，这类问题便被称为「<strong>0-1 背包问题</strong>」。 0-1 背包问题是各类DP中的基础，<strong>大部分DP问题都基于</strong> 0-1 背包问题，可以说，<em>0-1 背包是DP问题的基础</em>。</p>
+<p>显然的，状态表示即为用<strong>数组<code>dp[i][j]</code>表示 $i$ 个物品，背包中有体积不超过 $j$ 的物品的最大价值</strong>。那么，显然的，当 $i &#x3D; 0$ 或 $j &#x3D; 0$ 时（有 $0$ 个物品或物品体积总量为 $0$ 时），$dp[i][j] &#x3D; 0$。<strong>目标状态</strong>为 $dp[n][m]$。之前提到过，<em>每个物体只有两种可能的状态</em>，因此，对于任意 $i$ 和 $j$，有<strong>两种</strong>可能：</p>
+<ol>
+<li>不选择第 $i$ 个物品，很明显，$dp[i][j] &#x3D; dp[i - 1][j]$</li>
+<li>选择第 $i$ 个物品，很明显，$dp[i][j] &#x3D; dp[i - 1][j - w[i]] + v[i]$</li>
+</ol>
+<p>由题意知，对于以上两种情况要取<strong>最大值</strong>，所以，完整的状态转移方程为：<br>$$<br>dp[i][j] &#x3D; \max{dp[i - 1][j - w[i]] + v[i],~~dp[i - 1][j]}<br>$$</p>
+<p>容易得出代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = w[i]; j &lt;= m; j++)&#123;</span><br><span class="line">        dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - w[i]] + v[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; dp[n][m] &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+
+<p>显然，「0-1」背包问题的时间复杂度是：<br>$$<br>O(nm)<br>$$</p>
+<h3 id="完全背包模型"><a href="#完全背包模型" class="headerlink" title="完全背包模型"></a>完全背包模型</h3><p>现在考虑如下情况，若每种物品可以选取无限个，其他与「0-1」 背包相同，可选的最大价值是多少？参考「0-1」 背包，可以得出如下状态转移方程：<br>$$<br>dp[i][j] &#x3D; \max{dp[i - 1][j], dp[i][j - w[i]] + v[i]}<br>$$<br>代码就非常好写了：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = w[i]; j &lt;= m; j++)&#123;</span><br><span class="line">        dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j], dp[i][j - w[i]] + v[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; dp[n][m] &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度同上。</p>
+<h3 id="多重背包问题"><a href="#多重背包问题" class="headerlink" title="多重背包问题"></a>多重背包问题</h3><p>类似于「0-1」背包问题， 只不过区别在于每种物品有 $k_i$ 个，而非一个。朴素算法是，把 $k_i$ 个物品转换为有 $k_i$ 个完全相同的物品，进行「0-1」 背包。代码实现为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>, i &lt;= n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = m; j &gt;= w[i] * k[i]; j--)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> k = <span class="number">1</span>; k &lt;= K[i]; k++)&#123;</span><br><span class="line">            dp[j] = <span class="built_in">max</span>(dp[j - w[i] * k] + v[i] * k; dp[j]]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; dp[n][m] &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+
+<p>不难得出，时间复杂度是：</p>
+<p>$$<br>O(nm\sum_{1 \leqslant i \leqslant n}k_i)<br>$$</p>
+<h3 id="分组背包模型"><a href="#分组背包模型" class="headerlink" title="分组背包模型"></a>分组背包模型</h3><p>给你多组物品，每组物品只能选取一个，其他同「0-1」 背包。</p>
+<p>与多重背包类似，枚举每一组物品选哪一个物品。时间复杂度同多重背包。</p>
+<h3 id="滚动数组优化背包模型"><a href="#滚动数组优化背包模型" class="headerlink" title="滚动数组优化背包模型"></a>滚动数组优化背包模型</h3><p>现在让我们回顾一下以上的所有背包模型。虽然，与搜索相比，DP的时间复杂度提升了许多，然而，<strong>空间换时间</strong>的定律在此同样产生了作用。显然的，它的空间复杂度为 $O(nm)$ ，设有数组<code>long long dp[n][m]</code>，通过计算得知，<strong>当 $nm  \geqslant  1024<em>1024&#x2F;8  \approx 10^5$ 时，数组大小已经超过了 <code>1MB</code> ，极有可能造成 <code>MLE</code><strong>。难道没有更好的解决方案了吗？实际上，观察 0-1 背包的代码，每一次循环只使用了第 $i$ 行与第 $i - 1$ 行。思考通过反向遍历，因为通过反向更新，每一次更新的不过是第 $i$ 行的数字，并且在 $dp[j]$ 前的并不会被更新，也就是说，</strong></em>通过一维数组即可表示两位的数组</strong>*，因此可以使用一维 <code>dp</code> 数组代替巨大的 <code>dp[m][n]</code>，完美的解决了 <code>dp</code>数组过大的问题，只要 $m \leqslant 1e5$，就<strong>不会</strong>造成 <code>MLE</code>。<strong>这便是滚动数组优化的核心思想</strong>。其他背包模型同理。</p>
+<p>总结一下，滚动数组的优化便是<em><strong>对于更新当前状态所不需要的状态通过某种方式进行隐藏以省去所占用的空间以减少空间复杂度。</strong></em></p>
+<h3 id="区间DP"><a href="#区间DP" class="headerlink" title="区间DP"></a>区间DP</h3><p>现在我们考虑如下问题：</p>
+<blockquote>
+<p>给定 $n$ 个数，每次可以将相邻的两个数合并到一起组成一个新的数，而合并的花费为新数的大小，求把这些数合并成一个数的最小花费。</p>
+</blockquote>
+<p>我们设 $dp[i][j]$ 表示合并 $i$ ~ $j$ 所用的最小花费，状态转移方程是：<br>$$<br>dp[i][j] &#x3D; \max{dp[i][k] + dp[k + 1][j] + \sum_{i \leqslant x \leqslant j} a_i}<br>$$<br>时间复杂度：<br>$$<br>O(n^4)<br>$$<br>假如这些数不是一列而是一个环，怎么办？一个巧妙的办法是：在原序列后接一个一模一样的序列。这种方法就叫：断环成链。</p>
+<h3 id="最长单调子序列问题"><a href="#最长单调子序列问题" class="headerlink" title="最长单调子序列问题"></a>最长单调子序列问题</h3><p><em>给定长度为 $n$ 的序列，求这个序列中最长的单调子序列</em>，这便是最长单调子序列问题。这里以<em>最长上升子序列为例</em>。考虑动态规划的思想，最朴素的想法便是**<code>dp[i]</code> 存储末尾元素为 <code>i</code> 时的最长子序列长度*<em>。考虑状态转移，显然，对于当前状态而言，</em>其上一状态一定是序列中的前一个元素，上一元素一定当前元素相对靠前的位置。因此，对于 <code>dp[i]</code> 须枚举 <code>i</code> 之前的所有元素，<code>j</code>。当 <code>j &lt; i</code>时，元素 <code>i</code> 就有可能拼接至以 <code>j</code> 为结尾的最长子序列上。枚举  <code>j</code> ，通过通用最值算法即可。*状态表示则为：<br>$$<br>dp[i] &#x3D; \max{dp[i], dp[j] + 1}~(nums[i] &gt; nums[j])<br>$$<br>代码则为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; i++)&#123;</span><br><span class="line">    dp[i] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt; i; j++)&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[i] &gt; nums[j])&#123;</span><br><span class="line">            dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然而，显然的，朴素算法的时间复杂度达到了 $O(n^2)$，这使该算法所能处理的数据范围在 $10^3$ 以内，这显然不是一个好的算法。考虑进行优化，我们尝试<code>dp[i]</code> 存储最长子序列长度为 <code>i</code> 时的末尾元素。那么，对于当前状态，可能有多种不同的存储值，很明显，存储较小的那个更容易将后来的元素连接上。由此可以得出，<code>dp</code> 数组是一个<em><strong>单调递增</strong></em>的数组。而在单调的数组中查找元素，时间复杂度为 $O(\log n)$ 的<strong>二分搜索</strong>是最佳的选择。因此，改进后的时间复杂度即为：<br>$$<br>O(n\log n)<br>$$<br>实际上，二分搜索是<strong>极易</strong>写错的，为此，<code>C++</code> 中 <code>&lt;algorithm&gt; </code> 头文件中的  <code>lower_bound</code> 与 <code>upper_bound</code> 是不错的选择，它也是<strong>二分</strong>的搜索算法，不会影响算法时间复杂度，并且以 <code>lower_bound</code> 为例，它会<strong>返回有序序列中第一个大于等于目标元素的元素的迭代器（指针）</strong>。给出代码： </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memset</span>(dp, <span class="number">0x3f</span>, <span class="built_in">sizeof</span>(dp));</span><br><span class="line"><span class="type">int</span> ans = INT_MIN;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= N; i++)&#123;</span><br><span class="line">    <span class="type">int</span> r = <span class="built_in">lower_bound</span>(dp, dp + i, a[i]) - dp - <span class="number">1</span>;</span><br><span class="line">    dp[r + <span class="number">1</span>] = nums[i];</span><br><span class="line">    ans = <span class="built_in">max</span>(ans, r + <span class="number">1</span>);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h3 id="矩阵最短路问题"><a href="#矩阵最短路问题" class="headerlink" title="矩阵最短路问题"></a>矩阵最短路问题</h3><p>给定一个 $n<em>m$ 的矩阵，每一个点都有一个权值，且只能向右或向左移动，求从左上角(0, 0)至右下角(n, m)经过的路径的最大的权值的和(方案数)，这种问题便是：<strong>矩阵最短路问题</strong>，例题是</em>洛谷 P1216 [IOI1994]数字三角形 Number Triangles*。朴素的想法是，从 0,0 开始进行 <code>dfs</code>，直到 n,m 进行返回，不难看出，这种算法的时间复杂度与空间复杂度都较高，因此无法较好的完成此问题。观察之前提到的所有动态规划算法，可以发现，他们都是一个填表的过程，从<code>dp[0][0]</code> 直到 <code>dp[n][m]</code>，因此，很容易得出状态表示，<code>dp[i][j]</code> 存储到达 <code>dp[i][j]</code> 时的最大权值和。不难得出状态转移方程：<br>$$<br>dp[i][j] &#x3D; \max{dp[i - 1][j] + nums[i][j], dp[i][j - 1] + nums[i][j]}<br>$$</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; j++)&#123;</span><br><span class="line">        dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j] + nums[i][j], dp[i][j - <span class="number">1</span>] + nums[i][j]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于<em>洛谷 P1002 [NOIP2002 普及组] 过河卒</em>这样有<strong>无法经过的点</strong>的题目，只要预处理所有马的控制点，循环到控制点时直接<code>conitue;</code>，以一般的方案数问题的想法更改状态转移方程即可：<br>$$<br>dp[i][j] &#x3D; dp[i - 1][j] + dp[i][j - 1]<br>$$</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/10/01/DP/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2022/12/28/%E5%B9%B3%E8%A1%A1%E6%A0%91/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            平衡树
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2022/09/29/%E5%AF%B9%E9%A1%B6%E5%A0%86/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">对顶堆</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "D1UJwqULv4zH1cjxxcgTQPDo-gzGzoHsz",
+    app_key: "R2cbX5cyvaUONfIf7fcLZLtc",
+    path: window.location.pathname,
+    avatar: "identicon",
+    placeholder: "来点评论吧qwq~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2022
+        <i class="ri-heart-fill heart_icon"></i> Invincible Peach
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/InvinciblePeach.png" alt="Invincible Peach の小窝"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+ 
+<script src="/js/dz.js"></script>
+ 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
