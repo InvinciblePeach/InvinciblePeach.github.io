@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-12-29T11:42:24.829Z</updated>
+  <updated>2022-12-30T05:49:32.174Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,15 +21,15 @@
     <link href="http://example.com/2022/12/28/%E5%B9%B3%E8%A1%A1%E6%A0%91/"/>
     <id>http://example.com/2022/12/28/%E5%B9%B3%E8%A1%A1%E6%A0%91/</id>
     <published>2022-12-28T06:55:10.000Z</published>
-    <updated>2022-12-29T11:42:24.829Z</updated>
+    <updated>2022-12-30T05:49:32.174Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;qwq&lt;/p&gt;
-</summary>
+    <summary type="html">&lt;p&gt;现在让我们来研究平衡树。&lt;/p&gt;
+&lt;p&gt;平衡树是平衡二叉搜索树的简称。简单来说，当数有序的插入一个&lt;a</summary>
         
       
     
