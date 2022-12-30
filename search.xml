@@ -110,15 +110,6 @@
       </tags>
   </entry>
   <entry>
-    <title>平衡树</title>
-    <url>/2022/12/28/%E5%B9%B3%E8%A1%A1%E6%A0%91/</url>
-    <content><![CDATA[<p>qwq</p>
-]]></content>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>图论——拓扑排序</title>
     <url>/2022/09/12/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</url>
     <content><![CDATA[<p>拓扑排序要解决的问题是给一个图的所有节点排序。 可以通过以下例子来描述这个过程。如有以下书目：《骗分导论》《算法导论》《信息学竞赛一本通》《深入浅出程序设计竞赛——基础篇》《算法竞赛入门经典》，并且为了看懂《一本通》，还需要看蓝书和《深基》；看这两本书之前还需要看《算法导论》；看《算法导论》之前还需要看《偏分导论》。我们可以通过一个图来表示书与书之间的关系：</p>
@@ -136,6 +127,15 @@
 ]]></content>
       <tags>
         <tag>图论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>平衡树</title>
+    <url>/2022/12/28/%E5%B9%B3%E8%A1%A1%E6%A0%91/</url>
+    <content><![CDATA[<p>qwq</p>
+]]></content>
+      <tags>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -236,39 +236,6 @@
       </tags>
   </entry>
   <entry>
-    <title>网络流</title>
-    <url>/2022/09/12/%E7%BD%91%E7%BB%9C%E6%B5%81/</url>
-    <content><![CDATA[<p><strong>网络流</strong>分为两部分：<strong>网络</strong>、<strong>流</strong>。</p>
-<p>网络是一张有向图，与普通的图不同的是，网络有一个入度为零的<strong>源点</strong>和一个出度为零的<strong>汇点</strong>。</p>
-<p>流就是网络上的边。与普通的图不同的是，流的边权表示的是这个流的容量。可以理解为，流是一个点到另一个点的一条水管，流的边权就是水管的直径。我们还规定，<strong>对于任意一个不是源点也不是汇点的中继点，它流入的流量等于流出的流量</strong>。</p>
-<h3 id="mathbf-Part-1-最大流"><a href="#mathbf-Part-1-最大流" class="headerlink" title="$\mathbf{Part~1}$ 最大流"></a>$\mathbf{Part~1}$ 最大流</h3><p>源点流出的流量有无限多，求能流入汇点的最大流量，这便是最大流问题。</p>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/xp0fns0w.png"></p>
-<p>例如这张网络，源点是 <code>1</code>，汇点是 <code>4</code>，由 <code>1</code> 可以将 $1$ 的流量流入 <code>4</code>，但是注意，由 <code>2</code> 只可以流出 $5$ 的流量，这是因为：</p>
-<blockquote>
-<p>对于任意一个不是源点也不是汇点的中继点，它流入的流量等于流出的流量</p>
-</blockquote>
-<p>接下来我们以这张图作为模板图：</p>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/1du7qh74.png"></p>
-<h4 id="mathbf-Ford-Fulkerson-算法"><a href="#mathbf-Ford-Fulkerson-算法" class="headerlink" title="$\mathbf{Ford-Fulkerson}$ 算法"></a>$\mathbf{Ford-Fulkerson}$ 算法</h4><blockquote>
-<p>该算法时间复杂度过高，过不了模板题。</p>
-</blockquote>
-<p>$\mathbf{Ford-Fulkerson}$ 算法简称 $\mathbf{FF}$ 算法。其核心在于不断寻找<strong>增广路</strong>，直到找不到为止。增广路就是找到一条可行的路线，扣除所有的路径上通过的容量，此时的残余容量我们称之为<strong>残余容量</strong>。</p>
-<p>然而这一定是对的吗，从上图来看，这是不对的。我们引入反向边，这样<del>就变成了 A* 算法</del>，在扣除正向边的容量时，反向边加上相等的容量，这就相当于给了算法一次反悔的机会。时间复杂度 $O(ef)$（$f$ 指最大流量）。可以看到，时间复杂度还是不太稳定的。</p>
-<h4 id="mathbf-Dinic-算法"><a href="#mathbf-Dinic-算法" class="headerlink" title="$\mathbf{Dinic}$ 算法"></a>$\mathbf{Dinic}$ 算法</h4><blockquote>
-<p>这是最为常用的最大流算法。</p>
-</blockquote>
-<p>可以看到，$\mathbf{FF}$ 算法会有许多不必要的増广，也有可能形成回路或绕远路。可以通过以下方式解决：</p>
-<ul>
-<li>每次多路增广，且只有到达汇点才真正增广，然后返回实际增广量。这时，如果还有没用完的容量，就继续尝试输出到其它边。</li>
-<li>进行 $\mathbf{BFS}$ 分层<del>迭代加深</del>。每次尝试给予时，只考虑给予自己下一层的点。</li>
-</ul>
-<p>因此，我们可以先进行 $\mathbf{BFS}$ 遍历每一层，进行多路増广，重复直到找不到增广路。</p>
-]]></content>
-      <tags>
-        <tag>图论</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>线段树</title>
     <url>/2022/07/01/%E7%BA%BF%E6%AE%B5%E6%A0%91/</url>
     <content><![CDATA[<p><strong>线段树(Segment Tree)<strong>是一种基于</strong>二叉平衡搜索树</strong>的数据结构，线段树的每个节点都对应一条线段（区间）。非叶节点的值是它所表示的区间的和，也就是其子树的值的和。特别的，线段树的叶子节点的值即为它本身。线段树支持时间复杂度为$O(log~n)$的区间修改。<del>还可以碾过大部分树状数组的题目</del>。</p>
@@ -317,5 +284,41 @@
 <p>直接给出代码：</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r, <span class="type">int</span> now_l, <span class="type">int</span> now_r, <span class="type">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (now_r &lt; l || now_l &gt; r) &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (now_l &gt;= l &amp;&amp; now_r &lt;= r) &#123; <span class="keyword">return</span> tree[p]; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">push_down</span>(p, (now_r - now_l + <span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> mid = (now_l + now_r) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>  <span class="built_in">query</span>(l, r, now_l, mid, p * <span class="number">2</span>) + <span class="built_in">query</span>(l, r, mid + <span class="number">1</span>, now_r, p * <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <tags>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络流</title>
+    <url>/2022/09/12/%E7%BD%91%E7%BB%9C%E6%B5%81/</url>
+    <content><![CDATA[<p><strong>网络流</strong>分为两部分：<strong>网络</strong>、<strong>流</strong>。</p>
+<p>网络是一张有向图，与普通的图不同的是，网络有一个入度为零的<strong>源点</strong>和一个出度为零的<strong>汇点</strong>。</p>
+<p>流就是网络上的边。与普通的图不同的是，流的边权表示的是这个流的容量。可以理解为，流是一个点到另一个点的一条水管，流的边权就是水管的直径。我们还规定，<strong>对于任意一个不是源点也不是汇点的中继点，它流入的流量等于流出的流量</strong>。</p>
+<h3 id="mathbf-Part-1-最大流"><a href="#mathbf-Part-1-最大流" class="headerlink" title="$\mathbf{Part~1}$ 最大流"></a>$\mathbf{Part~1}$ 最大流</h3><p>源点流出的流量有无限多，求能流入汇点的最大流量，这便是最大流问题。</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/xp0fns0w.png"></p>
+<p>例如这张网络，源点是 <code>1</code>，汇点是 <code>4</code>，由 <code>1</code> 可以将 $1$ 的流量流入 <code>4</code>，但是注意，由 <code>2</code> 只可以流出 $5$ 的流量，这是因为：</p>
+<blockquote>
+<p>对于任意一个不是源点也不是汇点的中继点，它流入的流量等于流出的流量</p>
+</blockquote>
+<p>接下来我们以这张图作为模板图：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/1du7qh74.png"></p>
+<h4 id="mathbf-Ford-Fulkerson-算法"><a href="#mathbf-Ford-Fulkerson-算法" class="headerlink" title="$\mathbf{Ford-Fulkerson}$ 算法"></a>$\mathbf{Ford-Fulkerson}$ 算法</h4><blockquote>
+<p>该算法时间复杂度过高，过不了模板题。</p>
+</blockquote>
+<p>$\mathbf{Ford-Fulkerson}$ 算法简称 $\mathbf{FF}$ 算法。其核心在于不断寻找<strong>增广路</strong>，直到找不到为止。增广路就是找到一条可行的路线，扣除所有的路径上通过的容量，此时的残余容量我们称之为<strong>残余容量</strong>。</p>
+<p>然而这一定是对的吗，从上图来看，这是不对的。我们引入反向边，这样<del>就变成了 A* 算法</del>，在扣除正向边的容量时，反向边加上相等的容量，这就相当于给了算法一次反悔的机会。时间复杂度 $O(ef)$（$f$ 指最大流量）。可以看到，时间复杂度还是不太稳定的。</p>
+<h4 id="mathbf-Dinic-算法"><a href="#mathbf-Dinic-算法" class="headerlink" title="$\mathbf{Dinic}$ 算法"></a>$\mathbf{Dinic}$ 算法</h4><blockquote>
+<p>这是最为常用的最大流算法。</p>
+</blockquote>
+<p>可以看到，$\mathbf{FF}$ 算法会有许多不必要的増广，也有可能形成回路或绕远路。可以通过以下方式解决：</p>
+<ul>
+<li>每次多路增广，且只有到达汇点才真正增广，然后返回实际增广量。这时，如果还有没用完的容量，就继续尝试输出到其它边。</li>
+<li>进行 $\mathbf{BFS}$ 分层<del>迭代加深</del>。每次尝试给予时，只考虑给予自己下一层的点。</li>
+</ul>
+<p>因此，我们可以先进行 $\mathbf{BFS}$ 遍历每一层，进行多路増广，重复直到找不到增广路。</p>
+]]></content>
+      <tags>
+        <tag>图论</tag>
+      </tags>
   </entry>
 </search>
