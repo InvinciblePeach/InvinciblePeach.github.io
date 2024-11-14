@@ -19,22 +19,22 @@
   <meta name="author" content="Kurisu ncjjdr05">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这是 tjy 的 github.io，目前是第 3 次爆炸 + 重建     时间 事件     2022.8.30 建站   2022.? 爆炸力，重建力   2022.? 又爆炸力，又重建力   2024.10.29 源代码丢力，重建力   2024.10.31 ayer 不维护了，主题换成了 fluid">
+    <meta name="description" content="官方中文题解 A 注意到 3 个数中一定不会出现两个偶数，那么就一定会有两个奇数，设区间中奇数的个数为 \(cnt\)，那么答案上界一定为 \(\left \lfloor \frac{cnt}{2} \right \rfloor\)。 我们来构造性的证明一定可以取到上界，容易发现每一次选择相邻的两个奇数和两者中间的偶数一定是可行的。 B 先遍历一遍找到最大值，如果最大值在每一次修改的区间内，就对最">
 <meta property="og:type" content="article">
-<meta property="og:title" content="log">
-<meta property="og:url" content="http://example.com/2024/10/29/log/index.html">
+<meta property="og:title" content="CF2006 题解">
+<meta property="og:url" content="http://example.com/2024/11/11/CF2006/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="这是 tjy 的 github.io，目前是第 3 次爆炸 + 重建     时间 事件     2022.8.30 建站   2022.? 爆炸力，重建力   2022.? 又爆炸力，又重建力   2024.10.29 源代码丢力，重建力   2024.10.31 ayer 不维护了，主题换成了 fluid">
+<meta property="og:description" content="官方中文题解 A 注意到 3 个数中一定不会出现两个偶数，那么就一定会有两个奇数，设区间中奇数的个数为 \(cnt\)，那么答案上界一定为 \(\left \lfloor \frac{cnt}{2} \right \rfloor\)。 我们来构造性的证明一定可以取到上界，容易发现每一次选择相邻的两个奇数和两者中间的偶数一定是可行的。 B 先遍历一遍找到最大值，如果最大值在每一次修改的区间内，就对最">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-29T07:43:52.000Z">
-<meta property="article:modified_time" content="2024-10-31T11:22:42.223Z">
+<meta property="article:published_time" content="2024-11-11T06:49:32.000Z">
+<meta property="article:modified_time" content="2024-11-13T12:09:56.987Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
-<meta property="article:tag" content="Log">
+<meta property="article:tag" content="Codeforces">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>log - Hexo</title>
+  <title>CF2006 题解 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="log"></span>
+            <span id="subtitle" data-typed-text="CF2006 题解"></span>
           
         </div>
 
@@ -211,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-29 15:43" pubdate>
-          2024年10月29日 下午
+        <time datetime="2024-11-11 14:49" pubdate>
+          2024年11月11日 下午
         </time>
       </span>
     
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          63 字
+          574 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          1 分钟
+          5 分钟
         
       </span>
     
@@ -271,44 +271,49 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">log</h1>
+            <h1 id="seo-header">CF2006 题解</h1>
             
             
               <div class="markdown-body">
                 
-                <p>这是 tjy 的 github.io，目前是第 3 次爆炸 + 重建</p>
-<table>
-
-<thead>
-<tr>
-<th>时间</th>
-<th>事件</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2022.8.30</td>
-<td>建站</td>
-</tr>
-<tr>
-<td>2022.?</td>
-<td>爆炸力，重建力</td>
-</tr>
-<tr>
-<td>2022.?</td>
-<td>又爆炸力，又重建力</td>
-</tr>
-<tr>
-<td>2024.10.29</td>
-<td>源代码丢力，重建力</td>
-</tr>
-<tr>
-<td>2024.10.31</td>
-<td>ayer 不维护了，主题换成了 <a
-target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid">fluid</a></td>
-</tr>
-</tbody>
-</table>
+                <p><a
+target="_blank" rel="noopener" href="https://codeforces.com/contest/2006/attachments/download/26936/tutorial.pdf">官方中文题解</a></p>
+<h3 id="a">A</h3>
+<p>注意到 3
+个数中一定不会出现两个偶数，那么就一定会有两个奇数，设区间中奇数的个数为
+<span class="math inline">\(cnt\)</span>，那么答案上界一定为 <span
+class="math inline">\(\left \lfloor \frac{cnt}{2} \right
+\rfloor\)</span>。</p>
+<p>我们来构造性的证明一定可以取到上界，容易发现每一次选择相邻的两个奇数和两者中间的偶数一定是可行的。</p>
+<h3 id="b">B</h3>
+<p>先遍历一遍找到最大值，如果最大值在每一次修改的区间内，就对最大值作相应的修改。</p>
+<h3 id="c">C</h3>
+<p>考虑序列中的一个数 <span
+class="math inline">\(c\)</span>，如果最后的结果为 <span
+class="math inline">\(d\)</span>，那么相当于对 <span
+class="math inline">\(ax + by = d - c\)</span>
+求一组可行解。根据裴蜀定理，有 <span class="math inline">\(\gcd(a, b)
+\mid (d - c)\)</span>。</p>
+<p>就相当于答案最大为 <span class="math inline">\(\gcd(a,
+b)\)</span>，转化成在 <span class="math inline">\(\bmod \gcd(a,
+b)\)</span> 的剩余系中考虑该问题。那么可以将序列中每一个数字都 <span
+class="math inline">\(\bmod \gcd(a,
+b)\)</span>，前后扫一遍找最小值即可。</p>
+<h3 id="d">D</h3>
+<p>可以将 01 串看作海拔的高低，01 指上山，10
+指下山，那么最终答案为零一定是串的两端海拔相平，也就是数字相同。</p>
+<p>也就是说，A 希望根的数字与叶子数字尽量不同，B
+希望根的数字与叶子数字尽量相同，简单分类讨论即可</p>
+<h3 id="e">E</h3>
+<p>树按 dfs 序标号，所以最终的 <span class="math inline">\(n\)</span>
+条路径中，每条边恰好被经过两次。注意到最终考虑的答案也会是的每条边经过两次。</p>
+<p>那么我们需要对一条路径找到一些信息，只与剩余的 <span
+class="math inline">\(w\)</span>
+和经过的所有边有关，可以快速维护这条路径的长度的上限。注意到如果这条路径上还有边没有确定，那么把
+<span class="math inline">\(w\)</span>
+全部放到未确定的边上最优；否则这条路径的长度已经确定了。那么需要维护尚未确定值的边数和已经确定值的边的长度和。</p>
+<p>那么答案的组成部分是，确定的路径的长度，没有完全确定的路径的确定部分的长度。对于每条没有完全确定的路径，会额外贡献一个
+<span class="math inline">\(w\)</span>。直接维护就行了。</p>
 
                 
               </div>
@@ -321,7 +326,7 @@ target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-flu
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Log/" class="print-no-link">#Log</a>
+        <a href="/tags/Codeforces/" class="print-no-link">#Codeforces</a>
       
     </div>
   
@@ -333,8 +338,8 @@ target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-flu
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>log</div>
-      <div>http://example.com/2024/10/29/log/</div>
+      <div>CF2006 题解</div>
+      <div>http://example.com/2024/11/11/CF2006/</div>
     </div>
     <div class="license-meta">
       
@@ -346,7 +351,7 @@ target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-flu
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月29日</div>
+          <div>2024年11月11日</div>
         </div>
       
       
@@ -378,15 +383,21 @@ target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-flu
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/30/CF1918/" title="CF1918 题解">
+                      <a href="/2024/11/12/CF1935/" title="CF1935 题解">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CF1918 题解</span>
+                        <span class="hidden-mobile">CF1935 题解</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2024/11/08/CF1998/" title="CF1998 题解">
+                        <span class="hidden-mobile">CF1998 题解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>

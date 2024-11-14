@@ -19,22 +19,23 @@
   <meta name="author" content="Kurisu ncjjdr05">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这是 tjy 的 github.io，目前是第 3 次爆炸 + 重建     时间 事件     2022.8.30 建站   2022.? 爆炸力，重建力   2022.? 又爆炸力，又重建力   2024.10.29 源代码丢力，重建力   2024.10.31 ayer 不维护了，主题换成了 fluid">
+    <meta name="description" content="扩展欧几里德算法 裴蜀定理 用于求解形如 \(ax + by &#x3D; \gcd(a, b)\) 的等式。这是裴蜀等式，我们接下来的内容可以证明它一定有解。 我们知道： \[ \gcd(a, b) &#x3D; \gcd(b, a \bmod b) \] 那么有： \[ \begin{align} ax + by &amp; &#x3D; \gcd(a, b) \\ &amp; &#x3D; \gcd(b, a \bmod b) \">
 <meta property="og:type" content="article">
-<meta property="og:title" content="log">
-<meta property="og:url" content="http://example.com/2024/10/29/log/index.html">
+<meta property="og:title" content="数论合集">
+<meta property="og:url" content="http://example.com/2024/11/14/number-theory/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="这是 tjy 的 github.io，目前是第 3 次爆炸 + 重建     时间 事件     2022.8.30 建站   2022.? 爆炸力，重建力   2022.? 又爆炸力，又重建力   2024.10.29 源代码丢力，重建力   2024.10.31 ayer 不维护了，主题换成了 fluid">
+<meta property="og:description" content="扩展欧几里德算法 裴蜀定理 用于求解形如 \(ax + by &#x3D; \gcd(a, b)\) 的等式。这是裴蜀等式，我们接下来的内容可以证明它一定有解。 我们知道： \[ \gcd(a, b) &#x3D; \gcd(b, a \bmod b) \] 那么有： \[ \begin{align} ax + by &amp; &#x3D; \gcd(a, b) \\ &amp; &#x3D; \gcd(b, a \bmod b) \">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-29T07:43:52.000Z">
-<meta property="article:modified_time" content="2024-10-31T11:22:42.223Z">
+<meta property="article:published_time" content="2024-11-14T11:25:21.000Z">
+<meta property="article:modified_time" content="2024-11-14T13:08:48.794Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
-<meta property="article:tag" content="Log">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="数论">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>log - Hexo</title>
+  <title>数论合集 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="log"></span>
+            <span id="subtitle" data-typed-text="数论合集"></span>
           
         </div>
 
@@ -211,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-29 15:43" pubdate>
-          2024年10月29日 下午
+        <time datetime="2024-11-14 19:25" pubdate>
+          2024年11月14日 晚上
         </time>
       </span>
     
@@ -223,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          63 字
+          811 字
         
       </span>
     
@@ -234,7 +235,7 @@
         
         
         
-          1 分钟
+          7 分钟
         
       </span>
     
@@ -271,44 +272,126 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">log</h1>
+            <h1 id="seo-header">数论合集</h1>
             
             
               <div class="markdown-body">
                 
-                <p>这是 tjy 的 github.io，目前是第 3 次爆炸 + 重建</p>
-<table>
-
-<thead>
-<tr>
-<th>时间</th>
-<th>事件</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2022.8.30</td>
-<td>建站</td>
-</tr>
-<tr>
-<td>2022.?</td>
-<td>爆炸力，重建力</td>
-</tr>
-<tr>
-<td>2022.?</td>
-<td>又爆炸力，又重建力</td>
-</tr>
-<tr>
-<td>2024.10.29</td>
-<td>源代码丢力，重建力</td>
-</tr>
-<tr>
-<td>2024.10.31</td>
-<td>ayer 不维护了，主题换成了 <a
-target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-fluid">fluid</a></td>
-</tr>
-</tbody>
-</table>
+                <h3 id="扩展欧几里德算法">扩展欧几里德算法</h3>
+<h4 id="裴蜀定理">裴蜀定理</h4>
+<p>用于求解形如 <span class="math inline">\(ax + by = \gcd(a,
+b)\)</span>
+的等式。这是裴蜀等式，我们接下来的内容可以证明它一定有解。</p>
+<p>我们知道： <span class="math display">\[
+\gcd(a, b) = \gcd(b, a \bmod b)
+\]</span></p>
+<p>那么有： <span class="math display">\[
+\begin{align}
+ax + by &amp; = \gcd(a, b) \\
+&amp; = \gcd(b, a \bmod b) \\
+\end{align}\\
+\Rightarrow \\
+bx&#39; + (a \bmod b) y&#39; = \gcd(b, a\bmod b) = \gcd(a, b)
+\]</span> 联系到欧几里德算法的终止条件
+<code>b == 0</code>，此时不难直接得到 <span class="math inline">\(x =
+1\)</span>，<span class="math inline">\(y\)</span>
+取值任意。我们发现，迭代的下一层的解一定比上一层的要早得到，考虑如何转移：
+$$ <span class="math display">\[\begin{align}
+bx&#39; + (a \bmod b) y&#39; &amp; = bx&#39; + (a - \left\lfloor
+\dfrac{a}{b} \right\rfloor \cdot b) y&#39; \\
+&amp; = bx&#39; + ay&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor
+\cdot b y&#39; \\
+&amp; = ay&#39; + b(x&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor
+\cdot y&#39;) \\
+&amp; = ax + by
+\end{align}\]</span></p>
+<span class="math display">\[\begin{cases}
+x = y&#39; \\
+y = x&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot y&#39;
+\end{cases}\]</span>
+<p>$$ 实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">exgcd</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b, <span class="hljs-type">int</span> &amp;x, <span class="hljs-type">int</span> &amp;y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>)<br>    &#123;<br>        x = <span class="hljs-number">1</span>, y = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">return</span> a;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span> tmp = <span class="hljs-built_in">exgcd</span>(b, a % b, y, x);<br>    y -= a / b * x;<br>    <span class="hljs-keyword">return</span> tmp;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果我们尝试会代，可以发现裴蜀等式一定有解。</p>
+<h4 id="求解同余方程">求解同余方程</h4>
+<p><span class="math display">\[
+ax \equiv b \pmod m
+\]</span></p>
+<p>对于上式，可以转化为： <span class="math display">\[
+ax + km = b
+\]</span> 设 <span class="math inline">\(d = \dfrac{b}{\gcd(a,
+m)}\)</span>，对上式两边同除 <span
+class="math inline">\(d\)</span>，得到： <span class="math display">\[
+a \cdot \dfrac{x}{d} + m \cdot \dfrac{k}{d} = \gcd(a, m)
+\]</span> 那么我们可以先求出 <span
+class="math inline">\(\dfrac{x}{d}\)</span> 与 <span
+class="math inline">\(\dfrac{k}{d}\)</span>，同乘 <span
+class="math inline">\(d\)</span> 即为原方程解。</p>
+<p>同时，不难发现 <span class="math inline">\(ax \equiv b \pmod
+m\)</span> 有解的充要条件即为 <span class="math inline">\(\gcd(a, m)
+\mid b\)</span>。</p>
+<h3 id="扩展中国剩余定理">扩展中国剩余定理</h3>
+<h3 id="数论分块">数论分块</h3>
+<h4 id="引理">引理</h4>
+<p><span class="math display">\[
+\forall n \in \mathbb{N},
+\left| \left\{ \left\lfloor \dfrac{n}{d} \right\rfloor \mid d\in
+\mathbb{N} \right\} \right|
+\le \left\lfloor 2 \sqrt n \right\rfloor
+\]</span> 证明：</p>
+<p>当 <span class="math inline">\(d \le \sqrt n\)</span> 时，最坏情况下
+<span class="math inline">\(\left\lfloor \dfrac{n}{d}
+\right\rfloor\)</span> 两两不同，共有 <span
+class="math inline">\(\sqrt{n}\)</span> 种情况；当 <span
+class="math inline">\(d \gt \sqrt n\)</span> 时，<span
+class="math inline">\(\left\lfloor \frac{n}{d}
+\right\rfloor\)</span>最大为 <span class="math inline">\(\sqrt
+n\)</span>，最坏情况下 <span class="math inline">\(\left\lfloor
+\dfrac{n}{d} \right\rfloor\)</span> 两两不同，共有 <span
+class="math inline">\(\sqrt{n}\)</span> 种情况。Q.E.D.</p>
+<p>数论分块主要用来求使得 <span class="math inline">\(\left\lfloor
+\frac{n}{d} \right\rfloor\)</span> 相同的区间的左右断点。</p>
+<h4 id="两个结论">两个结论</h4>
+<p>那么对于满足 <span class="math inline">\(\left\lfloor \dfrac{n}{i}
+\right\rfloor = \left\lfloor \dfrac{n}{r} \right\rfloor\)</span> 的极大
+<span class="math inline">\(r\)</span>，满足： <span
+class="math display">\[
+r =
+\left\lfloor \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor}
+\right\rfloor
+\]</span> 证明：</p>
+<p>首先有 <span class="math display">\[
+\begin{cases}
+\left\lfloor \dfrac{n}{i} \right\rfloor \le \dfrac{n}{r} \\
+\dfrac{n}{r + 1} &lt; \left\lfloor \dfrac{n}{i} \right\rfloor
+\end{cases}
+\]</span> 根据第一行： <span class="math display">\[
+\left\lfloor \dfrac{n}{i} \right\rfloor \le \dfrac{n}{r}
+\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \ge
+\dfrac{n}{\dfrac{n}{r}}
+\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \ge r
+\]</span> 根据第二行： <span class="math display">\[
+\dfrac{n}{r + 1} \lt \left\lfloor \dfrac{n}{i} \right\rfloor
+\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt
+\dfrac{n}{\dfrac{n}{r + 1}}
+\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt r + 1
+\]</span> 得到： <span class="math display">\[
+r \le \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt r + 1
+\]</span> 由于 <span class="math inline">\(r \in
+\mathbb{Z}\)</span>，得到最大的 <span class="math inline">\(r\)</span>
+为： <span class="math display">\[
+\left\lfloor \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor}
+\right\rfloor
+\]</span> 同理，我们不难得到那么对于满足 <span
+class="math inline">\(\left\lceil \dfrac{n}{i} \right\rceil =
+\left\lceil \dfrac{n}{l} \right\rceil\)</span> 的极小 <span
+class="math inline">\(l\)</span>，满足： <span class="math display">\[
+l =
+\left\lceil \dfrac{n}{\left\lceil \dfrac{n}{i} \right\rceil}
+\right\rceil
+\]</span> 数论分块就是将这些内容分为连续的 <span
+class="math inline">\([l, r]\)</span>
+并统一计算答案。根据引理，复杂度一般为 <span
+class="math inline">\(\mathcal{O(\sqrt n)}\)</span>。</p>
 
                 
               </div>
@@ -321,7 +404,9 @@ target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-flu
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Log/" class="print-no-link">#Log</a>
+        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
+      
+        <a href="/tags/%E6%95%B0%E8%AE%BA/" class="print-no-link">#数论</a>
       
     </div>
   
@@ -333,8 +418,8 @@ target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-flu
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>log</div>
-      <div>http://example.com/2024/10/29/log/</div>
+      <div>数论合集</div>
+      <div>http://example.com/2024/11/14/number-theory/</div>
     </div>
     <div class="license-meta">
       
@@ -346,7 +431,7 @@ target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-flu
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月29日</div>
+          <div>2024年11月14日</div>
         </div>
       
       
@@ -378,15 +463,15 @@ target="_blank" rel="noopener" href="https://github.com/fluid-dev/hexo-theme-flu
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/30/CF1918/" title="CF1918 题解">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CF1918 题解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2024/11/12/CF1935/" title="CF1935 题解">
+                        <span class="hidden-mobile">CF1935 题解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
