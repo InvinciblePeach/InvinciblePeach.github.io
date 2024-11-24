@@ -19,22 +19,22 @@
   <meta name="author" content="Kurisu ncjjdr05">
   <meta name="keywords" content="">
   
-    <meta name="description" content="A 不难发现字典序最小的 \(a\) 就是串 \(s\) 中字典序最小的字符。 B 手玩可以发现不多于 \(n\) 次的操作后序列将不会再变化。官方题解给出了更严谨的上界是 \(\log n\) 次，直接暴力模拟即可。 C 操作即为选择 \(k\) 个数，将他们共有的二进制位为 \(1\) 的减去。如果找出每一位 \(1\) 在序列中出现的个数，那么最终答案就是它们的 \(\gcd\) 的所有因数">
+    <meta name="description" content="A 设打开了 \(k\) 个开关：  最小：两个同种状态的开关尽量连接同一盏灯，那么答案就为 \(k \bmod 2\)。 最多：两个不同种状态的开关尽量连接同一盏灯，那么答案就为 \(n - \left|k - n\right|\)。  B 可以证明如果满足 \(k &#x3D; 1 \vee k &#x3D; n\)，那么一定无解。我么以最简单的情况将序列分成 \(3\) 段，考虑 \(k\) 的奇偶性：  \(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CF1602 题解">
-<meta property="og:url" content="http://example.com/2024/11/22/CF1602/index.html">
+<meta property="og:title" content="CF2032 题解">
+<meta property="og:url" content="http://example.com/2024/11/24/CF2032/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="A 不难发现字典序最小的 \(a\) 就是串 \(s\) 中字典序最小的字符。 B 手玩可以发现不多于 \(n\) 次的操作后序列将不会再变化。官方题解给出了更严谨的上界是 \(\log n\) 次，直接暴力模拟即可。 C 操作即为选择 \(k\) 个数，将他们共有的二进制位为 \(1\) 的减去。如果找出每一位 \(1\) 在序列中出现的个数，那么最终答案就是它们的 \(\gcd\) 的所有因数">
+<meta property="og:description" content="A 设打开了 \(k\) 个开关：  最小：两个同种状态的开关尽量连接同一盏灯，那么答案就为 \(k \bmod 2\)。 最多：两个不同种状态的开关尽量连接同一盏灯，那么答案就为 \(n - \left|k - n\right|\)。  B 可以证明如果满足 \(k &#x3D; 1 \vee k &#x3D; n\)，那么一定无解。我么以最简单的情况将序列分成 \(3\) 段，考虑 \(k\) 的奇偶性：  \(">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-11-22T05:18:26.000Z">
-<meta property="article:modified_time" content="2024-11-22T07:17:30.566Z">
+<meta property="article:published_time" content="2024-11-24T05:28:43.000Z">
+<meta property="article:modified_time" content="2024-11-24T06:06:02.993Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="Codeforces">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>CF1602 题解 - Hexo</title>
+  <title>CF2032 题解 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CF1602 题解"></span>
+            <span id="subtitle" data-typed-text="CF2032 题解"></span>
           
         </div>
 
@@ -211,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-22 13:18" pubdate>
-          2024年11月22日 下午
+        <time datetime="2024-11-24 13:28" pubdate>
+          2024年11月24日 下午
         </time>
       </span>
     
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          498 字
+          415 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          5 分钟
+          4 分钟
         
       </span>
     
@@ -271,63 +271,64 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CF1602 题解</h1>
+            <h1 id="seo-header">CF2032 题解</h1>
             
             
               <div class="markdown-body">
                 
                 <h3 id="a">A</h3>
-<p>不难发现字典序最小的 <span class="math inline">\(a\)</span> 就是串
-<span class="math inline">\(s\)</span> 中字典序最小的字符。</p>
-<h3 id="b">B</h3>
-<p>手玩可以发现不多于 <span class="math inline">\(n\)</span>
-次的操作后序列将不会再变化。官方题解给出了更严谨的上界是 <span
-class="math inline">\(\log n\)</span> 次，直接暴力模拟即可。</p>
-<h3 id="c">C</h3>
-<p>操作即为选择 <span class="math inline">\(k\)</span>
-个数，将他们共有的二进制位为 <span class="math inline">\(1\)</span>
-的减去。如果找出每一位 <span class="math inline">\(1\)</span>
-在序列中出现的个数，那么最终答案就是它们的 <span
-class="math inline">\(\gcd\)</span> 的所有因数。</p>
-<h3 id="d">D</h3>
-<p>可以发现，跳 <span class="math inline">\(k\)</span>
-次后且滑落前所能到达的所有位置，一定是一个 <span
-class="math inline">\([l, n]\)</span>
-的连续区间。如果达不到的话只需要在前几次的跳跃中增加几次在 <span
-class="math inline">\(n\)</span> 的原地跳即可。</p>
-<p>那么我们设 <span class="math inline">\(c_i = i  + b_i - a_{i +
-a_i}\)</span>，表示上次滑落前到达位置 <span
-class="math inline">\(i\)</span>，至此能到达的位置的最小值。我们对 <span
-class="math inline">\(c\)</span>
-做前缀最大值，同时记录最大值的位置，就可以得到上一次滑落前能到达的位置区间是
-<span class="math inline">\([l,
-n]\)</span>，这次能到达的最小位置，记录进一个 <code>vector</code>
-里，直到 <span class="math inline">\(l = 1\)</span> 输出答案即可。</p>
-<h3 id="e">E</h3>
-<p>容易证明将排序后的 <span class="math inline">\(b\)</span>
-数组保持相对位置不变插入 <span class="math inline">\(a\)</span>
-中更优。我们考虑分治，如果要将 <span class="math inline">\(b_l \dots
-b_r\)</span> 插入 <span class="math inline">\(a\)</span> 中的区间 <span
-class="math inline">\([L, R]\)</span>，取 <span
-class="math inline">\(mid = \left\lfloor\dfrac{l +
-r}{2}\right\rfloor\)</span>，考虑将 <span
-class="math inline">\(b_{mid}\)</span> 插入到 <span
-class="math inline">\(a_j\)</span> 之前对答案的影响：</p>
+<p>设打开了 <span class="math inline">\(k\)</span> 个开关：</p>
 <ul>
-<li>对全局：<span class="math inline">\(\sum \limits_{i = 1}^{j - 1}
-[a_i &gt; b_{mid}] + \sum \limits_{i = j}^{n} [a_i &lt;
-b_{mid}]\)</span></li>
-<li>对区间 <span class="math inline">\([L, R]\)</span>：<span
-class="math inline">\(\sum \limits_{i = L}^{j - 1} [a_i &gt; b_{mid}] +
-\sum \limits_{i = j}^{R} [a_i &lt; b_{mid}]\)</span></li>
+<li>最小：两个同种状态的开关尽量连接同一盏灯，那么答案就为 <span
+class="math inline">\(k \bmod 2\)</span>。</li>
+<li>最多：两个不同种状态的开关尽量连接同一盏灯，那么答案就为 <span
+class="math inline">\(n - \left|k - n\right|\)</span>。</li>
 </ul>
-<p>容易发现两式之差是定值，所以只要枚举 <span
-class="math inline">\(j\)</span> 使得对区间的贡献最小即可。</p>
+<h3 id="b">B</h3>
+<p>可以证明如果满足 <span class="math inline">\(k = 1 \vee k =
+n\)</span>，那么一定无解。我么以最简单的情况将序列分成 <span
+class="math inline">\(3\)</span> 段，考虑 <span
+class="math inline">\(k\)</span> 的奇偶性：</p>
+<ul>
+<li><span class="math inline">\(k \equiv 0 \pmod 2\)</span> 可以分成
+<span class="math inline">\([1, k - 1] \ [k, k] \ [k + 1,
+n]\)</span>。</li>
+<li><span class="math inline">\(k \equiv 1 \pmod 2\)</span> 可以分成
+<span class="math inline">\([1, k - 2] \ [k - 1, k + 1] \ [k + 2,
+n]\)</span>。</li>
+</ul>
+<h3 id="c">C</h3>
+<p>如果满足题面要求，一定有： <span class="math display">\[
+a_{\max} &lt; a_{\min} + a_{\min + 1}
+\]</span> 对 <span class="math inline">\(a\)</span>
+排序，枚举一个最大值，二分出满足要求的最小值，答案即为 <span
+class="math inline">\(n - \max + \min - 1\)</span>，时间复杂度 <span
+class="math inline">\(\mathcal{O}(n \log n)\)</span>。</p>
+<h3 id="d">D</h3>
+<p>考虑从 <span class="math inline">\(n - 1\)</span> 向 <span
+class="math inline">\(1\)</span> 询问推断出树的形状。那么第一次询问
+<span class="math inline">\(n - 1\)</span> 和 <span
+class="math inline">\(n - 2\)</span>，通过题面我们发现 <span
+class="math inline">\(n - 1\)</span> 的父亲的编号一定小于等于 <span
+class="math inline">\(n - 2\)</span>，那么从 <span
+class="math inline">\(n - 2\)</span> 逐一向更小询问，一旦发现答案为
+<span
+class="math inline">\(1\)</span>，可以证明此时编号更小的一定是编号更大者的父节点。接下来我们把两个数都
+<span class="math inline">\(-1\)</span>，继续询问直到某一者为 <span
+class="math inline">\(0\)</span>。</p>
+<h3 id="e">E</h3>
+<p>考虑操作之后序列值的变化 <span class="math inline">\(a_i \leftarrow
+a_i + 2 c_i + c_{i - 1} + c_{i + 1}\)</span>。那么有： <span
+class="math display">\[
+a_i + 2 c_i + c_{i - 1} + c_{i + 1} = a_{i + 1} + 2 c_{i + 1} + c_i +
+c_{i + 2} \\
+(c_i + c_{i - 1}) - (c_{i + 1} + c_{i + 2}) = a_{i + 1} - a_i
+\]</span> 设 <span class="math inline">\(b_i = c_i + c{i -
+1}\)</span>，则 <span class="math inline">\(b_{i + 1} = b_i + a_i - a_{i
++ 1}\)</span>。<span class="math inline">\(b\)</span>
+是可求的，那么也就可以推出 <span class="math inline">\(c\)</span>。</p>
 <h3 id="f">F</h3>
-<p>观察性质，大胆猜测结论。按 <span class="math inline">\(\max(a,
-s)\)</span> 为第一关键字，<span class="math inline">\(s\)</span>
-为第二关键字升序排序即可。<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/db3tx0l0">证明</a>（其实还挺容易感性理解的）。</p>
+<p>Nim 游戏是<strong>[9]级知识点</strong>，不会。</p>
 
                 
               </div>
@@ -352,8 +353,8 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/db3tx0l0">
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CF1602 题解</div>
-      <div>http://example.com/2024/11/22/CF1602/</div>
+      <div>CF2032 题解</div>
+      <div>http://example.com/2024/11/24/CF2032/</div>
     </div>
     <div class="license-meta">
       
@@ -365,7 +366,7 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/db3tx0l0">
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年11月22日</div>
+          <div>2024年11月24日</div>
         </div>
       
       
@@ -397,18 +398,12 @@ target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/db3tx0l0">
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/24/CF2032/" title="CF2032 题解">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CF2032 题解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/20/CF1794/" title="CF1794 题解">
-                        <span class="hidden-mobile">CF1794 题解</span>
+                      <a href="/2024/11/22/CF1602/" title="CF1602 题解">
+                        <span class="hidden-mobile">CF1602 题解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

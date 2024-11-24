@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>CF2032 题解</title>
+    <link href="/2024/11/24/CF2032/"/>
+    <url>/2024/11/24/CF2032/</url>
+    
+    <content type="html"><![CDATA[<h3 id="a">A</h3><p>设打开了 <span class="math inline">\(k\)</span> 个开关：</p><ul><li>最小：两个同种状态的开关尽量连接同一盏灯，那么答案就为 <spanclass="math inline">\(k \bmod 2\)</span>。</li><li>最多：两个不同种状态的开关尽量连接同一盏灯，那么答案就为 <spanclass="math inline">\(n - \left|k - n\right|\)</span>。</li></ul><h3 id="b">B</h3><p>可以证明如果满足 <span class="math inline">\(k = 1 \vee k =n\)</span>，那么一定无解。我么以最简单的情况将序列分成 <spanclass="math inline">\(3\)</span> 段，考虑 <spanclass="math inline">\(k\)</span> 的奇偶性：</p><ul><li><span class="math inline">\(k \equiv 0 \pmod 2\)</span> 可以分成<span class="math inline">\([1, k - 1] \ [k, k] \ [k + 1,n]\)</span>。</li><li><span class="math inline">\(k \equiv 1 \pmod 2\)</span> 可以分成<span class="math inline">\([1, k - 2] \ [k - 1, k + 1] \ [k + 2,n]\)</span>。</li></ul><h3 id="c">C</h3><p>如果满足题面要求，一定有： <span class="math display">\[a_{\max} &lt; a_{\min} + a_{\min + 1}\]</span> 对 <span class="math inline">\(a\)</span>排序，枚举一个最大值，二分出满足要求的最小值，答案即为 <spanclass="math inline">\(n - \max + \min - 1\)</span>，时间复杂度 <spanclass="math inline">\(\mathcal{O}(n \log n)\)</span>。</p><h3 id="d">D</h3><p>考虑从 <span class="math inline">\(n - 1\)</span> 向 <spanclass="math inline">\(1\)</span> 询问推断出树的形状。那么第一次询问<span class="math inline">\(n - 1\)</span> 和 <spanclass="math inline">\(n - 2\)</span>，通过题面我们发现 <spanclass="math inline">\(n - 1\)</span> 的父亲的编号一定小于等于 <spanclass="math inline">\(n - 2\)</span>，那么从 <spanclass="math inline">\(n - 2\)</span> 逐一向更小询问，一旦发现答案为<spanclass="math inline">\(1\)</span>，可以证明此时编号更小的一定是编号更大者的父节点。接下来我们把两个数都<span class="math inline">\(-1\)</span>，继续询问直到某一者为 <spanclass="math inline">\(0\)</span>。</p><h3 id="e">E</h3><p>考虑操作之后序列值的变化 <span class="math inline">\(a_i \leftarrowa_i + 2 c_i + c_{i - 1} + c_{i + 1}\)</span>。那么有： <spanclass="math display">\[a_i + 2 c_i + c_{i - 1} + c_{i + 1} = a_{i + 1} + 2 c_{i + 1} + c_i +c_{i + 2} \\(c_i + c_{i - 1}) - (c_{i + 1} + c_{i + 2}) = a_{i + 1} - a_i\]</span> 设 <span class="math inline">\(b_i = c_i + c{i -1}\)</span>，则 <span class="math inline">\(b_{i + 1} = b_i + a_i - a_{i+ 1}\)</span>。<span class="math inline">\(b\)</span>是可求的，那么也就可以推出 <span class="math inline">\(c\)</span>。</p><h3 id="f">F</h3><p>Nim 游戏是<strong>[9]级知识点</strong>，不会。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Codeforces</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>CF1602 题解</title>
     <link href="/2024/11/22/CF1602/"/>
     <url>/2024/11/22/CF1602/</url>
