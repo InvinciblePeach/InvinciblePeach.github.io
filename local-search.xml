@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>NOIP2024 游记</title>
+    <link href="/2024/11/30/NOIP2024/"/>
+    <url>/2024/11/30/NOIP2024/</url>
+    
+    <content type="html"><![CDATA[<h3 id="section">6:40</h3><p>起床。</p><p>本来是可以住在连大附近的宾馆的，但是我觉得早起半个小时吹吹风至少能避免考试犯困。</p><p>Upd: 好像也没啥，毕竟还得坐车。</p><h3 id="section-1">7:50</h3><p>下车，遇到了 <ahref="https://www.luogu.com.cn/user/403084">spark_minous</a>，然后去找<ahref="https://www.luogu.com.cn/user/1147314">snowycat1234</a>。发现他们正在进考场的第一部分队伍里，看了一眼自己考号发现竟然还能站在这里（我站在前40，真的假的），想必一定是因为 LN 弱弱省。</p><h3 id="section-2">8:10</h3><p>进考场，发现了【数据删除】曾说过的传统艺能：女厕改『考生专用』。</p><h3 id="section-3">8:20</h3><p>敲 <code>.vimrc</code>，考前没背，差点忘了。</p><h3 id="section-4">8:30</h3><p>开 T1，感觉可以贪心，注意其实是把 <spanclass="math inline">\(s,t\)</span>分成了几个部分，每一部分随意交换，那么对于任意一个数字，应该优先让他产生贡献最优balabala，手玩发现确实是贪心。</p><p>贪，可劲儿贪，直接贪就贪完了。</p><p>好像细节有亿点点多呢……</p><h3 id="section-5">9:00</h3><p>好，过小样例了！</p><p>测大样例之前突发奇想，发现如果把小样例倒过来可以成一组强度不错的样例。</p><p>艹，假了。</p><p>调，可劲儿调，直接调就调完了。</p><h3 id="section-6">9:30</h3><p>发现如果换一种方式如果只枚举 <span class="math inline">\(s\)</span>上的索引能好一点，果断重构。</p><h3 id="section-7">9:50</h3><p>红温了。</p><h3 id="section-8">10:00</h3><p>果断放弃，看 T2T3T4。</p><p>T2 数数，T3 好不容易看懂了发现是数数，T4 至少有一个简单的式子。</p><p>那么我们先写 T4 的 <span class="math inline">\(\mathcal{O}(n^2 \logn)\)</span> 暴力。</p><h3 id="section-9">10:20</h3><p>诶，大样例 WA 了，怎么会逝呢。</p><h3 id="section-10">11:00</h3><p>nm 我 LCA 写错了。</p><p>增加了一个字符之后过了。</p><p>之后看 T2，毕竟 T3 一眼神秘。</p><p>简单推一推式子，随便写了一个东西胡上去。</p><p>诶，大样例过的点惊人的多，至少没有 WA 飞。</p><p>再推一会式子，看不出来自己哪错了，毕竟我心知肚明自己数数就是一坨。</p><h3 id="section-11">12:10</h3><p>那我们继续看 T1。想了许多做法修正 T1 的问题，好像效力不大。</p><h3 id="section-12">12:40</h3><p>偶然发现如果 <span class="math inline">\(i,j\)</span>符合一种特殊结构那么直接清空 <span class="math inline">\(j\)</span> 的<span class="math inline">\(cnt\)</span> 即可。</p><p>实在不想面对一坨史山。</p><p>来，我们还有 20min，删掉代码，重构！</p><h3 id="section-13">12:55</h3><p>写完了，先跑小样例。</p><p>过了，那么小样例倒着跑。</p><p>过了。诶不对假做法也能过。</p><p>那么我们打印中间变量。</p><p>符合预期，大样例来不及测了，打上文件输入输出直接润。</p><h3 id="总结">总结</h3><p>感觉还行吧，对于现在的我应该也就是这个水平了。</p><p>问题在于不会 T2，可能是自己几乎没上文化课的缘故，大家说是一眼题。</p><p>大概是数数太烂了，要加训数数。</p><p>后来回过神我特殊性质 B 全部 WA了，如果当时好好看一看特殊性质说不定是可以想出正解的。</p><p>但是那样应该 T1 就没办法了吧。</p><p>Upd:</p><figure><img src="/img/截图%202024-11-30%2015-55-08.png"alt="截图 2024-11-30 15-55-08" /><figcaption aria-hidden="true">截图 2024-11-30 15-55-08</figcaption></figure><p>不是怎么就是没想到 st 表呢。</p><p>但是感觉不会 T4 不会卡掉带一个 <spanclass="math inline">\(\log\)</span> 的暴力，感觉（。</p><p>希望 T1 神明保佑能过：</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>游记</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>CF2032 题解</title>
     <link href="/2024/11/24/CF2032/"/>
     <url>/2024/11/24/CF2032/</url>
