@@ -27,7 +27,7 @@
 <meta property="og:description" content="A 将所给的字符串按长度降序排序，最前面的两个一定是最长的前缀与最长的后缀。如果原串是回文的，那么最长前缀一定等于最长后缀的反串。 B 从前往后扫一遍，如果发现 \(a_{i - 1} \mid a_i\)，我们就将 \(a_i \leftarrow a_i + 1\)，此时一定有 \(a_i \bmod a_{i - 1} &#x3D; 1\)。但是当 \(a_{i - 1} &#x3D; 1\) 时，通过改变 \">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-20T05:30:43.000Z">
-<meta property="article:modified_time" content="2024-11-22T07:17:41.199Z">
+<meta property="article:modified_time" content="2024-12-01T04:50:08.883Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="Codeforces">
 <meta name="twitter:card" content="summary_large_image">
@@ -376,15 +376,20 @@ base^{n-2} \bmod p
 <p>注意到这个哈希函数是可以进行换根的。设 <span
 class="math inline">\(fa\)</span> 为 <span
 class="math inline">\(u\)</span> 的根，v 为 <span
-class="math inline">\(u\)</span> 的儿子。 ： - 当我们要去到 <span
-class="math inline">\(v\)</span> 的时候，<span
+class="math inline">\(u\)</span> 的儿子。 ：</p>
+<ul>
+<li>当我们要去到 <span class="math inline">\(v\)</span> 的时候，<span
 class="math inline">\(H_u=H_u-H_v\times base\)</span>。<br />
-- 当我们要回到 <span class="math inline">\(u\)</span> 的时候，<span
+</li>
+<li>当我们要回到 <span class="math inline">\(u\)</span> 的时候，<span
 class="math inline">\(H_u=H_u+H_v\times base\)</span>。<br />
-- 当我们刚到达 <span class="math inline">\(u\)</span> 的时候，<span
+</li>
+<li>当我们刚到达 <span class="math inline">\(u\)</span> 的时候，<span
 class="math inline">\(H_u=H_u+H_{fa}\times base\)</span>。<br />
-- 当我们要离开 <span class="math inline">\(u\)</span> 的时候，<span
-class="math inline">\(H_u=H_u-H_{fa}\times base\)</span>。</p>
+</li>
+<li>当我们要离开 <span class="math inline">\(u\)</span> 的时候，<span
+class="math inline">\(H_u=H_u-H_{fa}\times base\)</span>。</li>
+</ul>
 <p>接下来我们考虑多出来的一个点怎么办，注意到它只会影响 <span
 class="math inline">\(base\)</span>
 的一个幂次，直接将两者的哈希值相减判断即可。</p>

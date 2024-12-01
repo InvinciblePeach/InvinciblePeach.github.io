@@ -27,7 +27,7 @@
 <meta property="og:description" content="扩展欧几里德算法 裴蜀定理 用于求解形如 \(ax + by &#x3D; \gcd(a, b)\) 的等式。这是裴蜀等式，我们接下来的内容可以证明它一定有解。 我们知道： \[ \gcd(a, b) &#x3D; \gcd(b, a \bmod b) \] 那么有： \[ \begin{align} ax + by &amp; &#x3D; \gcd(a, b) \\ &amp; &#x3D; \gcd(b, a \bmod b) \">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-14T11:25:21.000Z">
-<meta property="article:modified_time" content="2024-11-18T13:04:02.935Z">
+<meta property="article:modified_time" content="2024-12-01T04:49:08.224Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数论">
@@ -282,21 +282,25 @@
 <p>用于求解形如 <span class="math inline">\(ax + by = \gcd(a,
 b)\)</span>
 的等式。这是裴蜀等式，我们接下来的内容可以证明它一定有解。</p>
-<p>我们知道： <span class="math display">\[
+<p>我们知道：</p>
+<p><span class="math display">\[
 \gcd(a, b) = \gcd(b, a \bmod b)
 \]</span></p>
-<p>那么有： <span class="math display">\[
+<p>那么有：</p>
+<p><span class="math display">\[
 \begin{align}
 ax + by &amp; = \gcd(a, b) \\
 &amp; = \gcd(b, a \bmod b)
 \end{align}
 \Rightarrow
 bx&#39; + (a \bmod b) y&#39; = \gcd(b, a\bmod b) = \gcd(a, b)
-\]</span> 联系到欧几里德算法的终止条件
-<code>b == 0</code>，此时不难直接得到 <span class="math inline">\(x =
-1\)</span>，<span class="math inline">\(y\)</span>
-取值任意。我们发现，迭代的下一层的解一定比上一层的要早得到，考虑如何转移：
-$$ <span class="math display">\[\begin{align}
+\]</span></p>
+<p>联系到欧几里德算法的终止条件 <code>b == 0</code>，此时不难直接得到
+<span class="math inline">\(x = 1\)</span>，<span
+class="math inline">\(y\)</span>
+取值任意。我们发现，迭代的下一层的解一定比上一层的要早得到，考虑如何转移：</p>
+<p><span class="math display">\[
+\begin{align}
 bx&#39; + (a \bmod b) y&#39; &amp; = bx&#39; + (a - \left\lfloor
 \dfrac{a}{b} \right\rfloor \cdot b) y&#39; \\
 &amp; = bx&#39; + ay&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor
@@ -304,12 +308,14 @@ bx&#39; + (a \bmod b) y&#39; &amp; = bx&#39; + (a - \left\lfloor
 &amp; = ay&#39; + b(x&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor
 \cdot y&#39;) \\
 &amp; = ax + by
-\end{align}\]</span></p>
-<span class="math display">\[\begin{cases}
+\end{align}
+\Rightarrow
+\begin{cases}
 x = y&#39; \\
 y = x&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot y&#39;
-\end{cases}\]</span>
-<p>$$ 实现：</p>
+\end{cases}
+\]</span></p>
+<p>实现：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">exgcd</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b, <span class="hljs-type">int</span> &amp;x, <span class="hljs-type">int</span> &amp;y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>)<br>    &#123;<br>        x = <span class="hljs-number">1</span>, y = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">return</span> a;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span> tmp = <span class="hljs-built_in">exgcd</span>(b, a % b, y, x);<br>    y -= a / b * x;<br>    <span class="hljs-keyword">return</span> tmp;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>如果我们尝试回代，可以发现裴蜀等式一定有解。</p>
 <h4 id="求解同余方程">求解同余方程</h4>
@@ -447,47 +453,49 @@ i$。我们将求和式转为枚举 <span class="math inline">\(\mu(d)\)</span>
 \]</span>
 经过观察我们可以发现狄利克雷卷积满足交换律，结合律，分配律。</p>
 <h4 id="单位元">单位元</h4>
-<p>单位元是满足 <span class="math inline">\((f * \epsilon)(n) =
+<p>单位元是满足 <span class="math inline">\((f * \varepsilon)(n) =
 f(n)\)</span> 的函数，可以证明： <span class="math display">\[
-\epsilon = \mu * 1
+\varepsilon = \mu * 1
 \]</span> 证明： <span class="math display">\[
-(f * \epsilon)(n) = \sum_{d \mid n} f(d) \epsilon \!
+(f * \varepsilon)(n) = \sum_{d \mid n} f(d) \varepsilon \!
 \left(\dfrac{n}{d}\right) = \sum_{d \mid n} f(d) \left[\dfrac{n}{d} =
 1\right]
 \]</span> 根据莫比乌斯函数的性质，得到 <span
-class="math inline">\(\epsilon = \mu * 1\)</span></p>
+class="math inline">\(\varepsilon = \mu * 1\)</span></p>
 <h3 id="莫比乌斯反演">莫比乌斯反演</h3>
 <h4 id="结论">结论</h4>
 <p>若： <span class="math display">\[
 f(n) = (g * 1)(n) = \sum_{d \mid n} g(d)
 \]</span> 那么有： <span class="math display">\[
-g(n) = (\mu * f)(n) = \sum_{d \mid n} \mu(d) f \!
+g(n) = (\mu * f)(n) =\sum_{d \mid n} \mu(d) f \!
 \left(\dfrac{n}{d}\right)
 \]</span></p>
 <h4 id="证明">证明</h4>
 <p>若： <span class="math display">\[
 f = g * 1
 \]</span> 那么： <span class="math display">\[
-\mu * f = \mu * g * 1 = g * \epsilon = g
+\mu * f = \mu * g * 1 = g * \varepsilon = g
 \]</span> Q.E.D.</p>
 <h4 id="常用结论">常用结论</h4>
 <p><span class="math display">\[
 \sum_{i = 1} ^ n \sum_{j = 1} ^ m f(\gcd(i, j))
 \]</span></p>
 <p>构造一个函数 <span class="math inline">\(g\)</span>，满足 <span
-class="math inline">\(f = (g * 1)\)</span>，那么有： <span
-class="math display">\[
+class="math inline">\(f = (g * 1)\)</span>，那么有：</p>
+<p><span class="math display">\[
 \sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)} g(d)
-\]</span> 注意到如果 <span class="math inline">\(d \mid \gcd(i,
+\]</span></p>
+<p>注意到如果 <span class="math inline">\(d \mid \gcd(i,
 j)\)</span>，那么 <span class="math inline">\(d \mid i\)</span> 且 <span
-class="math inline">\(d \mid j\)</span>。因此我们调整求和顺序： <span
-class="math display">\[
+class="math inline">\(d \mid j\)</span>。因此我们调整求和顺序：</p>
+<p><span class="math display">\[
 \sum_{d = 1}^n g(d) \sum_{i = 1} ^ n [d \mid i] \sum_{j = 1} ^ m [d \mid
 j] \\
 \Downarrow \\
 \sum_{d = 1}^n g(d) \left\lfloor \dfrac{n}{d} \right\rfloor \left\lfloor
 \dfrac{m}{d} \right\rfloor
-\]</span> 此时可以数论分块。</p>
+\]</span></p>
+<p>此时可以数论分块。</p>
 
                 
               </div>
