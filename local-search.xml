@@ -4,6 +4,48 @@
   
   
   <entry>
+    <title>数论函数</title>
+    <link href="/2024/12/04/number-theoretic-function/"/>
+    <url>/2024/12/04/number-theoretic-function/</url>
+    
+    <content type="html"><![CDATA[<p>定义：定义域是 <spanclass="math inline">\(\mathbb{Z^+}\)</span>，值域是 <spanclass="math inline">\(\mathbb{C}\)</span> 的函数。</p><h3 id="积性函数">积性函数</h3><p>我们称当 <span class="math inline">\(\gcd(i, j) = 1\)</span> 时满足<span class="math inline">\(f(i \times j) = f(i) \times f(j)\)</span>的数论函数为<strong>积性函数</strong>；称 <spanclass="math inline">\(\forall i, j \in \mathbb{Z^+}\)</span> 满足 <spanclass="math inline">\(f(i \times j) = f(i) \times f(j)\)</span>的数论函数为<strong>完全积性函数</strong>。本文中提到的所有函数均是积性函数，其中单位函数，幂函数是完全积性函数。</p><h3 id="单位函数">单位函数</h3><p><span class="math display">\[\varepsilon(n) = [n = 1]\]</span></p><h3 id="幂函数">幂函数</h3><p><span class="math display">\[\operatorname{Id}_k(n) = n ^ k\]</span></p><h3 id="除数函数">除数函数</h3><p><span class="math display">\[\sigma_k(n) = \sum\limits_{d \mid n} d^k\]</span></p><h3 id="欧拉函数">欧拉函数</h3><p><span class="math display">\[\varphi(n) = \sum\limits_{i = 1}^n [\gcd(i, n) = 1]\]</span></p><p>性质：</p><ul><li><span class="math inline">\(\varphi\)</span> 是积性函数。</li><li><span class="math inline">\(n = \sum\limits_{d \mid n}\varphi(d)\)</span>，也就是说 <span class="math inline">\(\varphi * 1 =\operatorname{Id}_1\)</span>，证明参见狄利克雷卷积。</li><li>若 <span class="math inline">\(n = p^k \mid p \in\mathbb{P}\)</span>，则有 <span class="math inline">\(p^{k - 1}\)</span>个数与 <span class="math inline">\(n\)</span> 不互质，那么 <spanclass="math inline">\(\varphi(n) = p^k - p^{k - 1} = p^{k - 1} \cdot(p -1)\)</span>。</li><li>设 <span class="math inline">\(n = \prod\limits_{i = 1}^k p_i^{c_i}\mid p \in \mathbb{P}\)</span>，则 <spanclass="math inline">\(\varphi(n) = n \prod\limits_{p|n} (1 -\frac{1}{p}) \mid p \in \mathbb{P}\)</span>。</li></ul><h3 id="莫比乌斯函数">莫比乌斯函数</h3><p>莫比乌斯函数 <span class="math inline">\(\mu\)</span> 定义为： <spanclass="math display">\[\mu(n) =\begin{cases}1 &amp; n = 1 \\0 &amp; n \ 含有两个及以上个相同的因子\\(-1) ^ k &amp; k \ 为 \ n \ 本质不同的因数个数\end{cases}\]</span> 容易发现莫比乌斯函数是积性函数，因此可以线性筛求。</p><p>莫比乌斯函数具有以下性质： <span class="math display">\[\sum_{d \mid n} \mu(d) = [n = 1]\]</span> 证明：</p><p>设 <span class="math inline">\(n = \prod\limits_{i = 1}^k p_i^{c_i},n&#39; = \prod\limits_{i = 1}^k p_i\)</span>。那么根据定义，显然有 <spanclass="math inline">\(\sum\limits_{d \mid n} \mu(d) = \sum\limits_{d\mid n&#39;} \mu(d)\)</span>，这是因为右侧中比左侧少统计的 <spanclass="math inline">\(\mu(d)\)</span> 的答案一定为 <spanclass="math inline">\(0\)</span>。统计答案为 <spanclass="math inline">\((-1)^i\)</span> 的答案个数，为 $ ki$。我们将求和式转为枚举 <span class="math inline">\(\mu(d)\)</span>的值，有： <span class="math display">\[\sum_{d \mid n&#39;} \mu(d) = \sum_{i = 0}^k {k \choose i} (-1)^i =\sum_{i = 0}^k {k \choose i} (-1)^i \cdot 1^{k - i}\]</span> 根据二项式定理：上式为 <span class="math inline">\((1 +(-1))^k\)</span>。Q.E.D.</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+      <tag>数论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>二项式专题</title>
+    <link href="/2024/12/04/binomial/"/>
+    <url>/2024/12/04/binomial/</url>
+    
+    <content type="html"><![CDATA[<h3 id="二项式定理">二项式定理</h3><p><span class="math display">\[(a + b) ^ k = \sum_{i = 0}^{k} {k \choose i} a ^ i b ^ {k - i}\]</span></p><p><del>证明是简单的</del>。</p><h3 id="二项式反演">二项式反演</h3><p>二项式反演基本用于容斥问题。结论：</p><p><span class="math display">\[f_n = \sum_{i = 0} ^ n{n \choose i} g_i \Leftrightarrow g_n =\sum_{i =0} ^ n (-1) ^ {n - i}{n \choose i} f_i\]</span></p><p>上式经过推导，我们还可以得到他的另一种常用形式： <spanclass="math display">\[f_n = \sum_{i = n} ^ m {i \choose n}g_i \Leftrightarrow g_n = \sum_{i =n} ^ m (-1) ^ {i - n}{i \choose n} f_i\]</span> 以上内容证明不会。</p><p>第一个式子有一种常用情况：记 <span class="math inline">\(f_n\)</span>表示恰好有 <span class="math inline">\(n\)</span>个不同元素形成了特定结构的方案数；<spanclass="math inline">\(g_n\)</span> 表示从 <spanclass="math inline">\(n\)</span> 个不同元素中选出 <spanclass="math inline">\(i \; (i \ge 0)\)</span>个元素形成特定结构的总方案数。</p><p>如果我们求得了 <spanclass="math inline">\(f_n\)</span>，根据定义可以得到： <spanclass="math display">\[g_n =\sum_{i = 0} ^ n (-1) ^ {n - i}{n \choose i} f_i\]</span> 这时就可以使用二项式反演。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+      <tag>数论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>NOIP2024 游记</title>
     <link href="/2024/11/30/NOIP2024/"/>
     <url>/2024/11/30/NOIP2024/</url>
@@ -99,11 +141,95 @@
   
   
   <entry>
-    <title>数论合集</title>
-    <link href="/2024/11/14/number-theory/"/>
-    <url>/2024/11/14/number-theory/</url>
+    <title>狄利克雷卷积</title>
+    <link href="/2024/11/14/dirichlet/"/>
+    <url>/2024/11/14/dirichlet/</url>
     
-    <content type="html"><![CDATA[<h3 id="扩展欧几里德算法">扩展欧几里德算法</h3><h4 id="裴蜀定理">裴蜀定理</h4><p>用于求解形如 <span class="math inline">\(ax + by = \gcd(a,b)\)</span>的等式。这是裴蜀等式，我们接下来的内容可以证明它一定有解。</p><p>我们知道：</p><p><span class="math display">\[\gcd(a, b) = \gcd(b, a \bmod b)\]</span></p><p>那么有：</p><p><span class="math display">\[\begin{align}ax + by &amp; = \gcd(a, b) \\&amp; = \gcd(b, a \bmod b)\end{align}\Rightarrowbx&#39; + (a \bmod b) y&#39; = \gcd(b, a\bmod b) = \gcd(a, b)\]</span></p><p>联系到欧几里德算法的终止条件 <code>b == 0</code>，此时不难直接得到<span class="math inline">\(x = 1\)</span>，<spanclass="math inline">\(y\)</span>取值任意。我们发现，迭代的下一层的解一定比上一层的要早得到，考虑如何转移：</p><p><span class="math display">\[\begin{align}bx&#39; + (a \bmod b) y&#39; &amp; = bx&#39; + (a - \left\lfloor\dfrac{a}{b} \right\rfloor \cdot b) y&#39; \\&amp; = bx&#39; + ay&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor\cdot b y&#39; \\&amp; = ay&#39; + b(x&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor\cdot y&#39;) \\&amp; = ax + by\end{align}\Rightarrow\begin{cases}x = y&#39; \\y = x&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot y&#39;\end{cases}\]</span></p><p>实现：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">exgcd</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b, <span class="hljs-type">int</span> &amp;x, <span class="hljs-type">int</span> &amp;y)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>)<br>    &#123;<br>        x = <span class="hljs-number">1</span>, y = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">return</span> a;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span> tmp = <span class="hljs-built_in">exgcd</span>(b, a % b, y, x);<br>    y -= a / b * x;<br>    <span class="hljs-keyword">return</span> tmp;<br>&#125;<br></code></pre></td></tr></table></figure><p>如果我们尝试回代，可以发现裴蜀等式一定有解。</p><h4 id="求解同余方程">求解同余方程</h4><p><span class="math display">\[ax \equiv b \pmod m\]</span></p><p>对于上式，可以转化为： <span class="math display">\[ax + km = b\]</span> 设 <span class="math inline">\(d = \dfrac{b}{\gcd(a,m)}\)</span>，对上式两边同除 <spanclass="math inline">\(d\)</span>，得到： <span class="math display">\[a \cdot \dfrac{x}{d} + m \cdot \dfrac{k}{d} = \gcd(a, m)\]</span> 那么我们可以先求出 <spanclass="math inline">\(\dfrac{x}{d}\)</span> 与 <spanclass="math inline">\(\dfrac{k}{d}\)</span>，同乘 <spanclass="math inline">\(d\)</span> 即为原方程解。</p><p>同时，不难发现 <span class="math inline">\(ax \equiv b \pmodm\)</span> 有解的充要条件即为 <span class="math inline">\(\gcd(a, m)\mid b\)</span>。</p><h3 id="扩展中国剩余定理">扩展中国剩余定理</h3><h3 id="二项式反演">二项式反演</h3><p>二项式反演基本用于容斥问题。结论：</p><p><span class="math display">\[f_n = \sum_{i = 0} ^ n{n \choose i} g_i \Leftrightarrow g_n =\sum_{i =0} ^ n (-1) ^ {n - i}{n \choose i} f_i\]</span></p><p>经过上式推导，我们还可以得到他的另一种常用形式： <spanclass="math display">\[f_n = \sum_{i = n} ^ m {i \choose n}g_i \Leftrightarrow g_n = \sum_{i =n} ^ m (-1) ^ {i - n}{i \choose n} f_i\]</span> 以上内容证明不会。</p><p>第一个式子有一种常用情况：记 <span class="math inline">\(f_n\)</span>表示恰好有 <span class="math inline">\(n\)</span>个不同元素形成了特定结构的方案数；<spanclass="math inline">\(g_n\)</span> 表示从 <spanclass="math inline">\(n\)</span> 个不同元素中选出 <spanclass="math inline">\(i \; (i \ge 0)\)</span>个元素形成特定结构的总方案数。</p><p>如果我们求得了 <spanclass="math inline">\(f_n\)</span>，根据定义可以得到： <spanclass="math display">\[g_n =\sum_{i = 0} ^ n (-1) ^ {n - i}{n \choose i} f_i\]</span> 这时就可以使用二项式反演。</p><h3 id="数论分块">数论分块</h3><h4 id="引理">引理</h4><p><span class="math display">\[\forall n \in \mathbb{N},\left| \left\{ \left\lfloor \dfrac{n}{d} \right\rfloor \mid d\in\mathbb{N} \right\} \right|\le \left\lfloor 2 \sqrt n \right\rfloor\]</span> 证明：</p><p>当 <span class="math inline">\(d \le \sqrt n\)</span> 时，最坏情况下<span class="math inline">\(\left\lfloor \dfrac{n}{d}\right\rfloor\)</span> 两两不同，共有 <spanclass="math inline">\(\sqrt{n}\)</span> 种情况；当 <spanclass="math inline">\(d \gt \sqrt n\)</span> 时，<spanclass="math inline">\(\left\lfloor \frac{n}{d}\right\rfloor\)</span>最大为 <span class="math inline">\(\sqrtn\)</span>，最坏情况下 <span class="math inline">\(\left\lfloor\dfrac{n}{d} \right\rfloor\)</span> 两两不同，共有 <spanclass="math inline">\(\sqrt{n}\)</span> 种情况。Q.E.D.</p><p>数论分块主要用来求使得 <span class="math inline">\(\left\lfloor\frac{n}{d} \right\rfloor\)</span> 相同的区间的左右断点。</p><h4 id="两个结论">两个结论</h4><p>那么对于满足 <span class="math inline">\(\left\lfloor \dfrac{n}{i}\right\rfloor = \left\lfloor \dfrac{n}{r} \right\rfloor\)</span> 的极大<span class="math inline">\(r\)</span>，满足： <spanclass="math display">\[r =\left\lfloor \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor}\right\rfloor\]</span> 证明：</p><p>首先有 <span class="math display">\[\begin{cases}\left\lfloor \dfrac{n}{i} \right\rfloor \le \dfrac{n}{r} \\\dfrac{n}{r + 1} &lt; \left\lfloor \dfrac{n}{i} \right\rfloor\end{cases}\]</span> 根据第一行： <span class="math display">\[\left\lfloor \dfrac{n}{i} \right\rfloor \le \dfrac{n}{r}\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \ge\dfrac{n}{\dfrac{n}{r}}\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \ge r\]</span> 根据第二行： <span class="math display">\[\dfrac{n}{r + 1} \lt \left\lfloor \dfrac{n}{i} \right\rfloor\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt\dfrac{n}{\dfrac{n}{r + 1}}\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt r + 1\]</span> 得到： <span class="math display">\[r \le \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt r + 1\]</span> 由于 <span class="math inline">\(r \in\mathbb{Z}\)</span>，得到最大的 <span class="math inline">\(r\)</span>为： <span class="math display">\[\left\lfloor \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor}\right\rfloor\]</span> 同理，我们不难得到那么对于满足 <spanclass="math inline">\(\left\lceil \dfrac{n}{i} \right\rceil =\left\lceil \dfrac{n}{l} \right\rceil\)</span> 的极小 <spanclass="math inline">\(l\)</span>，满足： <span class="math display">\[l =\left\lceil \dfrac{n}{\left\lceil \dfrac{n}{i} \right\rceil}\right\rceil\]</span> 数论分块就是将这些内容分为连续的 <spanclass="math inline">\([l, r]\)</span>并统一计算答案。根据引理，复杂度一般为 <spanclass="math inline">\(\mathcal{O(\sqrt n)}\)</span>。</p><h3 id="莫比乌斯函数">莫比乌斯函数</h3><p>莫比乌斯函数 <span class="math inline">\(\mu\)</span> 定义为： <spanclass="math display">\[\mu(n) =\begin{cases}1 &amp; n = 1 \\0 &amp; n \ 含有两个及以上个相同的因子\\(-1) ^ k &amp; k \ 为 \ n \ 本质不同的因数个数\end{cases}\]</span> 容易发现莫比乌斯函数是积性函数，因此可以线性筛求。</p><p>莫比乌斯函数具有以下性质： <span class="math display">\[\sum_{d \mid n} \mu(d) = [n = 1]\]</span> 证明：</p><p>设 <span class="math inline">\(n = \prod\limits_{i = 1}^k p_i^{c_i},n&#39; = \prod\limits_{i = 1}^k p_i\)</span>。那么根据定义，显然有 <spanclass="math inline">\(\sum\limits_{d \mid n} \mu(d) = \sum\limits_{d\mid n&#39;} \mu(d)\)</span>，这是因为右侧中比左侧少统计的 <spanclass="math inline">\(\mu(d)\)</span> 的答案一定为 <spanclass="math inline">\(0\)</span>。统计答案为 <spanclass="math inline">\((-1)^i\)</span> 的答案个数，为 $ ki$。我们将求和式转为枚举 <span class="math inline">\(\mu(d)\)</span>的值，有： <span class="math display">\[\sum_{d \mid n&#39;} \mu(d) = \sum_{i = 0}^k {k \choose i} (-1)^i =\sum_{i = 0}^k {k \choose i} (-1)^i \cdot 1^{k - i}\]</span> 根据二项式定理：上式为 <span class="math inline">\((1 +(-1))^k\)</span>。Q.E.D.</p><h3 id="狄利克雷卷积">狄利克雷卷积</h3><p>两个数论函数的狄利克雷卷积为： <span class="math display">\[(f * g)(n) = \sum_{d \mid n} f(n) g\!\left(\dfrac{n}{d}\right)\]</span>经过观察我们可以发现狄利克雷卷积满足交换律，结合律，分配律。</p><h4 id="单位元">单位元</h4><p>单位元是满足 <span class="math inline">\((f * \varepsilon)(n) =f(n)\)</span> 的函数，可以证明： <span class="math display">\[\varepsilon = \mu * 1\]</span> 证明： <span class="math display">\[(f * \varepsilon)(n) = \sum_{d \mid n} f(d) \varepsilon \!\left(\dfrac{n}{d}\right) = \sum_{d \mid n} f(d) \left[\dfrac{n}{d} =1\right]\]</span> 根据莫比乌斯函数的性质，得到 <spanclass="math inline">\(\varepsilon = \mu * 1\)</span></p><h3 id="莫比乌斯反演">莫比乌斯反演</h3><h4 id="结论">结论</h4><p>若： <span class="math display">\[f(n) = (g * 1)(n) = \sum_{d \mid n} g(d)\]</span> 那么有： <span class="math display">\[g(n) = (\mu * f)(n) =\sum_{d \mid n} \mu(d) f \!\left(\dfrac{n}{d}\right)\]</span></p><h4 id="证明">证明</h4><p>若： <span class="math display">\[f = g * 1\]</span> 那么： <span class="math display">\[\mu * f = \mu * g * 1 = g * \varepsilon = g\]</span> Q.E.D.</p><h4 id="常用结论">常用结论</h4><p><span class="math display">\[\sum_{i = 1} ^ n \sum_{j = 1} ^ m f(\gcd(i, j))\]</span></p><p>构造一个函数 <span class="math inline">\(g\)</span>，满足 <spanclass="math inline">\(f = (g * 1)\)</span>，那么有：</p><p><span class="math display">\[\sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)} g(d)\]</span></p><p>注意到如果 <span class="math inline">\(d \mid \gcd(i,j)\)</span>，那么 <span class="math inline">\(d \mid i\)</span> 且 <spanclass="math inline">\(d \mid j\)</span>。因此我们调整求和顺序：</p><p><span class="math display">\[\sum_{d = 1}^n g(d) \sum_{i = 1} ^ n [d \mid i] \sum_{j = 1} ^ m [d \midj]\Rightarrow\sum_{d = 1}^n g(d) \left\lfloor \dfrac{n}{d} \right\rfloor \left\lfloor\dfrac{m}{d} \right\rfloor\]</span></p><p>此时可以数论分块。</p>]]></content>
+    <content type="html"><![CDATA[<p>两个数论函数的狄利克雷卷积为： <span class="math display">\[(f * g)(n) = \sum_{d \mid n} f(n) g\!\left(\dfrac{n}{d}\right)\]</span>经过观察我们可以发现狄利克雷卷积满足交换律，结合律，分配律。可以发现除数函数与幂函数满足<span class="math inline">\(1 * \operatorname{Id}_k =\sigma_k\)</span>。特别的，当 <span class="math inline">\(k = 0\)</span>时，有 <span class="math inline">\(\operatorname{Id}_0 =1\)</span>，也就是说 <span class="math inline">\(1 * 1 =\sigma_0\)</span>。</p><h3 id="单位元">单位元</h3><p>单位函数满足 <span class="math inline">\((f * \varepsilon)(n) =f(n)\)</span>，我们称他是狄利克雷函数中的单位元，可以证明： <spanclass="math display">\[\varepsilon = \mu * 1\]</span> 证明： <span class="math display">\[(f * \varepsilon)(n) = \sum_{d \mid n} f(d) \varepsilon \!\left(\dfrac{n}{d}\right) = \sum_{d \mid n} f(d) \left[\dfrac{n}{d} =1\right]\]</span> 根据莫比乌斯函数的性质，得到 <spanclass="math inline">\(\varepsilon = \mu * 1\)</span>。</p><h3 id="逆元">逆元</h3><p>如果有函数 <span class="math inline">\(f, g\)</span>，满足 <spanclass="math inline">\(f * g = \varepsilon\)</span>，那么称 <spanclass="math inline">\(g\)</span> 是 <spanclass="math inline">\(f\)</span> 的狄利克雷逆元。</p><h3 id="重要结论">重要结论</h3><ol type="1"><li><strong>两个积性函数的狄利克雷卷积是积性函数</strong></li><li><strong>积性函数的狄利克雷逆元是积性函数</strong></li></ol>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+      <tag>数论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>扩展欧几里德算法</title>
+    <link href="/2024/11/14/excrt/"/>
+    <url>/2024/11/14/excrt/</url>
+    
+    <content type="html"><![CDATA[<p>没写</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+      <tag>数论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>扩展欧几里德算法</title>
+    <link href="/2024/11/14/exgcd/"/>
+    <url>/2024/11/14/exgcd/</url>
+    
+    <content type="html"><![CDATA[<h3 id="裴蜀定理">裴蜀定理</h3><p>扩展欧几里德算法用于求解形如 <span class="math inline">\(ax + by =\gcd(a, b)\)</span>的等式。这是裴蜀等式，我们接下来的内容可以证明它一定有解。</p><p>我们知道：</p><p><span class="math display">\[\gcd(a, b) = \gcd(b, a \bmod b)\]</span></p><p>那么有：</p><p><span class="math display">\[\begin{align}ax + by &amp; = \gcd(a, b) \\&amp; = \gcd(b, a \bmod b)\end{align}\Rightarrowbx&#39; + (a \bmod b) y&#39; = \gcd(b, a\bmod b) = \gcd(a, b)\]</span></p><p>联系到欧几里德算法的终止条件 <code>b == 0</code>，此时不难直接得到<span class="math inline">\(x = 1\)</span>，<spanclass="math inline">\(y\)</span>取值任意。我们发现，迭代的下一层的解一定比上一层的要早得到，考虑如何转移：</p><p><span class="math display">\[\begin{align}bx&#39; + (a \bmod b) y&#39; &amp; = bx&#39; + (a - \left\lfloor\dfrac{a}{b} \right\rfloor \cdot b) y&#39; \\&amp; = bx&#39; + ay&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor\cdot b y&#39; \\&amp; = ay&#39; + b(x&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor\cdot y&#39;) \\&amp; = ax + by\end{align}\Rightarrow\begin{cases}x = y&#39; \\y = x&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot y&#39;\end{cases}\]</span></p><p>实现：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">exgcd</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b, <span class="hljs-type">int</span> &amp;x, <span class="hljs-type">int</span> &amp;y)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) &#123;<br>        x = <span class="hljs-number">1</span>, y = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">return</span> a;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span> tmp = <span class="hljs-built_in">exgcd</span>(b, a % b, y, x);<br>    y -= a / b * x;<br>    <span class="hljs-keyword">return</span> tmp;<br>&#125;<br></code></pre></td></tr></table></figure><p>如果我们尝试回代，可以发现裴蜀等式一定有解。</p><h3 id="求解同余方程">求解同余方程</h3><p><span class="math display">\[ax \equiv b \pmod m\]</span></p><p>对于上式，可以转化为： <span class="math display">\[ax + km = b\]</span> 设 <span class="math inline">\(d = \dfrac{b}{\gcd(a,m)}\)</span>，对上式两边同除 <spanclass="math inline">\(d\)</span>，得到： <span class="math display">\[a \cdot \dfrac{x}{d} + m \cdot \dfrac{k}{d} = \gcd(a, m)\]</span> 那么我们可以先求出 <spanclass="math inline">\(\dfrac{x}{d}\)</span> 与 <spanclass="math inline">\(\dfrac{k}{d}\)</span>，同乘 <spanclass="math inline">\(d\)</span> 即为原方程解。</p><p>同时，不难发现 <span class="math inline">\(ax \equiv b \pmodm\)</span> 有解的充要条件即为 <span class="math inline">\(\gcd(a, m)\mid b\)</span>。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+      <tag>数论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>莫比乌斯反演</title>
+    <link href="/2024/11/14/mobius/"/>
+    <url>/2024/11/14/mobius/</url>
+    
+    <content type="html"><![CDATA[<h3 id="莫比乌斯反演">莫比乌斯反演</h3><h4 id="结论">结论</h4><p>若： <span class="math display">\[f(n) = (g * 1)(n) = \sum_{d \mid n} g(d)\]</span> 那么有： <span class="math display">\[g(n) = (\mu * f)(n) =\sum_{d \mid n} \mu(d) f \!\left(\dfrac{n}{d}\right)\]</span></p><h4 id="证明">证明</h4><p>若： <span class="math display">\[f = g * 1\]</span> 那么： <span class="math display">\[\mu * f = \mu * g * 1 = g * \varepsilon = g\]</span> Q.E.D.</p><h4 id="常用结论">常用结论</h4><p><span class="math display">\[\sum_{i = 1} ^ n \sum_{j = 1} ^ m f(\gcd(i, j))\]</span></p><p>构造一个函数 <span class="math inline">\(g\)</span>，满足 <spanclass="math inline">\(f = (g * 1)\)</span>，那么有：</p><p><span class="math display">\[\sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)} g(d)\]</span></p><p>注意到如果 <span class="math inline">\(d \mid \gcd(i,j)\)</span>，那么 <span class="math inline">\(d \mid i\)</span> 且 <spanclass="math inline">\(d \mid j\)</span>。因此我们调整求和顺序：</p><p><span class="math display">\[\sum_{d = 1}^n g(d) \sum_{i = 1} ^ n [d \mid i] \sum_{j = 1} ^ m [d \midj]\Rightarrow\sum_{d = 1}^n g(d) \left\lfloor \dfrac{n}{d} \right\rfloor \left\lfloor\dfrac{m}{d} \right\rfloor\]</span></p><p>此时可以数论分块。</p><h5 id="例-1">例 1</h5><p><span class="math display">\[\sum_{i = 1}^n \sum_{i = 1}^n \gcd(i, j)\]</span></p><p>可以发现他等价于： <span class="math display">\[\begin{aligned}&amp; \sum_{i = 1}^n \sum_{i = 1}^n \operatorname{Id}(\gcd(i, j)) \\= &amp; \sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)}\varphi(d) \\= &amp; \sum_{d = 1}^n \varphi(d) \left\lfloor \dfrac{n}{d}\right\rfloor \left\lfloor \dfrac{m}{d} \right\rfloor\end{aligned}\]</span></p><h5 id="例-2">例 2</h5><p><span class="math display">\[\begin{aligned}&amp; \sum_{i = 1}^n \sum_{i = 1}^n [\gcd(i, j) = 1] \\= &amp; \sum_{i = 1}^n \sum_{i = 1}^n \varepsilon(\gcd(i, j)) \\= &amp; \sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)}\mu(d) \\= &amp; \sum_{d = 1}^n \mu(d) \left\lfloor \dfrac{n}{d} \right\rfloor\left\lfloor \dfrac{m}{d} \right\rfloor\end{aligned}\]</span></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+      <tag>数论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>数论分块</title>
+    <link href="/2024/11/14/sqrt-decomposition/"/>
+    <url>/2024/11/14/sqrt-decomposition/</url>
+    
+    <content type="html"><![CDATA[<h3 id="引理">引理</h3><p><span class="math display">\[\forall n \in \mathbb{N},\left| \left\{ \left\lfloor \dfrac{n}{d} \right\rfloor \mid d\in\mathbb{N} \right\} \right|\le \left\lfloor 2 \sqrt n \right\rfloor\]</span></p><p>证明：</p><p>当 <span class="math inline">\(d \le \sqrt n\)</span> 时，最坏情况下<span class="math inline">\(\left\lfloor \dfrac{n}{d}\right\rfloor\)</span> 两两不同，共有 <spanclass="math inline">\(\sqrt{n}\)</span> 种情况；当 <spanclass="math inline">\(d \gt \sqrt n\)</span> 时，<spanclass="math inline">\(\left\lfloor \frac{n}{d}\right\rfloor\)</span>最大为 <span class="math inline">\(\sqrtn\)</span>，最坏情况下 <span class="math inline">\(\left\lfloor\dfrac{n}{d} \right\rfloor\)</span> 两两不同，共有 <spanclass="math inline">\(\sqrt{n}\)</span> 种情况。Q.E.D.</p><p>数论分块主要用来求使得 <span class="math inline">\(\left\lfloor\frac{n}{d} \right\rfloor\)</span> 相同的区间的左右断点。</p><h3 id="两个结论">两个结论</h3><p>那么对于满足 <span class="math inline">\(\left\lfloor \dfrac{n}{i}\right\rfloor = \left\lfloor \dfrac{n}{r} \right\rfloor\)</span> 的极大<span class="math inline">\(r\)</span>，满足： <spanclass="math display">\[r =\left\lfloor \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor}\right\rfloor\]</span> 证明：</p><p>首先有 <span class="math display">\[\begin{cases}\left\lfloor \dfrac{n}{i} \right\rfloor \le \dfrac{n}{r} \\\dfrac{n}{r + 1} &lt; \left\lfloor \dfrac{n}{i} \right\rfloor\end{cases}\]</span> 根据第一行： <span class="math display">\[\left\lfloor \dfrac{n}{i} \right\rfloor \le \dfrac{n}{r}\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \ge\dfrac{n}{\dfrac{n}{r}}\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \ge r\]</span> 根据第二行： <span class="math display">\[\dfrac{n}{r + 1} \lt \left\lfloor \dfrac{n}{i} \right\rfloor\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt\dfrac{n}{\dfrac{n}{r + 1}}\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt r + 1\]</span> 得到： <span class="math display">\[r \le \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt r + 1\]</span> 由于 <span class="math inline">\(r \in\mathbb{Z}\)</span>，得到最大的 <span class="math inline">\(r\)</span>为： <span class="math display">\[\left\lfloor \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor}\right\rfloor\]</span> 同理，我们不难得到那么对于满足 <spanclass="math inline">\(\left\lceil \dfrac{n}{i} \right\rceil =\left\lceil \dfrac{n}{l} \right\rceil\)</span> 的极小 <spanclass="math inline">\(l\)</span>，满足： <span class="math display">\[l =\left\lceil \dfrac{n}{\left\lceil \dfrac{n}{i} \right\rceil}\right\rceil\]</span> 数论分块就是将这些内容分为连续的 <spanclass="math inline">\([l, r]\)</span>并统一计算答案，广泛运用于莫比乌斯反演中。根据引理，复杂度一般为 <spanclass="math inline">\(\mathcal{O(\sqrt n)}\)</span>。</p><h3 id="section"></h3>]]></content>
     
     
     

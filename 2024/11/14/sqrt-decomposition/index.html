@@ -19,24 +19,23 @@
   <meta name="author" content="Kurisu ncjjdr05">
   <meta name="keywords" content="">
   
-    <meta name="description" content="6:40 起床。 本来是可以住在连大附近的宾馆的，但是我觉得早起半个小时吹吹风至少能避免考试犯困。 Upd: 好像也没啥，毕竟还得坐车。 7:50 下车，遇到了 spark_minous，然后去找 snowycat1234。发现他们正在进考场的第一部分队伍里，看了一眼自己考号发现竟然还能站在这里（我站在前 40，真的假的），想必一定是因为 LN 弱弱省。 8:10 进考场，发现了【数据删除】曾说过">
+    <meta name="description" content="引理 \[ \forall n \in \mathbb{N}, \left| \left\{ \left\lfloor \dfrac{n}{d} \right\rfloor \mid d\in \mathbb{N} \right\} \right| \le \left\lfloor 2 \sqrt n \right\rfloor \] 证明： 当 \(d \le \sqrt n\) 时，最坏情况下">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NOIP2024 游记">
-<meta property="og:url" content="http://example.com/2024/11/30/NOIP2024/index.html">
+<meta property="og:title" content="数论分块">
+<meta property="og:url" content="http://example.com/2024/11/14/sqrt-decomposition/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="6:40 起床。 本来是可以住在连大附近的宾馆的，但是我觉得早起半个小时吹吹风至少能避免考试犯困。 Upd: 好像也没啥，毕竟还得坐车。 7:50 下车，遇到了 spark_minous，然后去找 snowycat1234。发现他们正在进考场的第一部分队伍里，看了一眼自己考号发现竟然还能站在这里（我站在前 40，真的假的），想必一定是因为 LN 弱弱省。 8:10 进考场，发现了【数据删除】曾说过">
+<meta property="og:description" content="引理 \[ \forall n \in \mathbb{N}, \left| \left\{ \left\lfloor \dfrac{n}{d} \right\rfloor \mid d\in \mathbb{N} \right\} \right| \le \left\lfloor 2 \sqrt n \right\rfloor \] 证明： 当 \(d \le \sqrt n\) 时，最坏情况下">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/%E6%88%AA%E5%9B%BE%202024-11-30%2015-55-08.png">
-<meta property="article:published_time" content="2024-11-30T06:59:41.000Z">
-<meta property="article:modified_time" content="2024-12-01T04:48:33.720Z">
+<meta property="article:published_time" content="2024-11-14T11:25:21.000Z">
+<meta property="article:modified_time" content="2024-12-04T11:56:44.615Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
-<meta property="article:tag" content="游记">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="数论">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/%E6%88%AA%E5%9B%BE%202024-11-30%2015-55-08.png">
   
   
   
-  <title>NOIP2024 游记 - Hexo</title>
+  <title>数论分块 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="NOIP2024 游记"></span>
+            <span id="subtitle" data-typed-text="数论分块"></span>
           
         </div>
 
@@ -213,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-30 14:59" pubdate>
-          2024年11月30日 下午
+        <time datetime="2024-11-14 19:25" pubdate>
+          2024年11月14日 晚上
         </time>
       </span>
     
@@ -225,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          798 字
+          431 字
         
       </span>
     
@@ -236,7 +235,7 @@
         
         
         
-          7 分钟
+          4 分钟
         
       </span>
     
@@ -273,87 +272,74 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">NOIP2024 游记</h1>
+            <h1 id="seo-header">数论分块</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="section">6:40</h3>
-<p>起床。</p>
-<p>本来是可以住在连大附近的宾馆的，但是我觉得早起半个小时吹吹风至少能避免考试犯困。</p>
-<p>Upd: 好像也没啥，毕竟还得坐车。</p>
-<h3 id="section-1">7:50</h3>
-<p>下车，遇到了 <a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/403084">spark_minous</a>，然后去找
-<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/1147314">snowycat1234</a>。发现他们正在进考场的第一部分队伍里，看了一眼自己考号发现竟然还能站在这里（我站在前
-40，真的假的），想必一定是因为 LN 弱弱省。</p>
-<h3 id="section-2">8:10</h3>
-<p>进考场，发现了【数据删除】曾说过的传统艺能：女厕改『考生专用』。</p>
-<h3 id="section-3">8:20</h3>
-<p>敲 <code>.vimrc</code>，考前没背，差点忘了。</p>
-<h3 id="section-4">8:30</h3>
-<p>开 T1，感觉可以贪心，注意其实是把 <span
-class="math inline">\(s,t\)</span>
-分成了几个部分，每一部分随意交换，那么对于任意一个数字，应该优先让他产生贡献最优
-balabala，手玩发现确实是贪心。</p>
-<p>贪，可劲儿贪，直接贪就贪完了。</p>
-<p>好像细节有亿点点多呢……</p>
-<h3 id="section-5">9:00</h3>
-<p>好，过小样例了！</p>
-<p>测大样例之前突发奇想，发现如果把小样例倒过来可以成一组强度不错的样例。</p>
-<p>艹，假了。</p>
-<p>调，可劲儿调，直接调就调完了。</p>
-<h3 id="section-6">9:30</h3>
-<p>发现如果换一种方式如果只枚举 <span class="math inline">\(s\)</span>
-上的索引能好一点，果断重构。</p>
-<h3 id="section-7">9:50</h3>
-<p>红温了。</p>
-<h3 id="section-8">10:00</h3>
-<p>果断放弃，看 T2T3T4。</p>
-<p>T2 数数，T3 好不容易看懂了发现是数数，T4 至少有一个简单的式子。</p>
-<p>那么我们先写 T4 的 <span class="math inline">\(\mathcal{O}(n^2 \log
-n)\)</span> 暴力。</p>
-<h3 id="section-9">10:20</h3>
-<p>诶，大样例 WA 了，怎么会逝呢。</p>
-<h3 id="section-10">11:00</h3>
-<p>nm 我 LCA 写错了。</p>
-<p>增加了一个字符之后过了。</p>
-<p>之后看 T2，毕竟 T3 一眼神秘。</p>
-<p>简单推一推式子，随便写了一个东西胡上去。</p>
-<p>诶，大样例过的点惊人的多，至少没有 WA 飞。</p>
-<p>再推一会式子，看不出来自己哪错了，毕竟我心知肚明自己数数就是一坨。</p>
-<h3 id="section-11">12:10</h3>
-<p>那我们继续看 T1。想了许多做法修正 T1 的问题，好像效力不大。</p>
-<h3 id="section-12">12:40</h3>
-<p>偶然发现如果 <span class="math inline">\(i,j\)</span>
-符合一种特殊结构那么直接清空 <span class="math inline">\(j\)</span> 的
-<span class="math inline">\(cnt\)</span> 即可。</p>
-<p>实在不想面对一坨史山。</p>
-<p>来，我们还有 20min，删掉代码，重构！</p>
-<h3 id="section-13">12:55</h3>
-<p>写完了，先跑小样例。</p>
-<p>过了，那么小样例倒着跑。</p>
-<p>过了。诶不对假做法也能过。</p>
-<p>那么我们打印中间变量。</p>
-<p>符合预期，大样例来不及测了，打上文件输入输出直接润。</p>
-<h3 id="总结">总结</h3>
-<p>感觉还行吧，对于现在的我应该也就是这个水平了。</p>
-<p>问题在于不会 T2，可能是自己几乎没上文化课的缘故，大家说是一眼题。</p>
-<p>大概是数数太烂了，要加训数数。</p>
-<p>后来回过神我特殊性质 B 全部 WA
-了，如果当时好好看一看特殊性质说不定是可以想出正解的。</p>
-<p>但是那样应该 T1 就没办法了吧。</p>
-<p>Upd:</p>
-<figure>
-<img src="/img/截图%202024-11-30%2015-55-08.png" srcset="/img/loading.gif" lazyload
-alt="截图 2024-11-30 15-55-08" />
-<figcaption aria-hidden="true">截图 2024-11-30 15-55-08</figcaption>
-</figure>
-<p>不是怎么就是没想到 st 表呢。</p>
-<p>但是感觉不会 T4 不会卡掉带一个 <span
-class="math inline">\(\log\)</span> 的暴力，感觉（。</p>
-<p>希望 T1 神明保佑能过。</p>
+                <h3 id="引理">引理</h3>
+<p><span class="math display">\[
+\forall n \in \mathbb{N},
+\left| \left\{ \left\lfloor \dfrac{n}{d} \right\rfloor \mid d\in
+\mathbb{N} \right\} \right|
+\le \left\lfloor 2 \sqrt n \right\rfloor
+\]</span></p>
+<p>证明：</p>
+<p>当 <span class="math inline">\(d \le \sqrt n\)</span> 时，最坏情况下
+<span class="math inline">\(\left\lfloor \dfrac{n}{d}
+\right\rfloor\)</span> 两两不同，共有 <span
+class="math inline">\(\sqrt{n}\)</span> 种情况；当 <span
+class="math inline">\(d \gt \sqrt n\)</span> 时，<span
+class="math inline">\(\left\lfloor \frac{n}{d}
+\right\rfloor\)</span>最大为 <span class="math inline">\(\sqrt
+n\)</span>，最坏情况下 <span class="math inline">\(\left\lfloor
+\dfrac{n}{d} \right\rfloor\)</span> 两两不同，共有 <span
+class="math inline">\(\sqrt{n}\)</span> 种情况。Q.E.D.</p>
+<p>数论分块主要用来求使得 <span class="math inline">\(\left\lfloor
+\frac{n}{d} \right\rfloor\)</span> 相同的区间的左右断点。</p>
+<h3 id="两个结论">两个结论</h3>
+<p>那么对于满足 <span class="math inline">\(\left\lfloor \dfrac{n}{i}
+\right\rfloor = \left\lfloor \dfrac{n}{r} \right\rfloor\)</span> 的极大
+<span class="math inline">\(r\)</span>，满足： <span
+class="math display">\[
+r =
+\left\lfloor \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor}
+\right\rfloor
+\]</span> 证明：</p>
+<p>首先有 <span class="math display">\[
+\begin{cases}
+\left\lfloor \dfrac{n}{i} \right\rfloor \le \dfrac{n}{r} \\
+\dfrac{n}{r + 1} &lt; \left\lfloor \dfrac{n}{i} \right\rfloor
+\end{cases}
+\]</span> 根据第一行： <span class="math display">\[
+\left\lfloor \dfrac{n}{i} \right\rfloor \le \dfrac{n}{r}
+\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \ge
+\dfrac{n}{\dfrac{n}{r}}
+\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \ge r
+\]</span> 根据第二行： <span class="math display">\[
+\dfrac{n}{r + 1} \lt \left\lfloor \dfrac{n}{i} \right\rfloor
+\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt
+\dfrac{n}{\dfrac{n}{r + 1}}
+\Rightarrow \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt r + 1
+\]</span> 得到： <span class="math display">\[
+r \le \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor} \lt r + 1
+\]</span> 由于 <span class="math inline">\(r \in
+\mathbb{Z}\)</span>，得到最大的 <span class="math inline">\(r\)</span>
+为： <span class="math display">\[
+\left\lfloor \dfrac{n}{\left\lfloor \dfrac{n}{i} \right\rfloor}
+\right\rfloor
+\]</span> 同理，我们不难得到那么对于满足 <span
+class="math inline">\(\left\lceil \dfrac{n}{i} \right\rceil =
+\left\lceil \dfrac{n}{l} \right\rceil\)</span> 的极小 <span
+class="math inline">\(l\)</span>，满足： <span class="math display">\[
+l =
+\left\lceil \dfrac{n}{\left\lceil \dfrac{n}{i} \right\rceil}
+\right\rceil
+\]</span> 数论分块就是将这些内容分为连续的 <span
+class="math inline">\([l, r]\)</span>
+并统一计算答案，广泛运用于莫比乌斯反演中。根据引理，复杂度一般为 <span
+class="math inline">\(\mathcal{O(\sqrt n)}\)</span>。</p>
+<h3 id="section"></h3>
 
                 
               </div>
@@ -366,7 +352,9 @@ class="math inline">\(\log\)</span> 的暴力，感觉（。</p>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%B8%B8%E8%AE%B0/" class="print-no-link">#游记</a>
+        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
+      
+        <a href="/tags/%E6%95%B0%E8%AE%BA/" class="print-no-link">#数论</a>
       
     </div>
   
@@ -378,8 +366,8 @@ class="math inline">\(\log\)</span> 的暴力，感觉（。</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>NOIP2024 游记</div>
-      <div>http://example.com/2024/11/30/NOIP2024/</div>
+      <div>数论分块</div>
+      <div>http://example.com/2024/11/14/sqrt-decomposition/</div>
     </div>
     <div class="license-meta">
       
@@ -391,7 +379,7 @@ class="math inline">\(\log\)</span> 的暴力，感觉（。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年11月30日</div>
+          <div>2024年11月14日</div>
         </div>
       
       
@@ -423,9 +411,9 @@ class="math inline">\(\log\)</span> 的暴力，感觉（。</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/12/04/binomial/" title="二项式专题">
+                      <a href="/2024/11/14/mobius/" title="莫比乌斯反演">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">二项式专题</span>
+                        <span class="hidden-mobile">莫比乌斯反演</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -433,8 +421,8 @@ class="math inline">\(\log\)</span> 的暴力，感觉（。</p>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/24/CF2032/" title="CF2032 题解">
-                        <span class="hidden-mobile">CF2032 题解</span>
+                      <a href="/2024/11/12/CF1935/" title="CF1935 题解">
+                        <span class="hidden-mobile">CF1935 题解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
