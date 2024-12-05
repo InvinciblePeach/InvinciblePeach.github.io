@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>莫比乌斯反演</title>
+    <link href="/2024/12/05/mobius/"/>
+    <url>/2024/12/05/mobius/</url>
+    
+    <content type="html"><![CDATA[<h3 id="莫比乌斯反演">莫比乌斯反演</h3><h4 id="结论">结论</h4><p>若： <span class="math display">\[f(n) = (g * 1)(n) = \sum_{d \mid n} g(d)\]</span> 那么有： <span class="math display">\[g(n) = (\mu * f)(n) =\sum_{d \mid n} \mu(d) f \!\left(\dfrac{n}{d}\right)\]</span></p><h4 id="证明">证明</h4><p>若： <span class="math display">\[f = g * 1\]</span> 那么： <span class="math display">\[\mu * f = \mu * g * 1 = g * \varepsilon = g\]</span> Q.E.D.</p><h4 id="常用结论">常用结论</h4><p><span class="math display">\[\sum_{i = 1} ^ n \sum_{j = 1} ^ m f(\gcd(i, j))\]</span></p><p>构造一个函数 <span class="math inline">\(g\)</span>，满足 <spanclass="math inline">\(f = (g * 1)\)</span>，那么有：</p><p><span class="math display">\[\sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)} g(d)\]</span></p><p>注意到如果 <span class="math inline">\(d \mid \gcd(i,j)\)</span>，那么 <span class="math inline">\(d \mid i\)</span> 且 <spanclass="math inline">\(d \mid j\)</span>。因此我们调整求和顺序：</p><p><span class="math display">\[\sum_{d = 1}^n g(d) \sum_{i = 1} ^ n [d \mid i] \sum_{j = 1} ^ m [d \midj]\Rightarrow\sum_{d = 1}^n g(d) \left\lfloor \dfrac{n}{d} \right\rfloor \left\lfloor\dfrac{m}{d} \right\rfloor\]</span></p><p>此时可以数论分块。</p><h5 id="例-1">例 1</h5><p><span class="math display">\[\sum_{i = 1}^n \sum_{i = 1}^n \gcd(i, j)\]</span></p><p>可以发现他等价于： <span class="math display">\[\begin{aligned}&amp; \sum_{i = 1}^n \sum_{i = 1}^n \operatorname{Id}(\gcd(i, j)) \\= &amp; \sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)}\varphi(d) \\= &amp; \sum_{d = 1}^n \varphi(d) \left\lfloor \dfrac{n}{d}\right\rfloor \left\lfloor \dfrac{m}{d} \right\rfloor\end{aligned}\]</span></p><h5 id="例-2">例 2</h5><p><span class="math display">\[\begin{aligned}&amp; \sum_{i = 1}^n \sum_{i = 1}^n [\gcd(i, j) = 1] \\= &amp; \sum_{i = 1}^n \sum_{i = 1}^n \varepsilon(\gcd(i, j)) \\= &amp; \sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)}\mu(d) \\= &amp; \sum_{d = 1}^n \mu(d) \left\lfloor \dfrac{n}{d} \right\rfloor\left\lfloor \dfrac{m}{d} \right\rfloor\end{aligned}\]</span></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+      <tag>数论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>狄利克雷卷积</title>
     <link href="/2024/12/04/dirichlet/"/>
     <url>/2024/12/04/dirichlet/</url>
@@ -188,27 +209,6 @@
     <url>/2024/11/14/exgcd/</url>
     
     <content type="html"><![CDATA[<h3 id="裴蜀定理">裴蜀定理</h3><p>扩展欧几里德算法用于求解形如 <span class="math inline">\(ax + by =\gcd(a, b)\)</span>的等式。这是裴蜀等式，我们接下来的内容可以证明它一定有解。</p><p>我们知道：</p><p><span class="math display">\[\gcd(a, b) = \gcd(b, a \bmod b)\]</span></p><p>那么有：</p><p><span class="math display">\[\begin{align}ax + by &amp; = \gcd(a, b) \\&amp; = \gcd(b, a \bmod b)\end{align}\Rightarrowbx&#39; + (a \bmod b) y&#39; = \gcd(b, a\bmod b) = \gcd(a, b)\]</span></p><p>联系到欧几里德算法的终止条件 <code>b == 0</code>，此时不难直接得到<span class="math inline">\(x = 1\)</span>，<spanclass="math inline">\(y\)</span>取值任意。我们发现，迭代的下一层的解一定比上一层的要早得到，考虑如何转移：</p><p><span class="math display">\[\begin{align}bx&#39; + (a \bmod b) y&#39; &amp; = bx&#39; + (a - \left\lfloor\dfrac{a}{b} \right\rfloor \cdot b) y&#39; \\&amp; = bx&#39; + ay&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor\cdot b y&#39; \\&amp; = ay&#39; + b(x&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor\cdot y&#39;) \\&amp; = ax + by\end{align}\Rightarrow\begin{cases}x = y&#39; \\y = x&#39; - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot y&#39;\end{cases}\]</span></p><p>实现：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">exgcd</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b, <span class="hljs-type">int</span> &amp;x, <span class="hljs-type">int</span> &amp;y)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) &#123;<br>        x = <span class="hljs-number">1</span>, y = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">return</span> a;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span> tmp = <span class="hljs-built_in">exgcd</span>(b, a % b, y, x);<br>    y -= a / b * x;<br>    <span class="hljs-keyword">return</span> tmp;<br>&#125;<br></code></pre></td></tr></table></figure><p>如果我们尝试回代，可以发现裴蜀等式一定有解。</p><h3 id="求解同余方程">求解同余方程</h3><p><span class="math display">\[ax \equiv b \pmod m\]</span></p><p>对于上式，可以转化为： <span class="math display">\[ax + km = b\]</span> 设 <span class="math inline">\(d = \dfrac{b}{\gcd(a,m)}\)</span>，对上式两边同除 <spanclass="math inline">\(d\)</span>，得到： <span class="math display">\[a \cdot \dfrac{x}{d} + m \cdot \dfrac{k}{d} = \gcd(a, m)\]</span> 那么我们可以先求出 <spanclass="math inline">\(\dfrac{x}{d}\)</span> 与 <spanclass="math inline">\(\dfrac{k}{d}\)</span>，同乘 <spanclass="math inline">\(d\)</span> 即为原方程解。</p><p>同时，不难发现 <span class="math inline">\(ax \equiv b \pmodm\)</span> 有解的充要条件即为 <span class="math inline">\(\gcd(a, m)\mid b\)</span>。</p>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>数学</tag>
-      
-      <tag>数论</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>莫比乌斯反演</title>
-    <link href="/2024/11/14/mobius/"/>
-    <url>/2024/11/14/mobius/</url>
-    
-    <content type="html"><![CDATA[<h3 id="莫比乌斯反演">莫比乌斯反演</h3><h4 id="结论">结论</h4><p>若： <span class="math display">\[f(n) = (g * 1)(n) = \sum_{d \mid n} g(d)\]</span> 那么有： <span class="math display">\[g(n) = (\mu * f)(n) =\sum_{d \mid n} \mu(d) f \!\left(\dfrac{n}{d}\right)\]</span></p><h4 id="证明">证明</h4><p>若： <span class="math display">\[f = g * 1\]</span> 那么： <span class="math display">\[\mu * f = \mu * g * 1 = g * \varepsilon = g\]</span> Q.E.D.</p><h4 id="常用结论">常用结论</h4><p><span class="math display">\[\sum_{i = 1} ^ n \sum_{j = 1} ^ m f(\gcd(i, j))\]</span></p><p>构造一个函数 <span class="math inline">\(g\)</span>，满足 <spanclass="math inline">\(f = (g * 1)\)</span>，那么有：</p><p><span class="math display">\[\sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)} g(d)\]</span></p><p>注意到如果 <span class="math inline">\(d \mid \gcd(i,j)\)</span>，那么 <span class="math inline">\(d \mid i\)</span> 且 <spanclass="math inline">\(d \mid j\)</span>。因此我们调整求和顺序：</p><p><span class="math display">\[\sum_{d = 1}^n g(d) \sum_{i = 1} ^ n [d \mid i] \sum_{j = 1} ^ m [d \midj]\Rightarrow\sum_{d = 1}^n g(d) \left\lfloor \dfrac{n}{d} \right\rfloor \left\lfloor\dfrac{m}{d} \right\rfloor\]</span></p><p>此时可以数论分块。</p><h5 id="例-1">例 1</h5><p><span class="math display">\[\sum_{i = 1}^n \sum_{i = 1}^n \gcd(i, j)\]</span></p><p>可以发现他等价于： <span class="math display">\[\begin{aligned}&amp; \sum_{i = 1}^n \sum_{i = 1}^n \operatorname{Id}(\gcd(i, j)) \\= &amp; \sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)}\varphi(d) \\= &amp; \sum_{d = 1}^n \varphi(d) \left\lfloor \dfrac{n}{d}\right\rfloor \left\lfloor \dfrac{m}{d} \right\rfloor\end{aligned}\]</span></p><h5 id="例-2">例 2</h5><p><span class="math display">\[\begin{aligned}&amp; \sum_{i = 1}^n \sum_{i = 1}^n [\gcd(i, j) = 1] \\= &amp; \sum_{i = 1}^n \sum_{i = 1}^n \varepsilon(\gcd(i, j)) \\= &amp; \sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)}\mu(d) \\= &amp; \sum_{d = 1}^n \mu(d) \left\lfloor \dfrac{n}{d} \right\rfloor\left\lfloor \dfrac{m}{d} \right\rfloor\end{aligned}\]</span></p>]]></content>
     
     
     
