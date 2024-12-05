@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>狄利克雷卷积</title>
+    <link href="/2024/12/04/dirichlet/"/>
+    <url>/2024/12/04/dirichlet/</url>
+    
+    <content type="html"><![CDATA[<p>两个数论函数的狄利克雷卷积为： <span class="math display">\[(f * g)(n) = \sum_{d \mid n} f(n) g\!\left(\dfrac{n}{d}\right)\]</span>经过观察我们可以发现狄利克雷卷积满足交换律，结合律，分配律。</p><h3 id="单位元">单位元</h3><p>单位函数满足 <span class="math inline">\((f * \varepsilon)(n) =f(n)\)</span>，我们称他是狄利克雷函数中的单位元，可以证明： <spanclass="math display">\[\varepsilon = \mu * 1\]</span> 证明： <span class="math display">\[(f * \varepsilon)(n) = \sum_{d \mid n} f(d) \varepsilon \!\left(\dfrac{n}{d}\right) = \sum_{d \mid n} f(d) \left[\dfrac{n}{d} =1\right]\]</span> 根据莫比乌斯函数的性质，得到 <spanclass="math inline">\(\varepsilon = \mu * 1\)</span>。</p><h3 id="结合数论函数">结合数论函数</h3><ul><li><p>除数函数与幂函数满足 <span class="math inline">\(1 *\operatorname{Id}_k = \sigma_k\)</span>。特别的，当 <spanclass="math inline">\(k = 0\)</span> 时，有 <spanclass="math inline">\(\operatorname{Id}_0 = 1\)</span>，也就是说 <spanclass="math inline">\(1 * 1 = \sigma_0\)</span>。</p></li><li><p>欧拉函数与恒等函数满足 <span class="math inline">\(\varphi * 1 =\operatorname{Id}_1\)</span>。证明：</p><p>首先考虑特殊情况，<span class="math inline">\(n =p^m\)</span>，那么有： <span class="math display">\[  \begin{align}  (\varphi * 1)(p^m) &amp; = \sum_{d \mid n} \varphi(d)\\  &amp; = \varphi(1) + \sum_{k = 1}^m \varphi(p^k)\\  &amp; = 1 + \sum_{k = 1}^m p^k - p^{k - 1}\\  &amp; = p^m  \end{align}  \]</span> 因为 <span class="math inline">\(\varphi * 1\)</span>是积性函数，根据唯一分解定理，对于任意正整数，都有： <spanclass="math display">\[  \begin{align}  (\varphi * 1)(n) &amp; = \prod_{i = 1}^k (\varphi * 1)(p_i^{c_i})\\  &amp; = \prod_{i = 1}^k p_i^{c_i}\\  &amp; = n  \end{align}  \]</span> Q.E.D.</p></li><li><p>结合上一条，有 <span class="math inline">\(\varphi =\operatorname{Id}_1 * \mu\)</span>。</p></li></ul><h3 id="逆元">逆元</h3><p>如果有函数 <span class="math inline">\(f, g\)</span>，满足 <spanclass="math inline">\(f * g = \varepsilon\)</span>，那么称 <spanclass="math inline">\(g\)</span> 是 <spanclass="math inline">\(f\)</span> 的狄利克雷逆元。</p><h3 id="重要结论">重要结论</h3><ol type="1"><li><strong>两个积性函数的狄利克雷卷积是积性函数</strong></li><li><strong>积性函数的狄利克雷逆元是积性函数</strong></li></ol>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+      <tag>数论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>数论函数</title>
     <link href="/2024/12/04/number-theoretic-function/"/>
     <url>/2024/12/04/number-theoretic-function/</url>
@@ -29,7 +50,7 @@
     <link href="/2024/12/04/binomial/"/>
     <url>/2024/12/04/binomial/</url>
     
-    <content type="html"><![CDATA[<h3 id="二项式定理">二项式定理</h3><p><span class="math display">\[(a + b) ^ k = \sum_{i = 0}^{k} {k \choose i} a ^ i b ^ {k - i}\]</span></p><p><del>证明是简单的</del>。</p><h3 id="二项式反演">二项式反演</h3><p>二项式反演基本用于容斥问题。结论：</p><p><span class="math display">\[f_n = \sum_{i = 0} ^ n{n \choose i} g_i \Leftrightarrow g_n =\sum_{i =0} ^ n (-1) ^ {n - i}{n \choose i} f_i\]</span></p><p>上式经过推导，我们还可以得到他的另一种常用形式： <spanclass="math display">\[f_n = \sum_{i = n} ^ m {i \choose n}g_i \Leftrightarrow g_n = \sum_{i =n} ^ m (-1) ^ {i - n}{i \choose n} f_i\]</span> 以上内容证明不会。</p><p>第一个式子有一种常用情况：记 <span class="math inline">\(f_n\)</span>表示恰好有 <span class="math inline">\(n\)</span>个不同元素形成了特定结构的方案数；<spanclass="math inline">\(g_n\)</span> 表示从 <spanclass="math inline">\(n\)</span> 个不同元素中选出 <spanclass="math inline">\(i \; (i \ge 0)\)</span>个元素形成特定结构的总方案数。</p><p>如果我们求得了 <spanclass="math inline">\(f_n\)</span>，根据定义可以得到： <spanclass="math display">\[g_n =\sum_{i = 0} ^ n (-1) ^ {n - i}{n \choose i} f_i\]</span> 这时就可以使用二项式反演。</p>]]></content>
+    <content type="html"><![CDATA[<h3 id="二项式定理">二项式定理</h3><p><span class="math display">\[(a + b) ^ k = \sum_{i = 0}^{k} {k \choose i} a ^ i b ^ {k - i}\]</span></p><p><del>证明是简单的</del>。</p><h3 id="二项式反演">二项式反演</h3><p>二项式反演基本用于容斥问题。结论：</p><p><span class="math display">\[f_n = \sum_{i = 0} ^ n{n \choose i} g_i \Leftrightarrow g_n =\sum_{i =0} ^ n (-1) ^ {n - i}{n \choose i} f_i\]</span></p><p>上式经过推导，我们还可以得到他的另一种常用形式： <spanclass="math display">\[f_n = \sum_{i = n} ^ m {i \choose n}g_i \Leftrightarrow g_n = \sum_{i =n} ^ m (-1) ^ {i - n}{i \choose n} f_i\]</span> 以上内容证明不会。</p><p>第一个式子有一种常用情况：记 <span class="math inline">\(f_n\)</span>表示恰好有 <span class="math inline">\(n\)</span>个不同元素形成了特定结构的方案数；<spanclass="math inline">\(g_n\)</span> 表示从 <spanclass="math inline">\(n\)</span> 个不同元素中选出 <spanclass="math inline">\(i \; (i \ge 0)\)</span>个元素形成特定结构的总方案数。</p><p>如果我们求得了 <spanclass="math inline">\(f_n\)</span>，根据定义可以得到： <spanclass="math display">\[g_n =\sum_{i = 0} ^ n (-1) ^ {n - i}{n \choose i} f_i\]</span> 这时就可以使用二项式反演。</p><h3 id="例题-cf285e">例题 CF285E</h3><p>设<strong>钦定</strong>有 <span class="math inline">\(m\)</span>部分符合要求的方案数为 <spanclass="math inline">\(f(m)\)</span>，<strong>恰好</strong>有 <spanclass="math inline">\(m\)</span> 部分符合要求的方案数为 <spanclass="math inline">\(g(m)\)</span>，那么有： <spanclass="math display">\[f(m) = \sum_{i = m}^n {i \choose m} g(i)\]</span> 其中 <span class="math inline">\(i \choose m\)</span>指的是枚举 <span class="math inline">\(f(m)\)</span> 的 <spanclass="math inline">\(m\)</span> 个数分别代表了 <spanclass="math inline">\(g(i)\)</span> 中 <spanclass="math inline">\(i\)</span> 个位置的哪 <spanclass="math inline">\(m\)</span> 个。这个时候我们二项式反演： <spanclass="math display">\[g(m) = \sum_{i = m}^n (-1)^{i - m} {i \choose m} f(i)\]</span> 就可以通过 <span class="math inline">\(f\)</span> 得到答案<span class="math inline">\(g(m)\)</span>。</p><p>函数 <span class="math inline">\(f\)</span> 可以通过 dp求得。具体的，设 <span class="math inline">\(dp_{i, j, 0/1,0/1}\)</span> 表示考虑到前 <span class="math inline">\(i\)</span>个数，有 <span class="math inline">\(j\)</span> 部分满足要求，<spanclass="math inline">\(i/i + 1\)</span> 选或不选，转移：</p><ul><li>当前位置是完美数，选 <span class="math inline">\(i -1\)</span>；</li><li>当前位置是完美数，选 <span class="math inline">\(i +1\)</span>；</li><li>当前位置不是完美数。</li></ul><p>以上三种情况分类讨论即可。得到 <span class="math inline">\(f(i) =dp_{n, m, 0, 0} + dp_{n, m, 1, 0}\)</span>。</p>]]></content>
     
     
     
@@ -133,27 +154,6 @@
     <tags>
       
       <tag>Codeforces</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>狄利克雷卷积</title>
-    <link href="/2024/11/14/dirichlet/"/>
-    <url>/2024/11/14/dirichlet/</url>
-    
-    <content type="html"><![CDATA[<p>两个数论函数的狄利克雷卷积为： <span class="math display">\[(f * g)(n) = \sum_{d \mid n} f(n) g\!\left(\dfrac{n}{d}\right)\]</span>经过观察我们可以发现狄利克雷卷积满足交换律，结合律，分配律。</p><h3 id="单位元">单位元</h3><p>单位函数满足 <span class="math inline">\((f * \varepsilon)(n) =f(n)\)</span>，我们称他是狄利克雷函数中的单位元，可以证明： <spanclass="math display">\[\varepsilon = \mu * 1\]</span> 证明： <span class="math display">\[(f * \varepsilon)(n) = \sum_{d \mid n} f(d) \varepsilon \!\left(\dfrac{n}{d}\right) = \sum_{d \mid n} f(d) \left[\dfrac{n}{d} =1\right]\]</span> 根据莫比乌斯函数的性质，得到 <spanclass="math inline">\(\varepsilon = \mu * 1\)</span>。</p><h3 id="结合数论函数">结合数论函数</h3><ul><li><p>除数函数与幂函数满足 <span class="math inline">\(1 *\operatorname{Id}_k = \sigma_k\)</span>。特别的，当 <spanclass="math inline">\(k = 0\)</span> 时，有 <spanclass="math inline">\(\operatorname{Id}_0 = 1\)</span>，也就是说 <spanclass="math inline">\(1 * 1 = \sigma_0\)</span>。</p></li><li><p>欧拉函数与恒等函数满足 <span class="math inline">\(\varphi * 1 =\operatorname{Id}_1\)</span>。证明：</p><p>首先考虑特殊情况，<span class="math inline">\(n =p^m\)</span>，那么有： <span class="math display">\[  \begin{align}  (\varphi * 1)(p^m) &amp; = \sum_{d \mid n} \varphi(d)\\  &amp; = \varphi(1) + \sum_{k = 1}^m \varphi(p^k)\\  &amp; = 1 + \sum_{k = 1}^m p^k - p^{k - 1}\\  &amp; = p^m  \end{align}  \]</span> 因为 <span class="math inline">\(\varphi * 1\)</span>是积性函数，根据唯一分解定理，对于任意正整数，都有： <spanclass="math display">\[  \begin{align}  (\varphi * 1)(n) &amp; = \prod_{i = 1}^k (\varphi * 1)(p_i^{c_i})\\  &amp; = \prod_{i = 1}^k p_i^{c_i}\\  &amp; = n  \end{align}  \]</span> Q.E.D.</p></li><li><p>结合上一条，有 <span class="math inline">\(\varphi =\operatorname{Id}_1 * \mu\)</span>。</p></li></ul><h3 id="逆元">逆元</h3><p>如果有函数 <span class="math inline">\(f, g\)</span>，满足 <spanclass="math inline">\(f * g = \varepsilon\)</span>，那么称 <spanclass="math inline">\(g\)</span> 是 <spanclass="math inline">\(f\)</span> 的狄利克雷逆元。</p><h3 id="重要结论">重要结论</h3><ol type="1"><li><strong>两个积性函数的狄利克雷卷积是积性函数</strong></li><li><strong>积性函数的狄利克雷逆元是积性函数</strong></li></ol>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>数学</tag>
-      
-      <tag>数论</tag>
       
     </tags>
     
