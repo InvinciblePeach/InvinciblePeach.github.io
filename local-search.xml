@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>计数奇妙题</title>
+    <link href="/2024/12/06/counts/"/>
+    <url>/2024/12/06/counts/</url>
+    
+    <content type="html"><![CDATA[<h3 id="cf285e">CF285E</h3><p>设<strong>钦定</strong>有 <span class="math inline">\(m\)</span>部分符合要求的方案数为 <spanclass="math inline">\(f(m)\)</span>，<strong>恰好</strong>有 <spanclass="math inline">\(m\)</span> 部分符合要求的方案数为 <spanclass="math inline">\(g(m)\)</span>，那么有： <spanclass="math display">\[f(m) = \sum_{i = m}^n {i \choose m} g(i)\]</span> 其中 <span class="math inline">\(i \choose m\)</span>指的是枚举 <span class="math inline">\(f(m)\)</span> 的 <spanclass="math inline">\(m\)</span> 个数分别代表了 <spanclass="math inline">\(g(i)\)</span> 中 <spanclass="math inline">\(i\)</span> 个位置的哪 <spanclass="math inline">\(m\)</span> 个。这个时候我们二项式反演： <spanclass="math display">\[g(m) = \sum_{i = m}^n (-1)^{i - m} {i \choose m} f(i)\]</span> 就可以通过 <span class="math inline">\(f\)</span> 得到答案<span class="math inline">\(g(m)\)</span>。</p><p>函数 <span class="math inline">\(f\)</span> 可以通过 dp求得。具体的，设 <span class="math inline">\(dp_{i, j, 0/1,0/1}\)</span> 表示考虑到前 <span class="math inline">\(i\)</span>个数，有 <span class="math inline">\(j\)</span> 部分满足要求，<spanclass="math inline">\(i/i + 1\)</span> 选或不选，转移：</p><ul><li>当前位置是完美数，选 <span class="math inline">\(i -1\)</span>；</li><li>当前位置是完美数，选 <span class="math inline">\(i +1\)</span>；</li><li>当前位置不是完美数。</li></ul><p>以上三种情况分类讨论即可。得到 <span class="math inline">\(f(i) =dp_{n, m, 0, 0} + dp_{n, m, 1, 0}\)</span>。</p><h3 id="agc024e">AGC024E</h3><p>正难则反，考虑我们已经有了长度为 <spanclass="math inline">\(n\)</span> 的 <spanclass="math inline">\(A_n\)</span>，相当于每一次删去一个字符，并且字典序单调递减。考虑什么时候字典序会增加，那么就是删掉的<span class="math inline">\(s_i &lt; s_{i + 1}\)</span>。设 <spanclass="math inline">\(f_{i, j}\)</span> 表示长度为 <spanclass="math inline">\(i\)</span> 的串、使用的字符集大小为 <spanclass="math inline">\([1, j]\)</span>，在转移时我们枚举 <spanclass="math inline">\(1\)</span> 的位置，假设他在第 <spanclass="math inline">\(p\)</span> 个时刻后被删除，那么有： <spanclass="math display">\[\begin{align}f_{i, j} &amp; = \sum_{k = 1}^i \sum_{p = i - k + 1}^i f_{k - 1, j - 1}\cdot f_{i-k, j} {p - 1 \choose i - k} \\&amp; = \sum_{k = 1}^i f_{k - 1, j - 1} \cdot f_{i-k, j} \sum_{p = i - k+ 1}^i{ p - 1 \choose i - k}\end{align}\]</span> 后面这部分可以预处理+前缀和。</p><h3 id="agc013d">AGC013D</h3><p>神秘题。</p><p>一共有四种操作，如果以当前操作次数 <spanclass="math inline">\(i\)</span> 为 <spanclass="math inline">\(x\)</span> 轴，当前盒子中白球的数量 <spanclass="math inline">\(j\)</span> 为 <spanclass="math inline">\(y\)</span> 轴，作出图像，我们发现 <spanclass="math inline">\(f_{i, j}\)</span> 可以向 <spanclass="math inline">\(f_{i + 1, j + 1}, f_{i + 1, j}, f_{i + 1, j -1}\)</span> 转移（注意 <span class="math inline">\(f_{i + 1, j}\)</span>会被两种不同的操作转移到，这对应了两种生成序列，因此要统计两次）。进一步的，我们发现不同的图像对应的生成序列不同，相同的图像无论如何上下移动对应的生成序列一定都是相同的。解决办法是只需要统计最靠下的图像即可，换句话说就是图像中存在某个点<span class="math inline">\((x, 0)\)</span>的图像就要统计在最终答案中。注意有一种向 <spanclass="math inline">\(f_{i + 1, j}\)</span>转移的情况在转移过程中也会出现 <span class="math inline">\((x,0)\)</span> 的情况，不要忘记统计。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>组合</tag>
+      
+      <tag>计数</tag>
+      
+      <tag>DP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>莫比乌斯反演</title>
     <link href="/2024/12/05/mobius/"/>
     <url>/2024/12/05/mobius/</url>
@@ -183,11 +206,11 @@
   
   
   <entry>
-    <title>扩展欧几里德算法</title>
+    <title>扩展中国剩余算法</title>
     <link href="/2024/11/14/excrt/"/>
     <url>/2024/11/14/excrt/</url>
     
-    <content type="html"><![CDATA[<p>没写</p>]]></content>
+    <content type="html"><![CDATA[<h3 id="中国剩余定理孙子定理">中国剩余定理（孙子定理）</h3><blockquote><p>「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？</p></blockquote><p>中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。</p><h4 id="过程">过程</h4><ol type="1"><li>求出所有模数之积 <span class="math inline">\(M\)</span>；</li><li>对于第 <span class="math inline">\(i\)</span> 个方程：<ol type="1"><li>计算 <span class="math inline">\(k_i = \frac{M}{m_i}\)</span>；</li><li>计算 <span class="math inline">\(k_i\)</span> 在 <spanclass="math inline">\(\bmod n\)</span> 意义下的逆元 <spanclass="math inline">\(k_i^{-1}\)</span>；</li><li>计算 <span class="math inline">\(c_i = k_i k_i^{-1}\)</span>。</li></ol></li><li>同余方程组在 <span class="math inline">\(\bmod n\)</span>意义下的唯一解为 <span class="math inline">\(x \equiv \sum_{i = 1}^k a_ic_i \pmod n\)</span>。</li></ol><h4 id="证明">证明</h4><p>首先证明 <span class="math inline">\(x\)</span> 对于任意 <spanclass="math inline">\(i\)</span> 均满足 <span class="math inline">\(x\equiv a_i \pmod {m_i}\)</span>。当 <span class="math inline">\(i \neqj\)</span>，有 <span class="math inline">\(k_j \equiv 0 \pmod{m_i}\)</span>，故 <span class="math inline">\(c_j \equiv k_i \equiv 0\pmod {m_i}\)</span>，同时 <span class="math inline">\(c_i \equiv k_ik_i^{-1}  \equiv 1 \pmod {m_i}\)</span>。 <span class="math display">\[\begin{align}x &amp; \equiv \sum_{i = 1}^k a_i c_i &amp; \pmod {m_i}\\&amp; \equiv a_i c_i &amp; \pmod {m_i}\\&amp; \equiv a_i k_i k_i^{-1} &amp; \pmod {m_i}\\&amp; \equiv a_i &amp; \pmod {m_i}\\\end{align}\]</span> 唯一性可以通过剩余系 + 模数全部互质证明。</p>]]></content>
     
     
     
@@ -345,7 +368,7 @@
     <link href="/2024/10/29/log/"/>
     <url>/2024/10/29/log/</url>
     
-    <content type="html"><![CDATA[<p>这是 tjy 的 github.io，目前是第 3 次爆炸 + 重建。</p><table><thead><tr><th>时间</th><th>事件</th></tr></thead><tbody><tr><td>2022.8.30</td><td>建站</td></tr><tr><td>2022.?</td><td>爆炸力，重建力</td></tr><tr><td>2022.?</td><td>又爆炸力，又重建力</td></tr><tr><td>2024.10.29</td><td>源代码丢力，重建力</td></tr><tr><td>2024.10.31</td><td>ayer 不维护了，主题换成了 <ahref="https://github.com/fluid-dev/hexo-theme-fluid">fluid</a></td></tr></tbody></table>]]></content>
+    <content type="html"><![CDATA[<p>这是 tjy 的 github.io，目前是第 3 次爆炸 + 重建。</p><table><thead><tr><th>时间</th><th>事件</th></tr></thead><tbody><tr><td>2022.8.30</td><td>建站</td></tr><tr><td>2022.?</td><td>爆炸力，重建力</td></tr><tr><td>2022.?</td><td>又爆炸力，又重建力</td></tr><tr><td>2024.10.29</td><td>源代码丢力，重建力</td></tr><tr><td>2024.10.31</td><td>ayer 不维护了，主题换成了 <ahref="https://github.com/fluid-dev/hexo-theme-fluid">Fluid</a></td></tr></tbody></table>]]></content>
     
     
     

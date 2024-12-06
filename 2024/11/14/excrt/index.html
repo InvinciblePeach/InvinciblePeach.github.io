@@ -19,15 +19,15 @@
   <meta name="author" content="Kurisu ncjjdr05">
   <meta name="keywords" content="">
   
-    <meta name="description" content="没写">
+    <meta name="description" content="中国剩余定理（孙子定理）  「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？  中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。 过程  求出所有模数之积 \(M\)； 对于第 \(i\) 个方程：  计算 \(k_i &#x3D; \frac{M}{m_i}\)； 计算 \(k_i\) 在 \(\bmod n\) 意义下的逆元 \(k">
 <meta property="og:type" content="article">
-<meta property="og:title" content="扩展欧几里德算法">
+<meta property="og:title" content="扩展中国剩余算法">
 <meta property="og:url" content="http://example.com/2024/11/14/excrt/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="没写">
+<meta property="og:description" content="中国剩余定理（孙子定理）  「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？  中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。 过程  求出所有模数之积 \(M\)； 对于第 \(i\) 个方程：  计算 \(k_i &#x3D; \frac{M}{m_i}\)； 计算 \(k_i\) 在 \(\bmod n\) 意义下的逆元 \(k">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-14T11:25:21.000Z">
-<meta property="article:modified_time" content="2024-12-04T12:18:16.022Z">
+<meta property="article:modified_time" content="2024-12-05T13:31:39.408Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数论">
@@ -35,7 +35,7 @@
   
   
   
-  <title>扩展欧几里德算法 - Hexo</title>
+  <title>扩展中国剩余算法 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="扩展欧几里德算法"></span>
+            <span id="subtitle" data-typed-text="扩展中国剩余算法"></span>
           
         </div>
 
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2 字
+          237 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -272,12 +272,46 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">扩展欧几里德算法</h1>
+            <h1 id="seo-header">扩展中国剩余算法</h1>
             
             
               <div class="markdown-body">
                 
-                <p>没写</p>
+                <h3 id="中国剩余定理孙子定理">中国剩余定理（孙子定理）</h3>
+<blockquote>
+<p>「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？</p>
+</blockquote>
+<p>中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。</p>
+<h4 id="过程">过程</h4>
+<ol type="1">
+<li>求出所有模数之积 <span class="math inline">\(M\)</span>；</li>
+<li>对于第 <span class="math inline">\(i\)</span> 个方程：
+<ol type="1">
+<li>计算 <span class="math inline">\(k_i = \frac{M}{m_i}\)</span>；</li>
+<li>计算 <span class="math inline">\(k_i\)</span> 在 <span
+class="math inline">\(\bmod n\)</span> 意义下的逆元 <span
+class="math inline">\(k_i^{-1}\)</span>；</li>
+<li>计算 <span class="math inline">\(c_i = k_i k_i^{-1}\)</span>。</li>
+</ol></li>
+<li>同余方程组在 <span class="math inline">\(\bmod n\)</span>
+意义下的唯一解为 <span class="math inline">\(x \equiv \sum_{i = 1}^k a_i
+c_i \pmod n\)</span>。</li>
+</ol>
+<h4 id="证明">证明</h4>
+<p>首先证明 <span class="math inline">\(x\)</span> 对于任意 <span
+class="math inline">\(i\)</span> 均满足 <span class="math inline">\(x
+\equiv a_i \pmod {m_i}\)</span>。当 <span class="math inline">\(i \neq
+j\)</span>，有 <span class="math inline">\(k_j \equiv 0 \pmod
+{m_i}\)</span>，故 <span class="math inline">\(c_j \equiv k_i \equiv 0
+\pmod {m_i}\)</span>，同时 <span class="math inline">\(c_i \equiv k_i
+k_i^{-1}  \equiv 1 \pmod {m_i}\)</span>。 <span class="math display">\[
+\begin{align}
+x &amp; \equiv \sum_{i = 1}^k a_i c_i &amp; \pmod {m_i}\\
+&amp; \equiv a_i c_i &amp; \pmod {m_i}\\
+&amp; \equiv a_i k_i k_i^{-1} &amp; \pmod {m_i}\\
+&amp; \equiv a_i &amp; \pmod {m_i}\\
+\end{align}
+\]</span> 唯一性可以通过剩余系 + 模数全部互质证明。</p>
 
                 
               </div>
@@ -304,7 +338,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>扩展欧几里德算法</div>
+      <div>扩展中国剩余算法</div>
       <div>http://example.com/2024/11/14/excrt/</div>
     </div>
     <div class="license-meta">
