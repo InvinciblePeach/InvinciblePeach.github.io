@@ -27,7 +27,7 @@
 <meta property="og:description" content="中国剩余定理（孙子定理）  「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？  中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。 过程  求出所有模数之积 \(M\)； 对于第 \(i\) 个方程：  计算 \(k_i &#x3D; \frac{M}{m_i}\)； 计算 \(k_i\) 在 \(\bmod n\) 意义下的逆元 \(k">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-14T11:25:21.000Z">
-<meta property="article:modified_time" content="2024-12-05T13:31:39.408Z">
+<meta property="article:modified_time" content="2024-12-06T13:02:11.110Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数论">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          237 字
+          731 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          2 分钟
+          7 分钟
         
       </span>
     
@@ -302,7 +302,7 @@ c_i \pmod n\)</span>。</li>
 class="math inline">\(i\)</span> 均满足 <span class="math inline">\(x
 \equiv a_i \pmod {m_i}\)</span>。当 <span class="math inline">\(i \neq
 j\)</span>，有 <span class="math inline">\(k_j \equiv 0 \pmod
-{m_i}\)</span>，故 <span class="math inline">\(c_j \equiv k_i \equiv 0
+{m_i}\)</span>，故 <span class="math inline">\(c_j \equiv k_j \equiv 0
 \pmod {m_i}\)</span>，同时 <span class="math inline">\(c_i \equiv k_i
 k_i^{-1}  \equiv 1 \pmod {m_i}\)</span>。 <span class="math display">\[
 \begin{align}
@@ -311,7 +311,83 @@ x &amp; \equiv \sum_{i = 1}^k a_i c_i &amp; \pmod {m_i}\\
 &amp; \equiv a_i k_i k_i^{-1} &amp; \pmod {m_i}\\
 &amp; \equiv a_i &amp; \pmod {m_i}\\
 \end{align}
-\]</span> 唯一性可以通过剩余系 + 模数全部互质证明。</p>
+\]</span> 唯一性可以通过剩余系 +
+模数全部互质证明。注意到如果模数间不互质，<span
+class="math inline">\(k_j \equiv 0 \pmod {m_i}\)</span> 不成立，<span
+class="math inline">\(x\)</span> 中除了 <span
+class="math inline">\(i\)</span>
+以外的部分无法完全消除，会导致答案错误。</p>
+<h3 id="扩展中国剩余定理">扩展中国剩余定理</h3>
+<p>exCRT
+用于处理模数不两两互质的情况。这里我们考虑将两个同余方程合并成一个，满足新同余方程的解就是旧同余方程的解，并且做到不重不漏。</p>
+<p>考虑以下同余方程组： <span class="math display">\[
+\begin{cases}
+x \equiv a_1 \pmod {m_1}\\
+x \equiv a_2 \pmod {m_2}\\
+\end{cases}
+\]</span> 等价于： <span class="math display">\[
+x = a_1 + m_1 k_1 = a_2 + m_2 k_2
+\]</span> 调整一下： <span class="math display">\[
+m_1 k_1 - m_2 k_2 = a_2 - a_1
+\]</span></p>
+<p>不难发现这是一个同余方程，设 <span class="math inline">\(d =
+\gcd(m_1, m_2),p_i = \dfrac{m_i}{d}\)</span>，那么有： <span
+class="math display">\[
+p_1 k_1 - p_2 k_2 = \dfrac{a_2 - a_1}{d}
+\]</span> 我们可以用 exgcd 求： <span class="math display">\[
+\lambda_1 p_1 + \lambda_2 p_2 = 1
+\]</span> 得到：</p>
+<p><span class="math display">\[
+\begin{cases}
+k_1 = \dfrac{\lambda_i (a_2 - a_1)}{d}\\
+k_2 = -\dfrac{\lambda_i (a_2 - a_1)}{d}
+\end{cases}
+\]</span> 这样我们就可以求得一个特解 <span
+class="math inline">\(x&#39;\)</span>，通过剩余系，我们还可以证明两个方程的通解为
+<span class="math inline">\(x&#39; + k\operatorname{lcm}(m_1,
+m_2)\)</span>。也就是说，新的方程即为： <span class="math display">\[
+x \equiv x&#39; \pmod {\operatorname{lcm}(m_1, m_2)}
+\]</span> 实际的做法如下：</p>
+<ol type="1">
+<li><p>假设已经求得前 <span class="math inline">\(i - 1\)</span>
+个方程的解 <span class="math inline">\(ans\)</span>；</p></li>
+<li><p>设 <span class="math inline">\(M = \operatorname{lcm}(m_1, m_2,
+\cdots m_{i - 1})\)</span>，则有 <span class="math inline">\(\forall
+a_{i} \in \mathbb{Z},ans + Mx\)</span> 是前 <span
+class="math inline">\(i-1\)</span> 个方程的通解；</p></li>
+<li><p>想要得到前 <span class="math inline">\(i\)</span>
+个方程的通解，就是要找到一个 <span class="math inline">\(x\)</span> 满足
+<span class="math inline">\(ans + Mx \equiv a_i \pmod
+{m_i}\)</span>；</p></li>
+<li><p>移项得到 <span class="math inline">\(Mx \equiv a_i - ans \pmod
+{m_i}\)</span>；</p></li>
+<li><p>转化成 exgcd 的基本形式： <span class="math display">\[
+M x + k m_i = a_i - ans
+\]</span></p></li>
+</ol>
+<h3 id="扩展扩展中国剩余定理雾">扩展扩展中国剩余定理（雾</h3>
+<p>实际上是<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4774">[NOI2018]屠龙勇士</a>啦。</p>
+<p>我们来考虑有系数 <span class="math inline">\(b_i\)</span>
+的情况：</p>
+<ol type="1">
+<li><p>假设已经求得前 <span class="math inline">\(i - 1\)</span>
+个方程的解 <span class="math inline">\(ans\)</span>；</p></li>
+<li><p>设 <span class="math inline">\(M = \operatorname{lcm}(m_1, m_2,
+\cdots m_{i - 1})\)</span>，则有 <span class="math inline">\(\forall
+a_{i} \in \mathbb{Z},ans + Mx\)</span> 是前 <span
+class="math inline">\(i-1\)</span> 个方程的通解；</p></li>
+<li><p>想要得到前 <span class="math inline">\(i\)</span>
+个方程的通解，就是要找到一个 <span class="math inline">\(x\)</span> 满足
+<span class="math inline">\(b_i(ans + Mx) \equiv a_i \pmod
+{m_i}\)</span>；</p></li>
+<li><p>移项得到 <span class="math inline">\(b_i Mx \equiv a_i - b_i ans
+\pmod {m_i}\)</span>；</p></li>
+<li><p>转化成 exgcd 的基本形式： <span class="math display">\[
+b_i M x + k m_i = a_i - b_ians
+\]</span></p></li>
+</ol>
+<p>两者如出一辙。</p>
 
                 
               </div>

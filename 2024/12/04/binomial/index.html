@@ -27,7 +27,7 @@
 <meta property="og:description" content="二项式定理 \[ (a + b) ^ k &#x3D; \sum_{i &#x3D; 0}^{k} {k \choose i} a ^ i b ^ {k - i} \] 证明是简单的。 二项式反演 二项式反演基本用于容斥问题。结论： \[ f_n &#x3D; \sum_{i &#x3D; 0} ^ n{n \choose i} g_i \Leftrightarrow g_n &#x3D;\sum_{i &#x3D; 0} ^ n (-1) ^ {n -">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-04T11:45:30.000Z">
-<meta property="article:modified_time" content="2024-12-05T10:40:21.606Z">
+<meta property="article:modified_time" content="2024-12-06T02:46:17.761Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数论">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          439 字
+          632 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          4 分钟
+          6 分钟
         
       </span>
     
@@ -337,6 +337,31 @@ class="math inline">\(i/i + 1\)</span> 选或不选，转移：</p>
 </ul>
 <p>以上三种情况分类讨论即可。得到 <span class="math inline">\(f(i) =
 dp_{n, m, 0, 0} + dp_{n, m, 1, 0}\)</span>。</p>
+<h3 id="例题-p1259">例题 P1259</h3>
+<p>直接求最多有 <span class="math inline">\(k\)</span>
+对的方案是困难的，注意到 <span class="math inline">\(k\)</span>
+不大，那么我们设 <span class="math inline">\(f(k)\)</span> 表示恰好有
+<span class="math inline">\(k\)</span> 对满足条件的方案数，最终答案就是
+<span class="math inline">\(\sum_{i = 0}^{k} f(i)\)</span>。对于 <span
+class="math inline">\(f(i)\)</span>，可以二项式反演，设 <span
+class="math inline">\(g(k)\)</span> 表示钦定有 <span
+class="math inline">\(k\)</span>
+对满足条件的方案数。如果将男女按身高降序排序，那么对于男生 <span
+class="math inline">\(i\)</span>，有长度为 <span
+class="math inline">\(num_i\)</span> 的前缀女生满足选他可以使位置 <span
+class="math inline">\(i\)</span> 符合条件，并且 <span
+class="math inline">\(num_i\)</span> 是单调递增的。设 <span
+class="math inline">\(dp_{i, j}\)</span> 表示钦定前 <span
+class="math inline">\(i\)</span> 个人，有 <span
+class="math inline">\(j\)</span> 个位置满足条件。那么转移有：</p>
+<ul>
+<li><span class="math inline">\(dp_{i - 1, j} \times (num_i - j)
+\rightarrow dp_{i, j + 1}\)</span>；</li>
+<li><span class="math inline">\(dp_{i - 1, j} \rightarrow dp_{i,
+j}\)</span>。</li>
+</ul>
+<p>同时 <span class="math inline">\(dp_{n, i} \times (n - i)! =
+g(i)\)</span>。</p>
 
                 
               </div>
