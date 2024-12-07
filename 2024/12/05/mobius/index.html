@@ -27,7 +27,7 @@
 <meta property="og:description" content="结论 若： \[ f(n) &#x3D; (g * 1)(n) &#x3D; \sum_{d \mid n} g(d) \] 那么有： \[ g(n) &#x3D; (\mu * f)(n) &#x3D;\sum_{d \mid n} \mu(d) f \! \left(\dfrac{n}{d}\right) \] 证明 若： \[ f &#x3D; g * 1 \] 那么： \[ \mu * f &#x3D; \mu * g * 1 &#x3D; g * \var">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-05T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-06T07:12:58.241Z">
+<meta property="article:modified_time" content="2024-12-07T03:57:00.453Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数论">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          661 字
+          1.5k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          6 分钟
+          13 分钟
         
       </span>
     
@@ -378,6 +378,114 @@ f(n, m) = &amp;\sum\limits_{i = 1}^{n} \left[\gcd\left(i, m \right) =
 间的所有 <span
 class="math inline">\(\mu\)</span>，其他的暴力算。这样时间复杂度大约是
 <span class="math inline">\(\mathcal{O}(\sqrt n)\)</span>。</p>
+<h3 id="p1829-国家集训队-crash的数字表格">P1829 [国家集训队]
+Crash的数字表格</h3>
+<p><span class="math inline">\(1 \leq n, m \leq 10^7\)</span>，求：
+<span class="math display">\[
+\sum_{i = 1}^n \sum_{j = 1}^m \operatorname{lcm}(i, j)
+\]</span> 替换 lcm： <span class="math display">\[
+\sum_{i = 1}^n \sum_{j = 1}^m \dfrac{i \cdot j}{\gcd(i, j)}
+\]</span> 枚举 <span class="math inline">\(\gcd\)</span> 的值： <span
+class="math display">\[
+\begin{align}
+&amp; \sum_{i = 1}^n \sum_{j = 1}^m \sum_{d \mid i, d \mid j)} [\gcd(i,
+j) = d] \dfrac{i \cdot j}{d}\\
+= &amp; \sum_{d = 1}^n \sum_{i = 1}^{\left\lfloor \frac{n}{d}
+\right\rfloor} \sum_{j = 1}^{\left\lfloor \frac{m}{d} \right\rfloor}
+[\gcd(i, j) = 1] i \cdot j \cdot d\\
+= &amp; \sum_{d = 1}^n d \sum_{i = 1}^{\left\lfloor \frac{n}{d}
+\right\rfloor} \sum_{j = 1}^{\left\lfloor \frac{m}{d} \right\rfloor}
+[\gcd(i, j) = 1] i \cdot j
+\end{align}
+\]</span></p>
+<p>我们把右边这部分单独拿出来，设 <span class="math inline">\(f(n, m) =
+\sum\limits_{i = 1}^n \sum\limits_{j = 1}^m [\gcd(i, j) = 1] i \cdot
+j\)</span>：</p>
+<p><span class="math display">\[
+\begin{align}
+f(n, m) =&amp; \sum\limits_{i = 1}^n \sum\limits_{j = 1}^m [\gcd(i, j) =
+1] i \cdot j\\
+= &amp; \sum_{i = 1}^n \sum_{j = 1}^m \sum_{d | i, d | j} \mu(d) \cdot i
+\cdot j
+\end{align}
+\]</span></p>
+<p>进行一些变换，先枚举 <span class="math inline">\(d\)</span>： <span
+class="math display">\[
+\begin{align}
+= &amp; \sum_{d = 1}^n \mu(d) \sum_{i = 1}^{\left\lfloor \frac{n}{d}
+\right\rfloor} \sum_{j = 1}^{\left\lfloor \frac{m}{d} \right\rfloor} i
+\cdot j \cdot d^2\\
+= &amp; \sum_{d = 1}^n \mu(d) d^2 \sum_{i = 1}^{\left\lfloor \frac{n}{d}
+\right\rfloor} i \sum_{j = 1}^{\left\lfloor \frac{m}{d} \right\rfloor} j
+\end{align}
+\]</span> 注意到这个式子前一个 <span class="math inline">\(\sum\)</span>
+可以前缀和优化，后两个 <span class="math inline">\(\sum\)</span>
+是等差数列，但是他有良好的范围：带下取整，因此可以数论分块。</p>
+<p>至于整个式子： <span class="math display">\[
+\sum_{d = 1}^n d \cdot f\left(\left\lfloor \frac{n}{d} \right\rfloor,
+\left\lfloor \frac{m}{d} \right\rfloor \right)
+\]</span> 它也可以数论分块。所以整个是 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 预处理 + 两次数论分块
+<span class="math inline">\(\mathcal{O}(n)\)</span>，最终时间复杂度
+<span
+class="math inline">\(\mathcal{O}(n)\)</span>（实际上还卡不到上界）。</p>
+<h3 id="bjoj2693-jzptab">BJOJ2693 jzptab</h3>
+<p>上题的加强版，添加了 <span class="math inline">\(10^4\)</span>
+组多测。</p>
+<p>继续考虑优化把式子展开： <span class="math display">\[
+\sum_{d = 1}^n d \cdot
+\sum_{t = 1}^{\left\lfloor \frac{n}{d} \right\rfloor} \mu(t) t^2 \sum_{i
+= 1}^{\left\lfloor \frac{n}{dt} \right\rfloor} i \sum_{j =
+1}^{\left\lfloor \frac{m}{dt} \right\rfloor} j
+\]</span> 设 <span class="math inline">\(\operatorname{Sum}(n) = \sum_{i
+= 1}^{n} i\)</span>，得： <span class="math display">\[
+\sum_{d = 1}^n d \cdot
+\sum_{t = 1}^{\left\lfloor \frac{n}{d} \right\rfloor} \mu(t) t^2
+\operatorname{Sum}\left({\left\lfloor \frac{n}{dt} \right\rfloor}\right)
+\operatorname{Sum}\left({\left\lfloor \frac{m}{dt} \right\rfloor}\right)
+\]</span> 令 <span class="math inline">\(dt = T\)</span>： <span
+class="math display">\[
+\begin{align}
+= &amp; \sum_{T = 1}^n \operatorname{Sum}\left({\left\lfloor \frac{n}{T}
+\right\rfloor}\right) \operatorname{Sum}\left({\left\lfloor \frac{m}{T}
+\right\rfloor}\right)
+\sum_{d \mid T}^n d \cdot \mu\left(\frac{T}{d}\right) \left(\frac {T}
+{d}\right)^2\\
+= &amp; \sum_{T = 1}^n \operatorname{Sum}\left({\left\lfloor \frac{n}{T}
+\right\rfloor}\right) \operatorname{Sum}\left({\left\lfloor \frac{m}{T}
+\right\rfloor}\right) T
+\sum_{d \mid T} \mu(d) d
+\end{align}
+\]</span> 设为 <span class="math inline">\(f(T) = \sum_{d \mid T}
+\mu(d)d\)</span>，得： <span class="math display">\[
+= \sum_{T = 1}^n \operatorname{Sum}\left({\left\lfloor \frac{n}{T}
+\right\rfloor}\right) \operatorname{Sum}\left({\left\lfloor \frac{m}{T}
+\right\rfloor}\right)
+T \cdot f(T)
+\]</span> 尝试证明 <span class="math inline">\(f(T)\)</span>
+是一个积性函数： <span class="math display">\[
+f(p) = \sum_{d \mid p} \mu(d)d \quad f(q) = \sum_{d \mid q} \mu(d)d
+\qquad (\gcd(p, q) = 1)\\
+\]</span> <span class="math display">\[
+\begin{align}
+f(p) \cdot f(q) &amp; = \left(\sum_{d \mid p} \mu(d)d\right)
+\left(\sum_{d \mid q} \mu(d)d\right)\\
+&amp; = \sum_{d \mid p} \mu(d)d \sum_{t \mid q} \mu(t)t\\
+&amp; = \sum_{d \mid p} \sum_{t \mid q} dt \cdot \mu(d) \mu(t)\\
+\end{align}
+\]</span> <span class="math display">\[
+\gcd(p, q) = 1 \Rightarrow \not \exist \ d = t \Rightarrow \{d \mid d |
+p\} \cap \{t \mid t | q\} = \emptyset ,\{d \mid d | p\} \cup \{t \mid t
+| q\} = \{x \mid x | pq\}
+\]</span> <span class="math display">\[
+\Downarrow\\
+f(p) \cdot f(q) = \sum_{d \mid pq} d \cdot \mu(d) = f(pq)
+\]</span></p>
+<p>Q.E.D</p>
+<p>我们来观察 <span class="math inline">\(f\)</span> 的一些性质： <span
+class="math display">\[
+f(p) = 1 - p, f(p^k) = f(p) \quad(p \in \mathbb{P})
+\]</span> 然后就可以线性筛+数论分块了。</p>
 
                 
               </div>
