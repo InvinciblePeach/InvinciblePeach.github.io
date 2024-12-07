@@ -27,7 +27,7 @@
 <meta property="og:description" content="结论 若： \[ f(n) &#x3D; (g * 1)(n) &#x3D; \sum_{d \mid n} g(d) \] 那么有： \[ g(n) &#x3D; (\mu * f)(n) &#x3D;\sum_{d \mid n} \mu(d) f \! \left(\dfrac{n}{d}\right) \] 证明 若： \[ f &#x3D; g * 1 \] 那么： \[ \mu * f &#x3D; \mu * g * 1 &#x3D; g * \var">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-05T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-07T03:57:00.453Z">
+<meta property="article:modified_time" content="2024-12-07T12:46:33.242Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数论">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          2.6k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          13 分钟
+          22 分钟
         
       </span>
     
@@ -323,12 +323,60 @@ j]
 \right\rfloor \left\lfloor \dfrac{m}{d} \right\rfloor
 \end{aligned}
 \]</span></p>
+<p>还有一种方式：从求值改为枚举 <span
+class="math inline">\(\gcd\)</span>： <span class="math display">\[
+\begin{align}
+&amp; \sum_{i = 1}^n \sum_{i = 1}^m \gcd(i, j) \\
+= &amp; \sum_{i = 1}^n \sum_{i = 1}^m \sum_{d \mid i, d \mid j} [\gcd(i,
+j) = d] \cdot d \\
+= &amp; \sum_{d = 1}^n d \sum_{i = 1}^{\left\lfloor \frac{n}{d}
+\right\rfloor} \sum_{i = 1}^{\left\lfloor \frac{m}{d} \right\rfloor}
+[\gcd(i, j) = 1]
+\end{align}
+\]</span> 右边的单独拿出来设为 <span
+class="math inline">\(f(d)\)</span>： <span class="math display">\[
+\begin{align}
+f(d)= &amp; \sum_{i = 1}^{\left\lfloor \frac{n}{d} \right\rfloor}
+\sum_{i = 1}^{\left\lfloor \frac{m}{d} \right\rfloor} [\gcd(i, j) = 1]
+\\
+= &amp; \sum_{i = 1}^{\left\lfloor \frac{n}{d} \right\rfloor} \sum_{i =
+1}^{\left\lfloor \frac{m}{d} \right\rfloor} \sum_{t \mid i, t \mid j}
+\mu(t)\\
+= &amp; \sum_{t = 1}^{\left\lfloor \frac{n}{d} \right\rfloor} \mu(t)
+\left\lfloor \dfrac{n}{dt} \right\rfloor \left\lfloor \dfrac{m}{dt}
+\right\rfloor
+\end{align}
+\]</span> 注意：最后一步用到了一个小结论 <span
+class="math inline">\(\left\lfloor \dfrac{\left\lfloor \dfrac{a}{b}
+\right\rfloor}{c} \right\rfloor = \left\lfloor \dfrac{a}{bc}
+\right\rfloor\)</span>，数论分块中有写。<span
+class="math inline">\(f\)</span> 算出来之后再扔回去，并设 <span
+class="math inline">\(T = dt\)</span>：</p>
+<p><span class="math display">\[
+\begin{align}
+\sum_{d = 1}^n d \cdot f(d) = &amp; \sum_{d = 1}^n d \sum_{t =
+1}^{\left\lfloor \frac{n}{d} \right\rfloor} \mu(t) \left\lfloor
+\dfrac{n}{dt} \right\rfloor \left\lfloor \dfrac{m}{dt} \right\rfloor \\
+= &amp; \sum_{T = 1}^n \sum_{d \mid T} \mu\left(\frac{T}{d}\right) d
+\left\lfloor \dfrac{n}{T} \right\rfloor \left\lfloor \dfrac{m}{T}
+\right\rfloor\\
+= &amp; \sum_{T = 1}^n \left\lfloor \dfrac{n}{T} \right\rfloor
+\left\lfloor \dfrac{m}{T} \right\rfloor \sum_{d \mid T}
+\mu\left(\frac{T}{d}\right) d\\
+\end{align}
+\]</span></p>
+<p>右边的东西就是 <span class="math inline">\(\mu *
+\operatorname{Id}\)</span>，也就是 <span
+class="math inline">\(\varphi\)</span>，不懂的可以看狄利克雷卷积。虽然这种方式不如之前的简洁，但是它运用了许多常用的
+trick 富有教育意义。</p>
 <h3 id="例-2">例 2</h3>
 <p><span class="math display">\[
 \begin{aligned}
 &amp; \sum_{i = 1}^n \sum_{i = 1}^m [\gcd(i, j) = 1] \\
 = &amp; \sum_{i = 1}^n \sum_{i = 1}^m \varepsilon(\gcd(i, j)) \\
 = &amp; \sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid \gcd(i, j)}
+\mu(d) \\
+= &amp; \sum_{i = 1} ^ n \sum_{j = 1} ^ m \sum_{d \mid i, d \mid j}
 \mu(d) \\
 = &amp; \sum_{d = 1}^n \mu(d) \left\lfloor \dfrac{n}{d} \right\rfloor
 \left\lfloor \dfrac{m}{d} \right\rfloor
@@ -388,7 +436,7 @@ Crash的数字表格</h3>
 \]</span> 枚举 <span class="math inline">\(\gcd\)</span> 的值： <span
 class="math display">\[
 \begin{align}
-&amp; \sum_{i = 1}^n \sum_{j = 1}^m \sum_{d \mid i, d \mid j)} [\gcd(i,
+&amp; \sum_{i = 1}^n \sum_{j = 1}^m \sum_{d \mid i, d \mid j} [\gcd(i,
 j) = d] \dfrac{i \cdot j}{d}\\
 = &amp; \sum_{d = 1}^n \sum_{i = 1}^{\left\lfloor \frac{n}{d}
 \right\rfloor} \sum_{j = 1}^{\left\lfloor \frac{m}{d} \right\rfloor}
@@ -486,6 +534,87 @@ f(p) \cdot f(q) = \sum_{d \mid pq} d \cdot \mu(d) = f(pq)
 class="math display">\[
 f(p) = 1 - p, f(p^k) = f(p) \quad(p \in \mathbb{P})
 \]</span> 然后就可以线性筛+数论分块了。</p>
+<h3 id="例题2周期字符串">【例题2】周期字符串</h3>
+<blockquote>
+<p>求长度为 <span class="math inline">\(n\)</span>
+且仅包含小写英文字母（小写字母不一定要全部使用）且循环节长度恰为 <span
+class="math inline">\(n\)</span>
+的字符串的个数。循环节就是最短的复制若干遍后拼起来跟原串相等的字符串。答案对
+<span class="math inline">\(10^9 + 7\)</span> 取模。</p>
+</blockquote>
+<p>jpdh 的题，重要的在于转化以及状态设计。</p>
+<p>设 <span class="math inline">\(f(n)\)</span> 为循环节恰好为 <span
+class="math inline">\(n\)</span> 的字符串个数，<span
+class="math inline">\(g(n)\)</span> 为长度为 <span
+class="math inline">\(n\)</span> 的字符串个数（<span
+class="math inline">\(26^n\)</span>）。注意到 <span
+class="math inline">\(g(n)\)</span> 如果存在循环节，那么长度一定是 <span
+class="math inline">\(n\)</span>
+因数，因此我们可以枚举循环节长度，根据加法原理： <span
+class="math display">\[
+g(n) = \sum_{d \mid n} f(n) = (f * 1)(n) \Rightarrow f(n) = (g * \mu)(n)
+\]</span> 裸的莫比乌斯反演，甚至是直接爆算 <span
+class="math inline">\(\mu\)</span>。</p>
+<h3 id="bjoj2694-lcm">BJOJ2694 Lcm</h3>
+<p>注意到题意有一个类似于莫比乌斯函数的东西，尝试让他用一个式子表示出来：
+<span class="math display">\[
+\sum_{i = 1}^A \sum_{j = 1}^B \operatorname{lcm}(i, j) \mu^2(\gcd(i, j))
+\]</span> 推一推： <span class="math display">\[
+\begin{align}
+= &amp; \sum_{i = 1}^A \sum_{j = 1}^B \frac{ij}{\gcd(i, j)}
+\mu^2(\gcd(i, j)) \\
+= &amp; \sum_{i = 1}^A \sum_{j = 1}^B \sum_{d \mid i} \mu^2(d)
+\frac{ij}{d}[\gcd(i, j) = d] \\
+= &amp;  \sum_{d = 1}^A \sum_{i = 1}^{\left\lfloor \frac{A}{d}
+\right\rfloor} \sum_{j = 1}^{\left\lfloor \frac{B}{d} \right\rfloor}
+\mu^2(d) ijd [\gcd(i, j) = 1] \\
+= &amp;  \sum_{d = 1}^A \mu^2(d) d \sum_{i = 1}^{\left\lfloor
+\frac{A}{d} \right\rfloor} \sum_{j = 1}^{\left\lfloor \frac{B}{d}
+\right\rfloor} ij \sum_{t \mid i, t \mid j} \mu(t) \\
+= &amp;  \sum_{d = 1}^A \mu^2(d) d \sum_{t = 1}^{\left\lfloor
+\frac{A}{d} \right\rfloor} \sum_{i = 1}^{\left\lfloor \frac{A}{dt}
+\right\rfloor} \sum_{j = 1}^{\left\lfloor \frac{B}{dt} \right\rfloor}
+\mu(t) \cdot ijt^2 \\
+= &amp;  \sum_{d = 1}^A \mu^2(d) d \sum_{t = 1}^{\left\lfloor
+\frac{A}{d} \right\rfloor} \mu(t) t^2 \sum_{i = 1}^{\left\lfloor
+\frac{A}{dt} \right\rfloor} \sum_{j = 1}^{\left\lfloor \frac{B}{dt}
+\right\rfloor} ij \\
+\end{align}
+\]</span> 设 <span class="math inline">\(S(n) = \sum_{i = 1}^n
+i\)</span>，并且 <span class="math inline">\(T = dt\)</span>： <span
+class="math display">\[
+\begin{align}
+= &amp; \sum_{d = 1}^A \mu^2(d) d \sum_{t = 1}^{\left\lfloor \frac{A}{d}
+\right\rfloor} \mu(t) t^2 S\left(\left\lfloor \frac{A}{d}
+\right\rfloor\right) \cdot S\left(\left\lfloor \frac{B}{d}
+\right\rfloor\right)\\
+= &amp; \sum_{T = 1}^A S\left(\left\lfloor \frac{A}{d}
+\right\rfloor\right) \cdot S\left(\left\lfloor \frac{B}{d}
+\right\rfloor\right) \sum_{d \mid T} \mu^2(d) d \cdot
+\mu\left(\frac{T}{d}\right) \left(\frac{T}{d}\right)^2\\
+= &amp; \sum_{T = 1}^A S\left(\left\lfloor \frac{A}{d}
+\right\rfloor\right) \cdot S\left(\left\lfloor \frac{B}{d}
+\right\rfloor\right) T \sum_{d \mid T} \mu^2(d) \cdot
+\mu\left(\frac{T}{d}\right) \left(\frac{T}{d}\right)
+\end{align}
+\]</span> 可以发现后面又是一个卷积的形式，设它为 <span
+class="math inline">\(g(T)\)</span>，卷积的两个函数都是积性函数，因此
+<span class="math inline">\(g\)</span> 也是积性函数。我们来分析 <span
+class="math inline">\(g(n)\)</span>：</p>
+<ul>
+<li>如果 <span class="math inline">\(n\)</span>
+含有三个及以上个质因数，那么无论它如何拆分，总有一个 <span
+class="math inline">\(\mu\)</span> 会得 <span
+class="math inline">\(0\)</span>，则 <span class="math inline">\(g(n) =
+0\)</span>；</li>
+<li>如果 <span class="math inline">\(n\in \mathbb{P}\)</span>，手玩发现
+<span class="math inline">\(g(n) = -p^2 + p\)</span>；</li>
+<li>如果 <span class="math inline">\(n = p^2, p \in
+\mathbb{P}\)</span>，手玩得到 <span class="math inline">\(g(n) =
+-p^3\)</span>。</li>
+</ul>
+<p>观察完毕，<span class="math inline">\(g\)</span>
+可以线性筛，整个可以数论分块。</p>
 
                 
               </div>
