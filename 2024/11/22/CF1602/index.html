@@ -27,7 +27,7 @@
 <meta property="og:description" content="A 不难发现字典序最小的 \(a\) 就是串 \(s\) 中字典序最小的字符。 B 手玩可以发现不多于 \(n\) 次的操作后序列将不会再变化。官方题解给出了更严谨的上界是 \(\log n\) 次，直接暴力模拟即可。 C 操作即为选择 \(k\) 个数，将他们共有的二进制位为 \(1\) 的减去。如果找出每一位 \(1\) 在序列中出现的个数，那么最终答案就是它们的 \(\gcd\) 的所有因数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-22T05:18:26.000Z">
-<meta property="article:modified_time" content="2024-11-22T07:17:30.566Z">
+<meta property="article:modified_time" content="2024-12-09T11:47:01.768Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="Codeforces">
 <meta name="twitter:card" content="summary_large_image">
@@ -276,20 +276,20 @@
             
               <div class="markdown-body">
                 
-                <h3 id="a">A</h3>
+                <h2 id="a">A</h2>
 <p>不难发现字典序最小的 <span class="math inline">\(a\)</span> 就是串
 <span class="math inline">\(s\)</span> 中字典序最小的字符。</p>
-<h3 id="b">B</h3>
+<h2 id="b">B</h2>
 <p>手玩可以发现不多于 <span class="math inline">\(n\)</span>
 次的操作后序列将不会再变化。官方题解给出了更严谨的上界是 <span
 class="math inline">\(\log n\)</span> 次，直接暴力模拟即可。</p>
-<h3 id="c">C</h3>
+<h2 id="c">C</h2>
 <p>操作即为选择 <span class="math inline">\(k\)</span>
 个数，将他们共有的二进制位为 <span class="math inline">\(1\)</span>
 的减去。如果找出每一位 <span class="math inline">\(1\)</span>
 在序列中出现的个数，那么最终答案就是它们的 <span
 class="math inline">\(\gcd\)</span> 的所有因数。</p>
-<h3 id="d">D</h3>
+<h2 id="d">D</h2>
 <p>可以发现，跳 <span class="math inline">\(k\)</span>
 次后且滑落前所能到达的所有位置，一定是一个 <span
 class="math inline">\([l, n]\)</span>
@@ -303,7 +303,7 @@ class="math inline">\(c\)</span>
 <span class="math inline">\([l,
 n]\)</span>，这次能到达的最小位置，记录进一个 <code>vector</code>
 里，直到 <span class="math inline">\(l = 1\)</span> 输出答案即可。</p>
-<h3 id="e">E</h3>
+<h2 id="e">E</h2>
 <p>容易证明将排序后的 <span class="math inline">\(b\)</span>
 数组保持相对位置不变插入 <span class="math inline">\(a\)</span>
 中更优。我们考虑分治，如果要将 <span class="math inline">\(b_l \dots
@@ -323,7 +323,7 @@ class="math inline">\(\sum \limits_{i = L}^{j - 1} [a_i &gt; b_{mid}] +
 </ul>
 <p>容易发现两式之差是定值，所以只要枚举 <span
 class="math inline">\(j\)</span> 使得对区间的贡献最小即可。</p>
-<h3 id="f">F</h3>
+<h2 id="f">F</h2>
 <p>观察性质，大胆猜测结论。按 <span class="math inline">\(\max(a,
 s)\)</span> 为第一关键字，<span class="math inline">\(s\)</span>
 为第二关键字升序排序即可。<a

@@ -27,7 +27,7 @@
 <meta property="og:description" content="中国剩余定理（孙子定理）  「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？  中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。 过程  求出所有模数之积 \(M\)； 对于第 \(i\) 个方程：  计算 \(k_i &#x3D; \frac{M}{m_i}\)； 计算 \(k_i\) 在 \(\bmod n\) 意义下的逆元 \(k">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-14T11:25:21.000Z">
-<meta property="article:modified_time" content="2024-12-06T13:02:11.110Z">
+<meta property="article:modified_time" content="2024-12-09T11:40:58.446Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数论">
@@ -277,12 +277,12 @@
             
               <div class="markdown-body">
                 
-                <h3 id="中国剩余定理孙子定理">中国剩余定理（孙子定理）</h3>
+                <h2 id="中国剩余定理孙子定理">中国剩余定理（孙子定理）</h2>
 <blockquote>
 <p>「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？</p>
 </blockquote>
 <p>中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。</p>
-<h4 id="过程">过程</h4>
+<h3 id="过程">过程</h3>
 <ol type="1">
 <li>求出所有模数之积 <span class="math inline">\(M\)</span>；</li>
 <li>对于第 <span class="math inline">\(i\)</span> 个方程：
@@ -297,7 +297,7 @@ class="math inline">\(k_i^{-1}\)</span>；</li>
 意义下的唯一解为 <span class="math inline">\(x \equiv \sum_{i = 1}^k a_i
 c_i \pmod n\)</span>。</li>
 </ol>
-<h4 id="证明">证明</h4>
+<h3 id="证明">证明</h3>
 <p>首先证明 <span class="math inline">\(x\)</span> 对于任意 <span
 class="math inline">\(i\)</span> 均满足 <span class="math inline">\(x
 \equiv a_i \pmod {m_i}\)</span>。当 <span class="math inline">\(i \neq
@@ -317,7 +317,7 @@ class="math inline">\(k_j \equiv 0 \pmod {m_i}\)</span> 不成立，<span
 class="math inline">\(x\)</span> 中除了 <span
 class="math inline">\(i\)</span>
 以外的部分无法完全消除，会导致答案错误。</p>
-<h3 id="扩展中国剩余定理">扩展中国剩余定理</h3>
+<h2 id="扩展中国剩余定理">扩展中国剩余定理</h2>
 <p>exCRT
 用于处理模数不两两互质的情况。这里我们考虑将两个同余方程合并成一个，满足新同余方程的解就是旧同余方程的解，并且做到不重不漏。</p>
 <p>考虑以下同余方程组： <span class="math display">\[

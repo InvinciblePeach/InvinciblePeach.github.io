@@ -227,6 +227,90 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/12/09/lucas/" target="_self">
+          Lucas 定理与 ExLucas 定理
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/12/09/lucas/" target="_self">
+        <div>
+          引言 Lucas 定理用于求解大组合数取模问题。一般的组合数可以 \(\mathcal{O}(n)\) 预处理阶乘 + \(\mathcal{O}(1)\) 计算，牵扯到取模会再带一个 \(\log\)；或者 \(O(n^2)\) 全部预处理。但是他们都需要预处理，如果要求的组合数很大，无法预处理，Lucas 定理提供了一种仅需预处理模数范围内的组合数的做法。 Lucas 定理 内容 \[ {n
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-12-09 19:36" pubdate>
+              2024-12-09
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+            
+              <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/12/09/bsgs/" target="_self">
+          大步小步算法 / BSGS
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/12/09/bsgs/" target="_self">
+        <div>
+          引言 BSGS 用于求解 \(x\) 满足： \[ a^x \equiv n \pmod p \] 我们先来考虑特殊情况，当 \(\gcd(a, p) = 1\) 并假设一定有解。首先，根据欧拉定理，对于一个 \(\varphi(p)\) 剩余系，存在且只存在一个 \(x\) 使得上式成立。 BSGS 大步小步 一般的方式是直接枚举，大步小步（BSGS, Baby step gaint step）
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-12-09 14:39" pubdate>
+              2024-12-09
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+            
+              <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/12/07/mobius/" target="_self">
           莫比乌斯反演
         </a>
@@ -553,91 +637,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/11/20/CF1794/" target="_self">
-          CF1794 题解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/11/20/CF1794/" target="_self">
-        <div>
-          A 将所给的字符串按长度降序排序，最前面的两个一定是最长的前缀与最长的后缀。如果原串是回文的，那么最长前缀一定等于最长后缀的反串。 B 从前往后扫一遍，如果发现 \(a_{i - 1} \mid a_i\)，我们就将 \(a_i \leftarrow a_i + 1\)，此时一定有 \(a_i \bmod a_{i - 1} = 1\)。但是当 \(a_{i - 1} = 1\) 时，通过改变 \
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-11-20 13:30" pubdate>
-              2024-11-20
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Codeforces/">#Codeforces</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/11/18/CF1805/" target="_self">
-          CF1805 题解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/11/18/CF1805/" target="_self">
-        <div>
-          A 按位贪心，\(x\) 里每一位的 \(1\) 会使 \(b\) 中的 \(0,1\) 个数的奇偶性取反，使得每一位 \(1\) 的个数为偶数即可。 B 结论：将最小的字符提到最前，若有相同的取最后的。 接下来我们来证明以上结论：  字符串的第一位一定是最小的可以使答案最优。第一条得证。 考虑我们有两个可选的位置 \(l, r \mid a[l] = a[r] = \min{a} = c\)。如
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-11-18 13:07" pubdate>
-              2024-11-18
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Codeforces/">#Codeforces</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
