@@ -27,7 +27,7 @@
 <meta property="og:description" content="结论 若： \[ f(n) &#x3D; (g * 1)(n) &#x3D; \sum_{d \mid n} g(d) \] 那么有： \[ g(n) &#x3D; (\mu * f)(n) &#x3D;\sum_{d \mid n} \mu(d) f \! \left(\dfrac{n}{d}\right) \] 证明 若： \[ f &#x3D; g * 1 \] 那么： \[ \mu * f &#x3D; \mu * g * 1 &#x3D; g * \var">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-07T13:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-09T11:39:35.595Z">
+<meta property="article:modified_time" content="2024-12-10T11:20:44.040Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数论">
@@ -522,9 +522,9 @@ f(p) \cdot f(q) &amp; = \left(\sum_{d \mid p} \mu(d)d\right)
 &amp; = \sum_{d \mid p} \sum_{t \mid q} dt \cdot \mu(d) \mu(t)\\
 \end{align}
 \]</span> <span class="math display">\[
-\gcd(p, q) = 1 \Rightarrow \not \exist \ d = t \Rightarrow \{d \mid d |
-p\} \cap \{t \mid t | q\} = \emptyset ,\{d \mid d | p\} \cup \{t \mid t
-| q\} = \{x \mid x | pq\}
+\gcd(p, q) = 1 \Rightarrow \nexists \ d = t \Rightarrow \{d \mid d | p\}
+\cap \{t \mid t | q\} = \emptyset ,\{d \mid d | p\} \cup \{t \mid t |
+q\} = \{x \mid x | pq\}
 \]</span> <span class="math display">\[
 \Downarrow\\
 f(p) \cdot f(q) = \sum_{d \mid pq} d \cdot \mu(d) = f(pq)
