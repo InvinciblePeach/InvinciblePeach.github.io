@@ -19,15 +19,15 @@
   <meta name="author" content="Kurisu ncjjdr05">
   <meta name="keywords" content="">
   
-    <meta name="description" content="中国剩余定理（孙子定理）  「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？  中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。 过程  求出所有模数之积 \(M\)； 对于第 \(i\) 个方程：  计算 \(k_i &#x3D; \frac{M}{m_i}\)； 计算 \(k_i\) 在 \(\bmod n\) 意义下的逆元 \(k">
+    <meta name="description" content="中国剩余定理（孙子定理）  「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？  中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。 过程  求出所有模数之积 \(M\)； 对于第 \(i\) 个方程：  计算 \(k_i &#x3D; \frac{M}{m_i}\)； 计算 \(k_i\) 在 \(\bmod m_i\) 意义下的逆元 \">
 <meta property="og:type" content="article">
 <meta property="og:title" content="扩展中国剩余算法">
 <meta property="og:url" content="http://example.com/2024/11/14/excrt/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="中国剩余定理（孙子定理）  「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？  中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。 过程  求出所有模数之积 \(M\)； 对于第 \(i\) 个方程：  计算 \(k_i &#x3D; \frac{M}{m_i}\)； 计算 \(k_i\) 在 \(\bmod n\) 意义下的逆元 \(k">
+<meta property="og:description" content="中国剩余定理（孙子定理）  「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？  中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。 过程  求出所有模数之积 \(M\)； 对于第 \(i\) 个方程：  计算 \(k_i &#x3D; \frac{M}{m_i}\)； 计算 \(k_i\) 在 \(\bmod m_i\) 意义下的逆元 \">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-14T11:25:21.000Z">
-<meta property="article:modified_time" content="2024-12-09T11:40:58.446Z">
+<meta property="article:modified_time" content="2024-12-11T12:08:49.252Z">
 <meta property="article:author" content="Kurisu ncjjdr05">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="数论">
@@ -289,13 +289,13 @@
 <ol type="1">
 <li>计算 <span class="math inline">\(k_i = \frac{M}{m_i}\)</span>；</li>
 <li>计算 <span class="math inline">\(k_i\)</span> 在 <span
-class="math inline">\(\bmod n\)</span> 意义下的逆元 <span
+class="math inline">\(\bmod m_i\)</span> 意义下的逆元 <span
 class="math inline">\(k_i^{-1}\)</span>；</li>
 <li>计算 <span class="math inline">\(c_i = k_i k_i^{-1}\)</span>。</li>
 </ol></li>
-<li>同余方程组在 <span class="math inline">\(\bmod n\)</span>
+<li>同余方程组在 <span class="math inline">\(\bmod M\)</span>
 意义下的唯一解为 <span class="math inline">\(x \equiv \sum_{i = 1}^k a_i
-c_i \pmod n\)</span>。</li>
+c_i \pmod M\)</span>。</li>
 </ol>
 <h3 id="证明">证明</h3>
 <p>首先证明 <span class="math inline">\(x\)</span> 对于任意 <span
