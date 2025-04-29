@@ -205,15 +205,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/04/29/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/" target="_blank">
-          斯特林数
+        <a href="/2025/04/29/Lucas/" target="_blank">
+          Lucas 定理
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/Lucas/" target="_blank">
         <div>
-          第一类斯特林数 圆排列将数字排成一个环，我们认为两个环本质不同当且仅当存在某个位置的前驱或后继不同.   例如：1, 2, 3 与 3, 1, 2 是本质相同的两个圆排列，1, 2, 3 与 1, 3, 2 是本质不同的两个圆排列。  记 ${n \brack m}$ 为将 $n$ 个互不相同的元素划分为 $m$ 个互不区分的非空圆排列的方案数，有递推式：$${n \brack m} &#x3D;
+          引言Lucas 定理用于求解大组合数取模问题。一般的组合数可以 $\mathcal{O}(n)$ 预处理阶乘 + $\mathcal{O}(1)$ 计算，牵扯到取模会再带一个 $\log$；或者 $O(n^2)$ 全部预处理。但是他们都需要预处理，如果要求的组合数很大，无法预处理，Lucas 定理提供了一种仅需预处理模数范围内的组合数的做法。 Lucas 定理内容$${n \choose m} \
         </div>
       </a>
 
@@ -234,298 +234,6 @@
               <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
             
               <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
-            
-              <a href="/tags/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/">#组合计数</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/29/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86%E4%B8%8E%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" target="_blank">
-          欧拉定理
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86%E4%B8%8E%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" target="_blank">
-        <div>
-          欧拉函数定义$$\varphi(n) &#x3D; \sum\limits_{i &#x3D; 1}^n [\gcd(i, n) &#x3D; 1]$$ 性质 $\varphi$ 是积性函数。 $n &#x3D; \sum\limits_{d \mid n} \varphi(d)$，也就是说 $\varphi * \mathbf1 &#x3D; \operatorname{Id}_1$，反过来也有
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-29 12:00" pubdate>
-              2025-04-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
-            
-              <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/29/%E8%AE%A1%E6%95%B0%E5%A5%87%E5%A6%99%E9%A2%98/" target="_blank">
-          计数奇妙题
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E8%AE%A1%E6%95%B0%E5%A5%87%E5%A6%99%E9%A2%98/" target="_blank">
-        <div>
-          CF285E设钦定有 $m$ 部分符合要求的方案数为 $f(m)$，恰好有 $m$ 部分符合要求的方案数为 $g(m)$，那么有：$$f(m) &#x3D; \sum_{i &#x3D; m}^n {i \choose m} g(i)$$其中 $i \choose m$ 指的是枚举 $f(m)$ 的 $m$ 个数分别代表了 $g(i)$ 中 $i$ 个位置的哪 $m$ 个。这个时候我们二项式反演：
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-29 12:00" pubdate>
-              2025-04-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
-            
-              <a href="/tags/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/">#组合计数</a>
-            
-              <a href="/tags/DP/">#DP</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/29/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" target="_blank">
-          莫比乌斯反演
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" target="_blank">
-        <div>
-          前置芝士：数论函数。 狄利克雷卷积定义两个数论函数的狄利克雷卷积为：$$(f * g)(n) &#x3D; \sum_{d \mid n} f(n) g!\left(\dfrac{n}{d}\right)$$经过观察我们可以发现狄利克雷卷积满足交换律，结合律，分配律。 单位元单位函数满足 $(f * \varepsilon)(n) &#x3D; f(n)$，我们称他是狄利克雷函数中的单位元，可以证
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-29 12:00" pubdate>
-              2025-04-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
-            
-              <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/29/%E8%8E%AB%E9%98%9F%E6%9D%82%E9%A2%98/" target="_blank">
-          莫队杂题
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E8%8E%AB%E9%98%9F%E6%9D%82%E9%A2%98/" target="_blank">
-        <div>
-          莫队的本质大部分参考资料认为，莫队指的是用于处理满足能够将 $[l, r]$ 的答案在 $\mathcal O(1)$ 时间复杂度内扩展到 $[l, r - 1][l, r + 1][l - 1, r][l + 1, r]$ 的问题的一种思想，并且允许离线。实际上，随着对莫队研究的不断深入，笔者认为莫队的过程并不一定是在 $\mathcal O(1)$ 时间复杂度内对答案的扩展，而是对可以用于求得
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-29 12:00" pubdate>
-              2025-04-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%9D%97/">#分块</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">#数据结构</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/29/CF1935/" target="_blank">
-          CF1935题解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF1935/" target="_blank">
-        <div>
-          CF1935 题解A注意到操作 2 一定只会进行一次，因为如果进行两次一定会使原串的字典序更大。那么还可以发现当且仅当 $s$ 反转之后的串 $t$ 满足 $t &lt; s$ 才会进行操作 2。 结合 $n$ 一定为偶数。当 $t &lt; s$ 时输出 $t + s$，否则直接输出 $s$ 即可。 B对于两个 $\operatorname{mex}$ 值相同的区间，两者合并之后的区间的 $\o
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-29 12:00" pubdate>
-              2025-04-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Codeforces/">#Codeforces</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/29/CF2006/" target="_blank">
-          CF2006 题解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF2006/" target="_blank">
-        <div>
-          CF2006 题解官方中文题解 A注意到 3 个数中一定不会出现两个偶数，那么就一定会有两个奇数，设区间中奇数的个数为 $cnt$，那么答案上界一定为 $\left \lfloor \frac{cnt}{2} \right \rfloor$。 我们来构造性的证明一定可以取到上界，容易发现每一次选择相邻的两个奇数和两者中间的偶数一定是可行的。 B先遍历一遍找到最大值，如果最大值在每一次修改的区间内，
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-29 12:00" pubdate>
-              2025-04-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Codeforces/">#Codeforces</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/29/CF2032/" target="_blank">
-          CF2032 题解
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF2032/" target="_blank">
-        <div>
-          CF2032 题解A设打开了 $k$ 个开关：  最小：两个同种状态的开关尽量连接同一盏灯，那么答案就为 $k \bmod 2$。 最多：两个不同种状态的开关尽量连接同一盏灯，那么答案就为 $n - \left|k - n\right|$。  B可以证明如果满足 $k &#x3D; 1 \vee k &#x3D; n$，那么一定无解。我们以最简单的情况将序列分成 $3$ 段，考虑 $k$ 的奇偶性
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-29 12:00" pubdate>
-              2025-04-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Codeforces/">#Codeforces</a>
             
           </div>
         
@@ -572,15 +280,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/04/29/BSGS/" target="_blank">
-          大步小步（BSGS）
+        <a href="/2025/04/29/excrt/" target="_blank">
+          扩展中国剩余定理
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/BSGS/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/excrt/" target="_blank">
         <div>
-          引言BSGS 用于求解 $x$ 满足：$$a^x \equiv n \pmod p$$我们先来考虑特殊情况，当 $\gcd(a, p) &#x3D; 1$ 并假设一定有解。首先，根据欧拉定理，对于一个 $\varphi(p)$ 剩余系，存在且只存在一个 $x$ 使得上式成立。 BSGS 大步小步一般的方式是直接枚举，大步小步（BSGS, Baby step gaint step）提供了一种 $\m
+          中国剩余定理（孙子定理） 「物不知数」问题：有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？  中国剩余定理用于求解同余方程组。普通的中国剩余定理要求各方程之间的模数必须两两互质。 过程 求出所有模数之积 $M$； 对于第 $i$ 个方程： 计算 $k_i &#x3D; \frac{M}{m_i}$； 计算 $k_i$ 在 $\bmod m_i$ 意义下的逆元 $k_i^{-1}
         </div>
       </a>
 
@@ -600,7 +308,301 @@
             
               <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
             
+              <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/04/29/FFT/" target="_blank">
+          快速傅里叶变换
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/FFT/" target="_blank">
+        <div>
+          快速傅里叶变换主要用于 $\mathcal O(n \log n)$ 时间内求两个多项式&#x2F;数列的卷积。 前置芝士多项式的两种表示方法系数表示法一般来说，我们表示一个多项式 $A(x)$ 通常以 $A(x) &#x3D; \sum_{i &#x3D; 0} a_i x^i$ 的形式，这被称为多项式的系数表示法，同时也可以写作一个向量的形式：$(a_1, a_2, \dots, a_n)$。
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-04-29 12:00" pubdate>
+              2025-04-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+            
+              <a href="/tags/%E5%A4%9A%E9%A1%B9%E5%BC%8F/">#多项式</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/04/29/exgcd/" target="_blank">
+          扩展欧几里得
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/exgcd/" target="_blank">
+        <div>
+          裴蜀定理扩展欧几里德算法用于求解形如 $ax + by &#x3D; \gcd(a, b)$ 的等式。这是裴蜀等式，我们接下来的内容可以证明它一定有解。 我们知道： $$\gcd(a, b) &#x3D; \gcd(b, a \bmod b)$$ 那么有： $$\begin{align}ax + by &amp; &#x3D; \gcd(a, b) \&amp; &#x3D; \gcd(b, a
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-04-29 12:00" pubdate>
+              2025-04-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+            
+              <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/04/29/%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/" target="_blank">
+          数论函数
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/" target="_blank">
+        <div>
+          定义：定义域是 $\mathbb{Z^+}$，值域是 $\mathbb{C}$ 的函数。 积性函数我们称当 $\gcd(i, j) &#x3D; 1$ 时满足$f(i \times j) &#x3D; f(i) \times f(j)$的数论函数为积性函数；称 $\forall i, j \in \mathbb{Z^+}$ 满足 $f(i \times j) &#x3D; f(i) \times
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-04-29 12:00" pubdate>
+              2025-04-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+            
+              <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/04/29/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/" target="_blank">
+          斯特林数
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/" target="_blank">
+        <div>
+          第一类斯特林数 圆排列将数字排成一个环，我们认为两个环本质不同当且仅当存在某个位置的前驱或后继不同.   例如：1, 2, 3 与 3, 1, 2 是本质相同的两个圆排列，1, 2, 3 与 1, 3, 2 是本质不同的两个圆排列。  记 ${n \brack m}$ 为将 $n$ 个互不相同的元素划分为 $m$ 个互不区分的非空圆排列的方案数，有递推式：$${n \brack m} &#x3D;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-04-29 12:00" pubdate>
+              2025-04-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+            
+              <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
+            
+              <a href="/tags/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/">#组合计数</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/04/29/%E5%87%8F%E5%8D%8A%E8%AD%A6%E6%8A%A5%E5%99%A8/" target="_blank">
+          减半警报器
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E5%87%8F%E5%8D%8A%E8%AD%A6%E6%8A%A5%E5%99%A8/" target="_blank">
+        <div>
+          首次出现应该在 2019-2020 ICPC Asia Hong Kong Regional Contest I. Incoming Asteroids 考虑如下问题： 有 $n$ 个位置，$m$ 个警报器，每个警报器监测比较少的几个位置（大概是常数级别），警报器在某一时刻开启后，如果监测的几个位置发生的事件（每个事件只在比较少的几个位置发生）阈值总和大于警报器的阈值，就报警（警报器开启前发生的
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-04-29 12:00" pubdate>
+              2025-04-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">#数据结构</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/04/29/%E5%88%86%E5%9D%97%E5%A5%87%E5%A6%99%E9%A2%98/" target="_blank">
+          分块奇妙题
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E5%88%86%E5%9D%97%E5%A5%87%E5%A6%99%E9%A2%98/" target="_blank">
+        <div>
+          引言 线段树和平衡树是具有局限性的，但是分块可以通过多样的 trick 处理多样的信息。 —— FDsama  P4168 [Violet] 蒲公英 无修改区间众数， $1\le n \le 40000$，$1\le m \le 50000$，$1\le a_i \le 10^9$。  首先离散化，记 $f_{i,j}$ 为第 $i$ 块到第 $j$ 块的区间众数，$cnt_{i,j}$ 表示前
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-04-29 12:00" pubdate>
+              2025-04-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
               <a href="/tags/%E5%88%86%E5%9D%97/">#分块</a>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">#数据结构</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/04/29/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" target="_blank">
+          莫比乌斯反演
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" target="_blank">
+        <div>
+          前置芝士：数论函数。 狄利克雷卷积定义两个数论函数的狄利克雷卷积为：$$(f * g)(n) &#x3D; \sum_{d \mid n} f(n) g!\left(\dfrac{n}{d}\right)$$经过观察我们可以发现狄利克雷卷积满足交换律，结合律，分配律。 单位元单位函数满足 $(f * \varepsilon)(n) &#x3D; f(n)$，我们称他是狄利克雷函数中的单位元，可以证
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-04-29 12:00" pubdate>
+              2025-04-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+            
+              <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
             
           </div>
         

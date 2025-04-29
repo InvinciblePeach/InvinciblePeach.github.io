@@ -205,15 +205,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/04/29/CF1602/" target="_blank">
-          CF1602 题解
+        <a href="/2025/04/29/CF1794/" target="_blank">
+          CF1794 题解
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF1602/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF1794/" target="_blank">
         <div>
-          CF1602 题解A不难发现字典序最小的 $a$ 就是串 $s$ 中字典序最小的字符。 B手玩可以发现不多于 $n$ 次的操作后序列将不会再变化。官方题解给出了更严谨的上界是 $\log n$ 次，直接暴力模拟即可。 C操作即为选择 $k$ 个数，将他们共有的二进制位为 $1$ 的减去。如果找出每一位 $1$ 在序列中出现的个数，那么最终答案就是它们的 $\gcd$ 的所有因数。 D可以发现，跳
+          CF1794 题解A将所给的字符串按长度降序排序，最前面的两个一定是最长的前缀与最长的后缀。如果原串是回文的，那么最长前缀一定等于最长后缀的反串。 B从前往后扫一遍，如果发现 $a_{i - 1} \mid a_i$，我们就将 $a_i \leftarrow a_i + 1$，此时一定有 $a_i \bmod a_{i - 1} &#x3D; 1$。但是当 $a_{i - 1} &#x3D; 1$
         </div>
       </a>
 
@@ -245,15 +245,57 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/04/29/CF1918/" target="_blank">
-          CF1918 题解
+        <a href="/2025/04/29/BSGS/" target="_blank">
+          大步小步（BSGS）
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF1918/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/BSGS/" target="_blank">
         <div>
-          CF1918 题解A注意到只放横向的砖块即可，每横行最多可以放 $\left \lfloor \frac{m}{2} \right \rfloor$ 块砖，一共 $n$ 行，答案 $\left \lfloor \frac{m}{2} \right \rfloor \cdot n$。 B注意到如果 $a, b, c, d$ 分别是 $A, B$ 中位置为 $i, j$ 的数字： $$a \quad
+          引言BSGS 用于求解 $x$ 满足：$$a^x \equiv n \pmod p$$我们先来考虑特殊情况，当 $\gcd(a, p) &#x3D; 1$ 并假设一定有解。首先，根据欧拉定理，对于一个 $\varphi(p)$ 剩余系，存在且只存在一个 $x$ 使得上式成立。 BSGS 大步小步一般的方式是直接枚举，大步小步（BSGS, Baby step gaint step）提供了一种 $\m
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-04-29 12:00" pubdate>
+              2025-04-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+            
+              <a href="/tags/%E5%88%86%E5%9D%97/">#分块</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/04/29/CF1602/" target="_blank">
+          CF1602 题解
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF1602/" target="_blank">
+        <div>
+          CF1602 题解A不难发现字典序最小的 $a$ 就是串 $s$ 中字典序最小的字符。 B手玩可以发现不多于 $n$ 次的操作后序列将不会再变化。官方题解给出了更严谨的上界是 $\log n$ 次，直接暴力模拟即可。 C操作即为选择 $k$ 个数，将他们共有的二进制位为 $1$ 的减去。如果找出每一位 $1$ 在序列中出现的个数，那么最终答案就是它们的 $\gcd$ 的所有因数。 D可以发现，跳
         </div>
       </a>
 
@@ -325,15 +367,55 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/04/29/CF1794/" target="_blank">
-          CF1794 题解
+        <a href="/2025/04/29/CF1935/" target="_blank">
+          CF1935题解
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF1794/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF1935/" target="_blank">
         <div>
-          CF1794 题解A将所给的字符串按长度降序排序，最前面的两个一定是最长的前缀与最长的后缀。如果原串是回文的，那么最长前缀一定等于最长后缀的反串。 B从前往后扫一遍，如果发现 $a_{i - 1} \mid a_i$，我们就将 $a_i \leftarrow a_i + 1$，此时一定有 $a_i \bmod a_{i - 1} &#x3D; 1$。但是当 $a_{i - 1} &#x3D; 1$
+          CF1935 题解A注意到操作 2 一定只会进行一次，因为如果进行两次一定会使原串的字典序更大。那么还可以发现当且仅当 $s$ 反转之后的串 $t$ 满足 $t &lt; s$ 才会进行操作 2。 结合 $n$ 一定为偶数。当 $t &lt; s$ 时输出 $t + s$，否则直接输出 $s$ 即可。 B对于两个 $\operatorname{mex}$ 值相同的区间，两者合并之后的区间的 $\o
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-04-29 12:00" pubdate>
+              2025-04-29
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Codeforces/">#Codeforces</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/04/29/CF1918/" target="_blank">
+          CF1918 题解
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF1918/" target="_blank">
+        <div>
+          CF1918 题解A注意到只放横向的砖块即可，每横行最多可以放 $\left \lfloor \frac{m}{2} \right \rfloor$ 块砖，一共 $n$ 行，答案 $\left \lfloor \frac{m}{2} \right \rfloor \cdot n$。 B注意到如果 $a, b, c, d$ 分别是 $A, B$ 中位置为 $i, j$ 的数字： $$a \quad
         </div>
       </a>
 
@@ -445,15 +527,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/04/29/%E4%BA%8C%E9%A1%B9%E5%BC%8F%E4%B8%93%E9%A2%98/" target="_blank">
-          二项式专题
+        <a href="/2025/04/29/CF2032/" target="_blank">
+          CF2032 题解
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E4%BA%8C%E9%A1%B9%E5%BC%8F%E4%B8%93%E9%A2%98/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF2032/" target="_blank">
         <div>
-          二项式定理$$(a + b) ^ k &#x3D; \sum_{i &#x3D; 0}^{k} {k \choose i} a ^ i b ^ {k - i}$$ 证明是简单的。 二项式反演二项式反演基本用于容斥问题。结论： $$f(n) &#x3D; \sum_{i &#x3D; 0} ^ n{n \choose i} g(i) \Leftrightarrow g(n) &#x3D;\sum_{
+          CF2032 题解A设打开了 $k$ 个开关：  最小：两个同种状态的开关尽量连接同一盏灯，那么答案就为 $k \bmod 2$。 最多：两个不同种状态的开关尽量连接同一盏灯，那么答案就为 $n - \left|k - n\right|$。  B可以证明如果满足 $k &#x3D; 1 \vee k &#x3D; n$，那么一定无解。我们以最简单的情况将序列分成 $3$ 段，考虑 $k$ 的奇偶性
         </div>
       </a>
 
@@ -471,9 +553,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
-            
-              <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
+              <a href="/tags/Codeforces/">#Codeforces</a>
             
           </div>
         
@@ -487,15 +567,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/04/29/%E5%88%86%E5%9D%97%E5%A5%87%E5%A6%99%E9%A2%98/" target="_blank">
-          分块奇妙题
+        <a href="/2025/04/29/CF2006/" target="_blank">
+          CF2006 题解
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E5%88%86%E5%9D%97%E5%A5%87%E5%A6%99%E9%A2%98/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/CF2006/" target="_blank">
         <div>
-          引言 线段树和平衡树是具有局限性的，但是分块可以通过多样的 trick 处理多样的信息。 —— FDsama  P4168 [Violet] 蒲公英 无修改区间众数， $1\le n \le 40000$，$1\le m \le 50000$，$1\le a_i \le 10^9$。  首先离散化，记 $f_{i,j}$ 为第 $i$ 块到第 $j$ 块的区间众数，$cnt_{i,j}$ 表示前
+          CF2006 题解官方中文题解 A注意到 3 个数中一定不会出现两个偶数，那么就一定会有两个奇数，设区间中奇数的个数为 $cnt$，那么答案上界一定为 $\left \lfloor \frac{cnt}{2} \right \rfloor$。 我们来构造性的证明一定可以取到上界，容易发现每一次选择相邻的两个奇数和两者中间的偶数一定是可行的。 B先遍历一遍找到最大值，如果最大值在每一次修改的区间内，
         </div>
       </a>
 
@@ -513,91 +593,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%88%86%E5%9D%97/">#分块</a>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">#数据结构</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/29/%E5%87%8F%E5%8D%8A%E8%AD%A6%E6%8A%A5%E5%99%A8/" target="_blank">
-          减半警报器
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E5%87%8F%E5%8D%8A%E8%AD%A6%E6%8A%A5%E5%99%A8/" target="_blank">
-        <div>
-          首次出现应该在 2019-2020 ICPC Asia Hong Kong Regional Contest I. Incoming Asteroids 考虑如下问题： 有 $n$ 个位置，$m$ 个警报器，每个警报器监测比较少的几个位置（大概是常数级别），警报器在某一时刻开启后，如果监测的几个位置发生的事件（每个事件只在比较少的几个位置发生）阈值总和大于警报器的阈值，就报警（警报器开启前发生的
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-29 12:00" pubdate>
-              2025-04-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">#数据结构</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/29/%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/" target="_blank">
-          数论函数
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/" target="_blank">
-        <div>
-          定义：定义域是 $\mathbb{Z^+}$，值域是 $\mathbb{C}$ 的函数。 积性函数我们称当 $\gcd(i, j) &#x3D; 1$ 时满足$f(i \times j) &#x3D; f(i) \times f(j)$的数论函数为积性函数；称 $\forall i, j \in \mathbb{Z^+}$ 满足 $f(i \times j) &#x3D; f(i) \times
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-29 12:00" pubdate>
-              2025-04-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
-            
-              <a href="/tags/%E6%95%B0%E8%AE%BA/">#数论</a>
+              <a href="/tags/Codeforces/">#Codeforces</a>
             
           </div>
         
