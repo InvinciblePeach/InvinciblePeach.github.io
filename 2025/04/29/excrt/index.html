@@ -378,9 +378,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/29/NOIP2024/" title="NOIP2024 游记">
+                      <a href="/2025/04/29/Lucas/" title="Lucas 定理">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">NOIP2024 游记</span>
+                        <span class="hidden-mobile">Lucas 定理</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -388,8 +388,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/29/Lucas/" title="Lucas 定理">
-                        <span class="hidden-mobile">Lucas 定理</span>
+                      <a href="/2025/04/29/%E4%BA%8C%E9%A1%B9%E5%BC%8F%E4%B8%93%E9%A2%98/" title="二项式专题">
+                        <span class="hidden-mobile">二项式专题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -446,6 +446,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -638,6 +644,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
