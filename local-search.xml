@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>TrickInABC</title>
+    <link href="/2025/05/27/TrickInABC/"/>
+    <url>/2025/05/27/TrickInABC/</url>
+    
+    <content type="html"><![CDATA[<h3 id="ABC407F"><a href="#ABC407F" class="headerlink" title="ABC407F"></a>ABC407F</h3><p>直接做一定是不好做的，那么考虑拆贡献。一个数字 $a_i$ 个贡献与<strong>它左边第一个大于它的位置</strong> $L_i$ 和<strong>它右边第一个大于它的位置</strong> $R_i $有关，推式子后贡献形如分段函数，每一段都是一次函数，累计到答案上即可。$L_i, R_i$ 可以利用单调栈求。</p><h3 id="ABC407G"><a href="#ABC407G" class="headerlink" title="ABC407G"></a>ABC407G</h3><p>大概是典题，简单转化之后求二分图最小权匹配，可以用费用流做。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>AtCoder</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>计数奇妙题</title>
     <link href="/2024/11/01/%E8%AE%A1%E6%95%B0%E5%A5%87%E5%A6%99%E9%A2%98(Updated)/"/>
     <url>/2024/11/01/%E8%AE%A1%E6%95%B0%E5%A5%87%E5%A6%99%E9%A2%98(Updated)/</url>
@@ -27,17 +46,19 @@
   
   
   <entry>
-    <title>CF1794 题解</title>
-    <link href="/2024/10/01/CF1794/"/>
-    <url>/2024/10/01/CF1794/</url>
+    <title>大步小步（BSGS）</title>
+    <link href="/2024/10/01/BSGS/"/>
+    <url>/2024/10/01/BSGS/</url>
     
-    <content type="html"><![CDATA[<h1 id="CF1794-题解"><a href="#CF1794-题解" class="headerlink" title="CF1794 题解"></a>CF1794 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>将所给的字符串按长度降序排序，最前面的两个一定是最长的前缀与最长的后缀。如果原串是回文的，那么最长前缀一定等于最长后缀的反串。</p><h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>从前往后扫一遍，如果发现 $a_{i - 1} \mid a_i$，我们就将 $a_i \leftarrow a_i + 1$，此时一定有 $a_i \bmod a_{i - 1} &#x3D; 1$。但是当 $a_{i - 1} &#x3D; 1$ 时，通过改变 $a_i$ 一定无法满足条件，此时我们必需将 $a_{i - 1} \leftarrow a_{i - 1} + 1$，再对 $a_i$ 进行操作。不难发现每个数最多只会增加 $2$ 次，因此整个过程一定可以在 $2n$ 次操作内完成。</p><h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p>$a$ 单调不降，容易发现一定是选择 $a$ 的某一个后缀可以使答案最优。那么我们对 $a$ 采取以下操作：$a_i \leftarrow \dfrac{a_i}{n - i + 1}$。此时对于一个后缀 $[p, n]$，他的答案一定为：</p><p>$$<br>\prod_{i &#x3D; p}^{n} a_i<br>$$</p><p>注意到修改后的 $a_i$ 是单调增的，一次如果我们发现在某一个 $i$ 满足 $a_i &lt; 1, a_{i + 1} \ge 1$，那么 $[i + 1, n]$ 一定是最优的。二分搜索即可。</p><h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>请看<a href="https://www.luogu.com.cn/article/ybnz55hr">题解</a>。</p><p>考虑多重组合：</p><p>根据题目，每个质数最多选一次（作质因数），我们假设质因数已经确定，还剩 $k$ 种数，每种数有 $r_k$ 个，考虑方案数。有：</p><p>$$<br>\begin{aligned}<br>  \begin{pmatrix}<br>    n\newline<br>    r_{1},r_{2},\dots,r_{k}\newline<br>  \end{pmatrix}<br>  &amp; &#x3D;<br>  \begin{pmatrix}<br>    n\newline<br>    r_{1}\newline<br>  \end{pmatrix}<br>+<br>  \begin{pmatrix}<br>    n-r_{1}\newline<br>    r_{2}\newline<br>  \end{pmatrix}<br>+<br>\cdots<br>+<br>  \begin{pmatrix}<br>    n-(r_{1}+r_{2}+\dots+r_{k-1})\newline<br>    r_k\newline<br>  \end{pmatrix}<br>\newline &amp;&#x3D;<br>  \frac{n!}{r_{1}!(n-r_{1})}<br>  \times<br>  \frac{(n-r_{1})!}{r_{2}!(n-(r_{1}+r_{2}))}<br>  \times<br>\cdots<br>  \times<br>  \frac{(n-(r_{1}+r_{2}+\dots+r_{k-1}))!}{r_{k}!}<br>\newline &amp;&#x3D;<br>  \frac{n!}{r_{1}!+r_{2}!+\dots+r_{k}!}<br>\end{aligned}<br>$$</p><p>$n$ 比较大，我们不能直接暴力算。</p><p>定义：$dp_{i}$ 表示目前选了 $i$ 个数作质因数（其他遍历过的数全作指数）时的方案数。</p><p>线性筛求出所有质数，将数组 $a$ 中的数去重并记录个数，注意到 $mod&#x3D;998244353$，考虑用乘法逆元代替除法，这样我们可以在转移的同时计算将剩下的数当作指数分配给 $n$ 个位置的方案数（可以将 $dp_{0}$ 初始化为 $n!$ 或在最后将答案乘 $n!$）。</p><ul><li>如果当前数不为质数：$dp_{j}&#x3D;(dp_{j} \times ny_{sum_{i}})$</li><li>如果当前数为质数：$dp_{j}&#x3D;(dp_{j} \times ny_{sum_{i}})+(dp_{j-1} \times ny_{sum_{i}-1})$</li></ul><p>通过 NTT 可以做到 $\mathcal{O}(n \log^2 n)$，我不会。</p><h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><p>我们不考虑多出来的一个点。如果以 $u$ 为根，点填的权值一定为点的深度。此时我们可以考虑一个哈希：</p><p>$$<br>H&#x3D;cnt_1+cnt_2\times base+cnt_3\times base^2…..cnt_{n-1}\times base^{n-2} \bmod p<br>$$</p><p>注意到这个哈希函数是可以进行换根的。设 $fa$ 为 $u$ 的根，v 为 $u$ 的儿子。 ：</p><ul><li>当我们要去到 $v$ 的时候，$H_u&#x3D;H_u-H_v\times base$。</li><li>当我们要回到 $u$ 的时候，$H_u&#x3D;H_u+H_v\times base$。</li><li>当我们刚到达 $u$ 的时候，$H_u&#x3D;H_u+H_{fa}\times base$。</li><li>当我们要离开 $u$ 的时候，$H_u&#x3D;H_u-H_{fa}\times base$。</li></ul><p>接下来我们考虑多出来的一个点怎么办，注意到它只会影响 $base$ 的一个幂次，直接将两者的哈希值相减判断即可。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>BSGS 用于求解 $x$ 满足：<br>$$<br>a^x \equiv n \pmod p<br>$$<br>我们先来考虑特殊情况，当 $\gcd(a, p) &#x3D; 1$ 并假设一定有解。首先，根据欧拉定理，对于一个 $\varphi(p)$ 剩余系，存在且只存在一个 $x$ 使得上式成立。</p><h2 id="BSGS-大步小步"><a href="#BSGS-大步小步" class="headerlink" title="BSGS 大步小步"></a>BSGS 大步小步</h2><p>一般的方式是直接枚举，大步小步（BSGS, Baby step gaint step）提供了一种 $\mathcal{O}(\sqrt p)$ 时间负责度内解决的方法。设答案为 $k$，则 $k$ 可以表示成 $i m - j (j &lt; m)$ 的形式，则：<br>$$<br>\begin{align}<br>a^{im - j} &amp;\equiv n &amp;\pmod p \newline<br>a^{im} &amp;\equiv n \cdot a^j &amp;\pmod p \newline<br>\end{align}<br>$$<br>这个时候，我们逐一枚举 $j$，将结果 $n \cdot a^j$ 存到 Hash 表中；然后从小到大逐一枚举 $i$，如果 Hash 表内存在一个 $j$ 使得 $a^{im} \equiv n\cdot a^j$，直接输出 $im - j$ 一定是最小的正整数解，无解的情况则是将 $i$ 全部遍历之后不存在 $j$ 使得 $a^{im} \equiv n\cdot a^j$。以上做法的时间复杂度 $\mathcal{O}(\frac{p}{m} + m)$，根据均值不等式得到 $m &#x3D; \sqrt p$ 情况下最优。整体时间复杂度为 $\mathcal{O}(\sqrt p)$</p><h2 id="ExBSGS"><a href="#ExBSGS" class="headerlink" title="ExBSGS"></a>ExBSGS</h2><p>进一步的，我们考虑更一般的情况，此时没有 $\gcd(a, p) &#x3D; 1$，能否将他转换为 $\gcd(a, p) &#x3D; 1$ 的情况并使用一般的 BSGS 呢？设 $d &#x3D; \gcd(a, p)$，那么一定有：<br>$$<br>\frac{a}{d} \cdot a^{k  - 1} \equiv \frac{n}{d} \pmod {\frac{p}{d}}<br>$$<br>如果 $d \nmid n$ 则方程无解。这里 $\frac{a}{d}$ 就相当于常数了，但是此时仍然不能保证 $\gcd(a, p) &#x3D; 1$，很简单，重复以上操作 $m$ 次直到 $\gcd(a, p) &#x3D; 1$。</p><p>设 $D$ 是 $m$ 次操作之后所有 $d$ 的乘积，有：<br>$$<br>\frac{a^m}{D} \cdot a^{k - m} \equiv \frac{n}{D} \pmod {\frac{p}{D}}<br>$$<br>此时就可以 BSGS 做了。注意 $\frac{a^m}{D}$ 要当作常数传进 BSGS 函数里。</p>]]></content>
     
     
     
     <tags>
       
-      <tag>Codeforces</tag>
+      <tag>数学</tag>
+      
+      <tag>分块</tag>
       
     </tags>
     
@@ -46,11 +67,11 @@
   
   
   <entry>
-    <title>CF1805 题解</title>
-    <link href="/2024/10/01/CF1805/"/>
-    <url>/2024/10/01/CF1805/</url>
+    <title>CF1794 题解</title>
+    <link href="/2024/10/01/CF1794/"/>
+    <url>/2024/10/01/CF1794/</url>
     
-    <content type="html"><![CDATA[<h1 id="CF1805-题解"><a href="#CF1805-题解" class="headerlink" title="CF1805 题解"></a>CF1805 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>按位贪心，$x$ 里每一位的 $1$ 会使 $b$ 中的 $0,1$ 个数的奇偶性取反，使得每一位 $1$ 的个数为偶数即可。</p><h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>结论：将最小的字符提到最前，若有相同的取最后的。</p><p>接下来我们来证明以上结论：</p><blockquote><p>字符串的第一位一定是最小的可以使答案最优。第一条得证。</p><p>考虑我们有两个可选的位置 $l, r \mid a[l] &#x3D; a[r] &#x3D; \min{a} &#x3D; c$。如果选择 $l$，答案为 $c + [1, l -1] + [l + 1, r - 1] + c + [r + 1, n]$；如果选择 $r$，答案为 $c + [1, l - 1] + c + [l + 1, r - 1] + [r + 1, n]$。</p><p>注意到一定有 $c + [l + 1, r - 1] &lt; [l + 1, r - 1] + c$，因此我们证明了对于任意两个最小值一定是选最小的更优，可以推广到整个串的情况。</p></blockquote><h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p>考虑到大家都上过初中，我们直接计算 + 二分找 $k$ 即可。</p><h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>有以下结论：</p><ol><li>若点 $x$ 到最远的点的距离 $&lt; k$，说明 $x$ 自成一个联通块；</li><li>若点 $x$ 到直径某一个端点的距离 $\ge k$，则 $x$ 与端点共联通块；</li><li>因此，每一个点要么单独成联通块，要么与直径端点共联通块；</li></ol><p>那么我们直接找出直径，开桶统计最远距离即可。</p><h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><p><a href="https://www.luogu.com.cn/article/2mx8b4i3">https://www.luogu.com.cn/article/2mx8b4i3</a></p><blockquote><p>考虑对每个数值做：</p><ul><li>这个数值只出现了一次：没用。</li><li>出现了至少三次：这个数值对整棵树所有边都有贡献。证明割了一条边后两棵肯定是一棵一个，另一棵两个。</li><li>正好两次：对于这两个点之间的边没贡献，其他都有贡献。</li></ul><p>考虑直接写个树剖跑这个东西。可以套线段树区间赋值。</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<h1 id="CF1794-题解"><a href="#CF1794-题解" class="headerlink" title="CF1794 题解"></a>CF1794 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>将所给的字符串按长度降序排序，最前面的两个一定是最长的前缀与最长的后缀。如果原串是回文的，那么最长前缀一定等于最长后缀的反串。</p><h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>从前往后扫一遍，如果发现 $a_{i - 1} \mid a_i$，我们就将 $a_i \leftarrow a_i + 1$，此时一定有 $a_i \bmod a_{i - 1} &#x3D; 1$。但是当 $a_{i - 1} &#x3D; 1$ 时，通过改变 $a_i$ 一定无法满足条件，此时我们必需将 $a_{i - 1} \leftarrow a_{i - 1} + 1$，再对 $a_i$ 进行操作。不难发现每个数最多只会增加 $2$ 次，因此整个过程一定可以在 $2n$ 次操作内完成。</p><h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p>$a$ 单调不降，容易发现一定是选择 $a$ 的某一个后缀可以使答案最优。那么我们对 $a$ 采取以下操作：$a_i \leftarrow \dfrac{a_i}{n - i + 1}$。此时对于一个后缀 $[p, n]$，他的答案一定为：</p><p>$$<br>\prod_{i &#x3D; p}^{n} a_i<br>$$</p><p>注意到修改后的 $a_i$ 是单调增的，一次如果我们发现在某一个 $i$ 满足 $a_i &lt; 1, a_{i + 1} \ge 1$，那么 $[i + 1, n]$ 一定是最优的。二分搜索即可。</p><h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>请看<a href="https://www.luogu.com.cn/article/ybnz55hr">题解</a>。</p><p>考虑多重组合：</p><p>根据题目，每个质数最多选一次（作质因数），我们假设质因数已经确定，还剩 $k$ 种数，每种数有 $r_k$ 个，考虑方案数。有：</p><p>$$<br>\begin{aligned}<br>  \begin{pmatrix}<br>    n\newline<br>    r_{1},r_{2},\dots,r_{k}\newline<br>  \end{pmatrix}<br>  &amp; &#x3D;<br>  \begin{pmatrix}<br>    n\newline<br>    r_{1}\newline<br>  \end{pmatrix}<br>+<br>  \begin{pmatrix}<br>    n-r_{1}\newline<br>    r_{2}\newline<br>  \end{pmatrix}<br>+<br>\cdots<br>+<br>  \begin{pmatrix}<br>    n-(r_{1}+r_{2}+\dots+r_{k-1})\newline<br>    r_k\newline<br>  \end{pmatrix}<br>\newline &amp;&#x3D;<br>  \frac{n!}{r_{1}!(n-r_{1})}<br>  \times<br>  \frac{(n-r_{1})!}{r_{2}!(n-(r_{1}+r_{2}))}<br>  \times<br>\cdots<br>  \times<br>  \frac{(n-(r_{1}+r_{2}+\dots+r_{k-1}))!}{r_{k}!}<br>\newline &amp;&#x3D;<br>  \frac{n!}{r_{1}!+r_{2}!+\dots+r_{k}!}<br>\end{aligned}<br>$$</p><p>$n$ 比较大，我们不能直接暴力算。</p><p>定义：$dp_{i}$ 表示目前选了 $i$ 个数作质因数（其他遍历过的数全作指数）时的方案数。</p><p>线性筛求出所有质数，将数组 $a$ 中的数去重并记录个数，注意到 $mod&#x3D;998244353$，考虑用乘法逆元代替除法，这样我们可以在转移的同时计算将剩下的数当作指数分配给 $n$ 个位置的方案数（可以将 $dp_{0}$ 初始化为 $n!$ 或在最后将答案乘 $n!$）。</p><ul><li>如果当前数不为质数：$dp_{j}&#x3D;(dp_{j} \times ny_{sum_{i}})$</li><li>如果当前数为质数：$dp_{j}&#x3D;(dp_{j} \times ny_{sum_{i}})+(dp_{j-1} \times ny_{sum_{i}-1})$</li></ul><p>通过 NTT 可以做到 $\mathcal{O}(n \log^2 n)$，我不会。</p><h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><p>我们不考虑多出来的一个点。如果以 $u$ 为根，点填的权值一定为点的深度。此时我们可以考虑一个哈希：</p><p>$$<br>H&#x3D;cnt_1+cnt_2\times base+cnt_3\times base^2…..cnt_{n-1}\times base^{n-2} \bmod p<br>$$</p><p>注意到这个哈希函数是可以进行换根的。设 $fa$ 为 $u$ 的根，v 为 $u$ 的儿子。 ：</p><ul><li>当我们要去到 $v$ 的时候，$H_u&#x3D;H_u-H_v\times base$。</li><li>当我们要回到 $u$ 的时候，$H_u&#x3D;H_u+H_v\times base$。</li><li>当我们刚到达 $u$ 的时候，$H_u&#x3D;H_u+H_{fa}\times base$。</li><li>当我们要离开 $u$ 的时候，$H_u&#x3D;H_u-H_{fa}\times base$。</li></ul><p>接下来我们考虑多出来的一个点怎么办，注意到它只会影响 $base$ 的一个幂次，直接将两者的哈希值相减判断即可。</p>]]></content>
     
     
     
@@ -84,32 +105,11 @@
   
   
   <entry>
-    <title>大步小步（BSGS）</title>
-    <link href="/2024/10/01/BSGS/"/>
-    <url>/2024/10/01/BSGS/</url>
+    <title>CF1805 题解</title>
+    <link href="/2024/10/01/CF1805/"/>
+    <url>/2024/10/01/CF1805/</url>
     
-    <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>BSGS 用于求解 $x$ 满足：<br>$$<br>a^x \equiv n \pmod p<br>$$<br>我们先来考虑特殊情况，当 $\gcd(a, p) &#x3D; 1$ 并假设一定有解。首先，根据欧拉定理，对于一个 $\varphi(p)$ 剩余系，存在且只存在一个 $x$ 使得上式成立。</p><h2 id="BSGS-大步小步"><a href="#BSGS-大步小步" class="headerlink" title="BSGS 大步小步"></a>BSGS 大步小步</h2><p>一般的方式是直接枚举，大步小步（BSGS, Baby step gaint step）提供了一种 $\mathcal{O}(\sqrt p)$ 时间负责度内解决的方法。设答案为 $k$，则 $k$ 可以表示成 $i m - j (j &lt; m)$ 的形式，则：<br>$$<br>\begin{align}<br>a^{im - j} &amp;\equiv n &amp;\pmod p \newline<br>a^{im} &amp;\equiv n \cdot a^j &amp;\pmod p \newline<br>\end{align}<br>$$<br>这个时候，我们逐一枚举 $j$，将结果 $n \cdot a^j$ 存到 Hash 表中；然后从小到大逐一枚举 $i$，如果 Hash 表内存在一个 $j$ 使得 $a^{im} \equiv n\cdot a^j$，直接输出 $im - j$ 一定是最小的正整数解，无解的情况则是将 $i$ 全部遍历之后不存在 $j$ 使得 $a^{im} \equiv n\cdot a^j$。以上做法的时间复杂度 $\mathcal{O}(\frac{p}{m} + m)$，根据均值不等式得到 $m &#x3D; \sqrt p$ 情况下最优。整体时间复杂度为 $\mathcal{O}(\sqrt p)$</p><h2 id="ExBSGS"><a href="#ExBSGS" class="headerlink" title="ExBSGS"></a>ExBSGS</h2><p>进一步的，我们考虑更一般的情况，此时没有 $\gcd(a, p) &#x3D; 1$，能否将他转换为 $\gcd(a, p) &#x3D; 1$ 的情况并使用一般的 BSGS 呢？设 $d &#x3D; \gcd(a, p)$，那么一定有：<br>$$<br>\frac{a}{d} \cdot a^{k  - 1} \equiv \frac{n}{d} \pmod {\frac{p}{d}}<br>$$<br>如果 $d \nmid n$ 则方程无解。这里 $\frac{a}{d}$ 就相当于常数了，但是此时仍然不能保证 $\gcd(a, p) &#x3D; 1$，很简单，重复以上操作 $m$ 次直到 $\gcd(a, p) &#x3D; 1$。</p><p>设 $D$ 是 $m$ 次操作之后所有 $d$ 的乘积，有：<br>$$<br>\frac{a^m}{D} \cdot a^{k - m} \equiv \frac{n}{D} \pmod {\frac{p}{D}}<br>$$<br>此时就可以 BSGS 做了。注意 $\frac{a^m}{D}$ 要当作常数传进 BSGS 函数里。</p>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>数学</tag>
-      
-      <tag>分块</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>CF1935题解</title>
-    <link href="/2024/10/01/CF1935/"/>
-    <url>/2024/10/01/CF1935/</url>
-    
-    <content type="html"><![CDATA[<h1 id="CF1935-题解"><a href="#CF1935-题解" class="headerlink" title="CF1935 题解"></a>CF1935 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>注意到操作 2 一定只会进行一次，因为如果进行两次一定会使原串的字典序更大。那么还可以发现当且仅当 $s$ 反转之后的串 $t$ 满足 $t &lt; s$ 才会进行操作 2。</p><p>结合 $n$ 一定为偶数。当 $t &lt; s$ 时输出 $t + s$，否则直接输出 $s$ 即可。</p><h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>对于两个 $\operatorname{mex}$ 值相同的区间，两者合并之后的区间的 $\operatorname{mex}$ 值一定与两者相同，因此我们可以只将原序列分成两部分考虑。</p><p>那么我们可以做一个前缀&#x2F;后缀 $\operatorname{mex}$，枚举中间断点使得两部分 $\operatorname{mex}$ 相同即可。</p><h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p>注意到原式一定是将二元对以 $b$ 为关键字排序答案最优，那么有：</p><p>$$<br>\min \left { \sum_{i &#x3D; 1}^{k - 1}|b_i - b_{i + 1}| \right } &#x3D; b_{\max} - b_{\min}<br>$$</p><p>因此我们考虑将原数组以 $b$ 为关键字排序，对于每一个左端点 $l$ 维护一个大根堆，如果不满足 $sum + b_r - b_l \leq L$ 就弹出堆顶，答案即为堆的大小。</p><h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>容斥，答案为数对 $(x,y)$ 的数量减去 $y+x,y-x$ 至少有一个在 $s$ 里的数量，加上 $y+x,y-x$ 都在 $s$ 里的数量。</p><p>第一部分是 $\frac{(c+1)(c+2)}{2}$，第二部分是 $\sum \limits_{i&#x3D;1}^n (n-s_i+1)+(\left \lfloor \frac{s_i}{2} \right \rfloor +1)$，其中前面是是差为 $s$，后面是和为 $s$，注意要保证 $x \le y$。</p><blockquote><p>考虑第三部分的计数，枚举 $x+y &#x3D; s_i$，相当于问前面有多少 $j$ 满足 $y+x&#x3D;s_i,y-x&#x3D;s_j(j \le i)$ 有解且解合法（$0 \le x \le y \le c$）。通过初中数学知识不难解得 $y &#x3D; \frac{s_i+s_j}{2},x &#x3D; s_i - \frac{s_i+s_j}{2}$。首先只有 $s_i \equiv s_j \pmod 2$ 时 $x,y$ 为整数，又注意到由于 $s_j \le s_i$，因此解出的 $x,y$ 一定满足条件，即只需要统计对于 $s_i$ 前面有多少 $s_j$ 与之奇偶性相同，前缀和即可。</p></blockquote><h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><blockquote><p>首先我们对于每一对 $(x_i,y_i)$，去除它们二进制下最长公共前缀并直接算入答案 $ans$，此时一定满足 $x_i &lt; y_i$ 且最高位不同。考虑对于某一位 $j$，考虑区间内有多少 $y_i$ 满足 $y_i$ 的第 $j$ 位是 $1$，加上 $ans$ 的第 $j$ 位是否是 $1$ 后假设有 $c$ 个：</p><ul><li>$c \ge 2$：因为我们已经保证 $x_i &lt; y_i$，所以一定可以一个位置令 $a_i &#x3D; 2^j$，一个位置令 $a_i &#x3D; 2^j-1$，或起来后 $j$ 及更低的二进制位都已经是 $1$，不需要再往下考虑。</li><li>$c &#x3D; 1$：此时我们一定填 $1$，这一位对答案产生贡献。</li><li>$c &#x3D; 0$：这一位没有意义。</li></ul><p>你也可以通过以上流程发现，在去除最长公共前缀后 $x_i$ 就已经没有意义，因为当 $c \ge 2$ 时我们直接得到答案，$c&#x3D;  1$ 时只关心能否在某一位填 $1$，而这个与 $x_i$ 无关。</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<h1 id="CF1805-题解"><a href="#CF1805-题解" class="headerlink" title="CF1805 题解"></a>CF1805 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>按位贪心，$x$ 里每一位的 $1$ 会使 $b$ 中的 $0,1$ 个数的奇偶性取反，使得每一位 $1$ 的个数为偶数即可。</p><h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>结论：将最小的字符提到最前，若有相同的取最后的。</p><p>接下来我们来证明以上结论：</p><blockquote><p>字符串的第一位一定是最小的可以使答案最优。第一条得证。</p><p>考虑我们有两个可选的位置 $l, r \mid a[l] &#x3D; a[r] &#x3D; \min{a} &#x3D; c$。如果选择 $l$，答案为 $c + [1, l -1] + [l + 1, r - 1] + c + [r + 1, n]$；如果选择 $r$，答案为 $c + [1, l - 1] + c + [l + 1, r - 1] + [r + 1, n]$。</p><p>注意到一定有 $c + [l + 1, r - 1] &lt; [l + 1, r - 1] + c$，因此我们证明了对于任意两个最小值一定是选最小的更优，可以推广到整个串的情况。</p></blockquote><h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p>考虑到大家都上过初中，我们直接计算 + 二分找 $k$ 即可。</p><h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>有以下结论：</p><ol><li>若点 $x$ 到最远的点的距离 $&lt; k$，说明 $x$ 自成一个联通块；</li><li>若点 $x$ 到直径某一个端点的距离 $\ge k$，则 $x$ 与端点共联通块；</li><li>因此，每一个点要么单独成联通块，要么与直径端点共联通块；</li></ol><p>那么我们直接找出直径，开桶统计最远距离即可。</p><h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><p><a href="https://www.luogu.com.cn/article/2mx8b4i3">https://www.luogu.com.cn/article/2mx8b4i3</a></p><blockquote><p>考虑对每个数值做：</p><ul><li>这个数值只出现了一次：没用。</li><li>出现了至少三次：这个数值对整棵树所有边都有贡献。证明割了一条边后两棵肯定是一棵一个，另一棵两个。</li><li>正好两次：对于这两个点之间的边没贡献，其他都有贡献。</li></ul><p>考虑直接写个树剖跑这个东西。可以套线段树区间赋值。</p></blockquote>]]></content>
     
     
     
@@ -143,11 +143,11 @@
   
   
   <entry>
-    <title>CF1918 题解</title>
-    <link href="/2024/10/01/CF1918/"/>
-    <url>/2024/10/01/CF1918/</url>
+    <title>CF1935题解</title>
+    <link href="/2024/10/01/CF1935/"/>
+    <url>/2024/10/01/CF1935/</url>
     
-    <content type="html"><![CDATA[<h1 id="CF1918-题解"><a href="#CF1918-题解" class="headerlink" title="CF1918 题解"></a>CF1918 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>注意到只放横向的砖块即可，每横行最多可以放 $\left \lfloor \frac{m}{2} \right \rfloor$ 块砖，一共 $n$ 行，答案 $\left \lfloor \frac{m}{2} \right \rfloor \cdot n$。</p><h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>注意到如果 $a, b, c, d$ 分别是 $A, B$ 中位置为 $i, j$ 的数字：</p><p>$$<br>a \quad xa, xb \quad b \quad ya, yb \newline<br>c \quad xc, xd \quad d \quad yc, yd<br>$$</p><p>其中，$x_$ 表示 $\left(i, j\right)$ 中 $&gt; _$ 的数的个数，$y_$ 表示 $\left(j, n\right]$ 中 $&gt; _$ 的数的个数。</p><p>那么设交换之前与 $i, j$ 位置有关的逆序对的个数为 $w$，交换之后与 $i, j$ 位置有关的逆序对的个数为 $w’$，有：</p><p>$$<br>w &#x3D; \left(xa + ya + yb\right) + \left(xc + yc + yd\right) \newline<br>w’ &#x3D; \left(xb + yb + ya\right) + \left(xd + yd + yc\right)<br>$$</p><p>注意到：</p><p>$$<br>w’ - w &#x3D; \left(xb - xa\right) + \left(xd - xc\right)<br>$$</p><p>每进行一次交换对答案的贡献为 $w’ - w$。为了使最终构造的数列最优，一定有</p><p>$$<br>\forall i, j \in \left[1, n\right],w’ - w \geq 0<br>$$</p><p>注意到如果 $i,j$ 之间的距离为 $len$，则 $xa, xb, xc, xd \leq len$。若 $A$ 有序，则 $xb &#x3D; len, xa &#x3D; 0$，此时 $w’ - w \geq 0$，符合最优条件。</p><h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p><del>直接贪贪完了</del></p><p>注意到 $ans$ 最小即为异或之后 $a, b$ 最接近。那么从最高位贪心，若 $a, b$ 同一位上数字不同且较大一方该位为 $1$，异或上 $1$ 之后可以使答案更优。</p><p><del>所以直接贪贪完了</del></p><h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>二分答案 + DP</p><p>如果 $res \leq val$，则一定满足：</p><ul><li>相邻两个断点之间子段和 $\leq val$</li><li>所选的各点点权和 $\leq val$</li></ul><p>设 $f_i$ 表示考虑前 $i$ 个位置，选了第 $i$ 个位置，且相邻两个断点之间子段和 $\leq val$ 的最小价值，得到转移式：</p><p>$$<br>f_i &#x3D; a_i + \min_{s_{i - 1} - s_j \leq val} f_j<br>$$</p><p>可以单调队列优化。</p><h2 id="F"><a href="#F" class="headerlink" title="F"></a>F</h2><p>注意到：传送一定在某个叶子结点。</p><p>注意到：某个子树内如果发生了传送，那么传送点一定在该子树内最深的节点。</p><p>注意到：如果我们按顺序遍历子树，那么传送之后一定会再次回到某个子树的根节点。</p><p>注意到：如果不进行传送，那么 $ans &#x3D; 2n - 1$。</p><p>注意到：设以 $i$ 为根的子树内最深的点为 $b_i$，那么直接返回的代价为 $dep_{b_i} - dep_i + 1$。</p><p>注意到：如果传送，代价为 $dep_i - 1$。</p><p>注意到：如果传送，最终答案就会减小 $dep_{b_i} - 2 \cdot dep_i + 2$。</p><p>注意到：排个序取前 $k$ 小的直接做做完了。</p><h2 id="G"><a href="#G" class="headerlink" title="G"></a>G</h2><p><a href="https://www.luogu.com.cn/article/qr4lea2l">这篇题解</a>写挺好的，看这个吧，不写了。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="CF1935-题解"><a href="#CF1935-题解" class="headerlink" title="CF1935 题解"></a>CF1935 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>注意到操作 2 一定只会进行一次，因为如果进行两次一定会使原串的字典序更大。那么还可以发现当且仅当 $s$ 反转之后的串 $t$ 满足 $t &lt; s$ 才会进行操作 2。</p><p>结合 $n$ 一定为偶数。当 $t &lt; s$ 时输出 $t + s$，否则直接输出 $s$ 即可。</p><h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>对于两个 $\operatorname{mex}$ 值相同的区间，两者合并之后的区间的 $\operatorname{mex}$ 值一定与两者相同，因此我们可以只将原序列分成两部分考虑。</p><p>那么我们可以做一个前缀&#x2F;后缀 $\operatorname{mex}$，枚举中间断点使得两部分 $\operatorname{mex}$ 相同即可。</p><h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p>注意到原式一定是将二元对以 $b$ 为关键字排序答案最优，那么有：</p><p>$$<br>\min \left { \sum_{i &#x3D; 1}^{k - 1}|b_i - b_{i + 1}| \right } &#x3D; b_{\max} - b_{\min}<br>$$</p><p>因此我们考虑将原数组以 $b$ 为关键字排序，对于每一个左端点 $l$ 维护一个大根堆，如果不满足 $sum + b_r - b_l \leq L$ 就弹出堆顶，答案即为堆的大小。</p><h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>容斥，答案为数对 $(x,y)$ 的数量减去 $y+x,y-x$ 至少有一个在 $s$ 里的数量，加上 $y+x,y-x$ 都在 $s$ 里的数量。</p><p>第一部分是 $\frac{(c+1)(c+2)}{2}$，第二部分是 $\sum \limits_{i&#x3D;1}^n (n-s_i+1)+(\left \lfloor \frac{s_i}{2} \right \rfloor +1)$，其中前面是是差为 $s$，后面是和为 $s$，注意要保证 $x \le y$。</p><blockquote><p>考虑第三部分的计数，枚举 $x+y &#x3D; s_i$，相当于问前面有多少 $j$ 满足 $y+x&#x3D;s_i,y-x&#x3D;s_j(j \le i)$ 有解且解合法（$0 \le x \le y \le c$）。通过初中数学知识不难解得 $y &#x3D; \frac{s_i+s_j}{2},x &#x3D; s_i - \frac{s_i+s_j}{2}$。首先只有 $s_i \equiv s_j \pmod 2$ 时 $x,y$ 为整数，又注意到由于 $s_j \le s_i$，因此解出的 $x,y$ 一定满足条件，即只需要统计对于 $s_i$ 前面有多少 $s_j$ 与之奇偶性相同，前缀和即可。</p></blockquote><h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><blockquote><p>首先我们对于每一对 $(x_i,y_i)$，去除它们二进制下最长公共前缀并直接算入答案 $ans$，此时一定满足 $x_i &lt; y_i$ 且最高位不同。考虑对于某一位 $j$，考虑区间内有多少 $y_i$ 满足 $y_i$ 的第 $j$ 位是 $1$，加上 $ans$ 的第 $j$ 位是否是 $1$ 后假设有 $c$ 个：</p><ul><li>$c \ge 2$：因为我们已经保证 $x_i &lt; y_i$，所以一定可以一个位置令 $a_i &#x3D; 2^j$，一个位置令 $a_i &#x3D; 2^j-1$，或起来后 $j$ 及更低的二进制位都已经是 $1$，不需要再往下考虑。</li><li>$c &#x3D; 1$：此时我们一定填 $1$，这一位对答案产生贡献。</li><li>$c &#x3D; 0$：这一位没有意义。</li></ul><p>你也可以通过以上流程发现，在去除最长公共前缀后 $x_i$ 就已经没有意义，因为当 $c \ge 2$ 时我们直接得到答案，$c&#x3D;  1$ 时只关心能否在某一位填 $1$，而这个与 $x_i$ 无关。</p></blockquote>]]></content>
     
     
     
@@ -181,11 +181,11 @@
   
   
   <entry>
-    <title>CF2032 题解</title>
-    <link href="/2024/10/01/CF2032/"/>
-    <url>/2024/10/01/CF2032/</url>
+    <title>CF1918 题解</title>
+    <link href="/2024/10/01/CF1918/"/>
+    <url>/2024/10/01/CF1918/</url>
     
-    <content type="html"><![CDATA[<h1 id="CF2032-题解"><a href="#CF2032-题解" class="headerlink" title="CF2032 题解"></a>CF2032 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>设打开了 $k$ 个开关：</p><ul><li>最小：两个同种状态的开关尽量连接同一盏灯，那么答案就为 $k \bmod 2$。</li><li>最多：两个不同种状态的开关尽量连接同一盏灯，那么答案就为 $n - \left|k - n\right|$。</li></ul><h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>可以证明如果满足 $k &#x3D; 1 \vee k &#x3D; n$，那么一定无解。我们以最简单的情况将序列分成 $3$ 段，考虑 $k$ 的奇偶性：</p><ul><li>$k \equiv 0 \pmod 2$ 可以分成 $[1, k - 1] \ [k, k] \ [k + 1, n]$。</li><li>$k \equiv 1 \pmod 2$ 可以分成 $[1, k - 2] \ [k - 1, k + 1] \ [k + 2, n]$。</li></ul><h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p>如果满足题面要求，一定有：<br>$$<br>a_{\max} &lt; a_{\min} + a_{\min + 1}<br>$$<br>对 $a$ 排序，枚举一个最大值，二分出满足要求的最小值，答案即为 $n - \max + \min - 1$，时间复杂度 $\mathcal{O}(n \log n)$。</p><h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>考虑从 $n - 1$ 向 $1$ 询问推断出树的形状。那么第一次询问 $n - 1$ 和 $n - 2$，通过题面我们发现 $n - 1$ 的父亲的编号一定小于等于 $n - 2$，那么从 $n - 2$ 逐一向更小询问，一旦发现答案为 $1$，可以证明此时编号更小的一定是编号更大者的父节点。接下来我们把两个数都 $-1$，继续询问直到某一者为 $0$。</p><h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><p>考虑操作之后序列值的变化 $a_i \leftarrow a_i + 2 c_i + c_{i - 1} + c_{i + 1}$。那么有：<br>$$<br>a_i + 2 c_i + c_{i - 1} + c_{i + 1} &#x3D; a_{i + 1} + 2 c_{i + 1} + c_i + c_{i + 2} \newline<br>(c_i + c_{i - 1}) - (c_{i + 1} + c_{i + 2}) &#x3D; a_{i + 1} - a_i<br>$$<br>设 $b_i &#x3D; c_i + c{i - 1}$，则 $b_{i + 1} &#x3D; b_i + a_i - a_{i + 1}$。$b$ 是可求的，那么也就可以推出 $c$。</p><h2 id="F"><a href="#F" class="headerlink" title="F"></a>F</h2><p>Nim 游戏是 <strong>9 级知识点</strong>，不会。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="CF1918-题解"><a href="#CF1918-题解" class="headerlink" title="CF1918 题解"></a>CF1918 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>注意到只放横向的砖块即可，每横行最多可以放 $\left \lfloor \frac{m}{2} \right \rfloor$ 块砖，一共 $n$ 行，答案 $\left \lfloor \frac{m}{2} \right \rfloor \cdot n$。</p><h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>注意到如果 $a, b, c, d$ 分别是 $A, B$ 中位置为 $i, j$ 的数字：</p><p>$$<br>a \quad xa, xb \quad b \quad ya, yb \newline<br>c \quad xc, xd \quad d \quad yc, yd<br>$$</p><p>其中，$x_$ 表示 $\left(i, j\right)$ 中 $&gt; _$ 的数的个数，$y_$ 表示 $\left(j, n\right]$ 中 $&gt; _$ 的数的个数。</p><p>那么设交换之前与 $i, j$ 位置有关的逆序对的个数为 $w$，交换之后与 $i, j$ 位置有关的逆序对的个数为 $w’$，有：</p><p>$$<br>w &#x3D; \left(xa + ya + yb\right) + \left(xc + yc + yd\right) \newline<br>w’ &#x3D; \left(xb + yb + ya\right) + \left(xd + yd + yc\right)<br>$$</p><p>注意到：</p><p>$$<br>w’ - w &#x3D; \left(xb - xa\right) + \left(xd - xc\right)<br>$$</p><p>每进行一次交换对答案的贡献为 $w’ - w$。为了使最终构造的数列最优，一定有</p><p>$$<br>\forall i, j \in \left[1, n\right],w’ - w \geq 0<br>$$</p><p>注意到如果 $i,j$ 之间的距离为 $len$，则 $xa, xb, xc, xd \leq len$。若 $A$ 有序，则 $xb &#x3D; len, xa &#x3D; 0$，此时 $w’ - w \geq 0$，符合最优条件。</p><h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p><del>直接贪贪完了</del></p><p>注意到 $ans$ 最小即为异或之后 $a, b$ 最接近。那么从最高位贪心，若 $a, b$ 同一位上数字不同且较大一方该位为 $1$，异或上 $1$ 之后可以使答案更优。</p><p><del>所以直接贪贪完了</del></p><h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>二分答案 + DP</p><p>如果 $res \leq val$，则一定满足：</p><ul><li>相邻两个断点之间子段和 $\leq val$</li><li>所选的各点点权和 $\leq val$</li></ul><p>设 $f_i$ 表示考虑前 $i$ 个位置，选了第 $i$ 个位置，且相邻两个断点之间子段和 $\leq val$ 的最小价值，得到转移式：</p><p>$$<br>f_i &#x3D; a_i + \min_{s_{i - 1} - s_j \leq val} f_j<br>$$</p><p>可以单调队列优化。</p><h2 id="F"><a href="#F" class="headerlink" title="F"></a>F</h2><p>注意到：传送一定在某个叶子结点。</p><p>注意到：某个子树内如果发生了传送，那么传送点一定在该子树内最深的节点。</p><p>注意到：如果我们按顺序遍历子树，那么传送之后一定会再次回到某个子树的根节点。</p><p>注意到：如果不进行传送，那么 $ans &#x3D; 2n - 1$。</p><p>注意到：设以 $i$ 为根的子树内最深的点为 $b_i$，那么直接返回的代价为 $dep_{b_i} - dep_i + 1$。</p><p>注意到：如果传送，代价为 $dep_i - 1$。</p><p>注意到：如果传送，最终答案就会减小 $dep_{b_i} - 2 \cdot dep_i + 2$。</p><p>注意到：排个序取前 $k$ 小的直接做做完了。</p><h2 id="G"><a href="#G" class="headerlink" title="G"></a>G</h2><p><a href="https://www.luogu.com.cn/article/qr4lea2l">这篇题解</a>写挺好的，看这个吧，不写了。</p>]]></content>
     
     
     
@@ -219,6 +219,25 @@
   
   
   <entry>
+    <title>CF2032 题解</title>
+    <link href="/2024/10/01/CF2032/"/>
+    <url>/2024/10/01/CF2032/</url>
+    
+    <content type="html"><![CDATA[<h1 id="CF2032-题解"><a href="#CF2032-题解" class="headerlink" title="CF2032 题解"></a>CF2032 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>设打开了 $k$ 个开关：</p><ul><li>最小：两个同种状态的开关尽量连接同一盏灯，那么答案就为 $k \bmod 2$。</li><li>最多：两个不同种状态的开关尽量连接同一盏灯，那么答案就为 $n - \left|k - n\right|$。</li></ul><h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>可以证明如果满足 $k &#x3D; 1 \vee k &#x3D; n$，那么一定无解。我们以最简单的情况将序列分成 $3$ 段，考虑 $k$ 的奇偶性：</p><ul><li>$k \equiv 0 \pmod 2$ 可以分成 $[1, k - 1] \ [k, k] \ [k + 1, n]$。</li><li>$k \equiv 1 \pmod 2$ 可以分成 $[1, k - 2] \ [k - 1, k + 1] \ [k + 2, n]$。</li></ul><h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p>如果满足题面要求，一定有：<br>$$<br>a_{\max} &lt; a_{\min} + a_{\min + 1}<br>$$<br>对 $a$ 排序，枚举一个最大值，二分出满足要求的最小值，答案即为 $n - \max + \min - 1$，时间复杂度 $\mathcal{O}(n \log n)$。</p><h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>考虑从 $n - 1$ 向 $1$ 询问推断出树的形状。那么第一次询问 $n - 1$ 和 $n - 2$，通过题面我们发现 $n - 1$ 的父亲的编号一定小于等于 $n - 2$，那么从 $n - 2$ 逐一向更小询问，一旦发现答案为 $1$，可以证明此时编号更小的一定是编号更大者的父节点。接下来我们把两个数都 $-1$，继续询问直到某一者为 $0$。</p><h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><p>考虑操作之后序列值的变化 $a_i \leftarrow a_i + 2 c_i + c_{i - 1} + c_{i + 1}$。那么有：<br>$$<br>a_i + 2 c_i + c_{i - 1} + c_{i + 1} &#x3D; a_{i + 1} + 2 c_{i + 1} + c_i + c_{i + 2} \newline<br>(c_i + c_{i - 1}) - (c_{i + 1} + c_{i + 2}) &#x3D; a_{i + 1} - a_i<br>$$<br>设 $b_i &#x3D; c_i + c{i - 1}$，则 $b_{i + 1} &#x3D; b_i + a_i - a_{i + 1}$。$b$ 是可求的，那么也就可以推出 $c$。</p><h2 id="F"><a href="#F" class="headerlink" title="F"></a>F</h2><p>Nim 游戏是 <strong>9 级知识点</strong>，不会。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Codeforces</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>快速傅里叶变换</title>
     <link href="/2024/10/01/FFT/"/>
     <url>/2024/10/01/FFT/</url>
@@ -232,6 +251,27 @@
       <tag>数学</tag>
       
       <tag>多项式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Lucas 定理</title>
+    <link href="/2024/10/01/Lucas/"/>
+    <url>/2024/10/01/Lucas/</url>
+    
+    <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Lucas 定理用于求解大组合数取模问题。一般的组合数可以 $\mathcal{O}(n)$ 预处理阶乘 + $\mathcal{O}(1)$ 计算，牵扯到取模会再带一个 $\log$；或者 $O(n^2)$ 全部预处理。但是他们都需要预处理，如果要求的组合数很大，无法预处理，Lucas 定理提供了一种仅需预处理模数范围内的组合数的做法。</p><h2 id="Lucas-定理"><a href="#Lucas-定理" class="headerlink" title="Lucas 定理"></a>Lucas 定理</h2><h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><p>$$<br>{n \choose m} \equiv<br>\begin{pmatrix}<br>{\left\lfloor \frac{n}{p} \right\rfloor} \newline<br>{\left\lfloor \frac{m}{p} \right\rfloor}<br>\end{pmatrix}<br>\cdot<br>\begin{pmatrix}<br>n \bmod p \newline<br>m \bmod p<br>\end{pmatrix}<br>\pmod {p}<br>$$</p><p>左侧的部分可以继续递归使用 Lucas 求解，右侧的 $n \bmod p$ 和 $m \bmod p$ 一定小于 $p$，可以预处理。时间复杂度 $\mathcal{O}(f(n) + g(n) \log n)$，其中 $f(n)$ 表示预处理组合数的复杂度，$g(n)$ 表示单次处理组合数的时间复杂度。</p><h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>考虑 ${p \choose n} \bmod p$，拆开组合数得 $\frac{p!}{n!(p - n)!}$，分子一定含有一个质因子 $p$，考虑分母，当 $n &#x3D; 0$ 或 $n &#x3D; p$ 时分母中含有质因子 $p$，此时 $p \choose 0$ 和 $p \choose p$ 都为 $1$；其余情况都为 $0$。因此有：</p><p>$$<br>{p \choose n} \bmod p &#x3D; [n &#x3D; 0 \vee n &#x3D; p]<br>$$</p><p>进而，有：</p><p>$$<br>\begin{align}<br>(a + b) ^ p &amp; \equiv \sum_{i &#x3D; 0}^p {p \choose i} a^i b^{p - i}\newline<br>&amp; \equiv \sum_{i &#x3D; 0}^p [i &#x3D; 0 \vee i &#x3D; p] a^i b^{p - i}\newline<br>&amp; \equiv a^p + b^p \pmod p<br>\end{align}<br>$$</p><p>考虑二项式 $(1 + x)^n \bmod p$，那么 $n \choose m$ 就是在求 $x^m$ 的系数：</p><p>$$<br>\begin{align}<br>(1 + x)^n &amp;\equiv (1 + x)^{p\lfloor n&#x2F;p \rfloor} (1 + x)^{n \bmod p}\newline<br>&amp;\equiv (1 + x^p)^{\lfloor n&#x2F;p \rfloor} (1 + x)^{n \bmod p}\newline<br>&amp;\equiv \sum_{i &#x3D; 0}^{\lfloor n&#x2F;p \rfloor} {\lfloor n&#x2F;p \rfloor \choose i} x^{pi}\cdot \sum_{i &#x3D; 0}^{n \bmod p} {n \bmod p \choose i} x^i\newline<br>&amp;\equiv \sum_{i &#x3D; 0}^{\left\lfloor n&#x2F;p \right\rfloor}\sum_{j &#x3D; 0}^{n \bmod p} { \left\lfloor n&#x2F;p \right\rfloor \choose j} { {n \bmod p} \choose i} x^{pj + i}\newline<br>&amp;\equiv \sum_{i &#x3D; 0}^{n} {n \choose i} x^i &amp; \pmod p<br>\end{align}<br>$$</p><p>我们发现，由于 $n \bmod p \lt p$ 且 $ip &gt; p$，则任何一个 $x^m$ 的系数都是由左右两侧唯一的一组 $m \bmod p$，和 $\lfloor m &#x2F;p \rfloor$ 处的系数相乘得到的，Lucas 定理得证。</p><h2 id="扩展-Lucas-定理"><a href="#扩展-Lucas-定理" class="headerlink" title="扩展 Lucas 定理"></a>扩展 Lucas 定理</h2><p>没写。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+      <tag>数论</tag>
       
     </tags>
     
@@ -274,11 +314,11 @@
   
   
   <entry>
-    <title>Lucas 定理</title>
-    <link href="/2024/10/01/Lucas/"/>
-    <url>/2024/10/01/Lucas/</url>
+    <title>扩展欧几里得</title>
+    <link href="/2024/10/01/exgcd/"/>
+    <url>/2024/10/01/exgcd/</url>
     
-    <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Lucas 定理用于求解大组合数取模问题。一般的组合数可以 $\mathcal{O}(n)$ 预处理阶乘 + $\mathcal{O}(1)$ 计算，牵扯到取模会再带一个 $\log$；或者 $O(n^2)$ 全部预处理。但是他们都需要预处理，如果要求的组合数很大，无法预处理，Lucas 定理提供了一种仅需预处理模数范围内的组合数的做法。</p><h2 id="Lucas-定理"><a href="#Lucas-定理" class="headerlink" title="Lucas 定理"></a>Lucas 定理</h2><h3 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h3><p>$$<br>{n \choose m} \equiv<br>\begin{pmatrix}<br>{\left\lfloor \frac{n}{p} \right\rfloor} \newline<br>{\left\lfloor \frac{m}{p} \right\rfloor}<br>\end{pmatrix}<br>\cdot<br>\begin{pmatrix}<br>n \bmod p \newline<br>m \bmod p<br>\end{pmatrix}<br>\pmod {p}<br>$$</p><p>左侧的部分可以继续递归使用 Lucas 求解，右侧的 $n \bmod p$ 和 $m \bmod p$ 一定小于 $p$，可以预处理。时间复杂度 $\mathcal{O}(f(n) + g(n) \log n)$，其中 $f(n)$ 表示预处理组合数的复杂度，$g(n)$ 表示单次处理组合数的时间复杂度。</p><h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>考虑 ${p \choose n} \bmod p$，拆开组合数得 $\frac{p!}{n!(p - n)!}$，分子一定含有一个质因子 $p$，考虑分母，当 $n &#x3D; 0$ 或 $n &#x3D; p$ 时分母中含有质因子 $p$，此时 $p \choose 0$ 和 $p \choose p$ 都为 $1$；其余情况都为 $0$。因此有：</p><p>$$<br>{p \choose n} \bmod p &#x3D; [n &#x3D; 0 \vee n &#x3D; p]<br>$$</p><p>进而，有：</p><p>$$<br>\begin{align}<br>(a + b) ^ p &amp; \equiv \sum_{i &#x3D; 0}^p {p \choose i} a^i b^{p - i}\newline<br>&amp; \equiv \sum_{i &#x3D; 0}^p [i &#x3D; 0 \vee i &#x3D; p] a^i b^{p - i}\newline<br>&amp; \equiv a^p + b^p \pmod p<br>\end{align}<br>$$</p><p>考虑二项式 $(1 + x)^n \bmod p$，那么 $n \choose m$ 就是在求 $x^m$ 的系数：</p><p>$$<br>\begin{align}<br>(1 + x)^n &amp;\equiv (1 + x)^{p\lfloor n&#x2F;p \rfloor} (1 + x)^{n \bmod p}\newline<br>&amp;\equiv (1 + x^p)^{\lfloor n&#x2F;p \rfloor} (1 + x)^{n \bmod p}\newline<br>&amp;\equiv \sum_{i &#x3D; 0}^{\lfloor n&#x2F;p \rfloor} {\lfloor n&#x2F;p \rfloor \choose i} x^{pi}\cdot \sum_{i &#x3D; 0}^{n \bmod p} {n \bmod p \choose i} x^i\newline<br>&amp;\equiv \sum_{i &#x3D; 0}^{\left\lfloor n&#x2F;p \right\rfloor}\sum_{j &#x3D; 0}^{n \bmod p} { \left\lfloor n&#x2F;p \right\rfloor \choose j} { {n \bmod p} \choose i} x^{pj + i}\newline<br>&amp;\equiv \sum_{i &#x3D; 0}^{n} {n \choose i} x^i &amp; \pmod p<br>\end{align}<br>$$</p><p>我们发现，由于 $n \bmod p \lt p$ 且 $ip &gt; p$，则任何一个 $x^m$ 的系数都是由左右两侧唯一的一组 $m \bmod p$，和 $\lfloor m &#x2F;p \rfloor$ 处的系数相乘得到的，Lucas 定理得证。</p><h2 id="扩展-Lucas-定理"><a href="#扩展-Lucas-定理" class="headerlink" title="扩展 Lucas 定理"></a>扩展 Lucas 定理</h2><p>没写。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="裴蜀定理"><a href="#裴蜀定理" class="headerlink" title="裴蜀定理"></a>裴蜀定理</h2><p>扩展欧几里德算法用于求解形如 $ax + by &#x3D; \gcd(a, b)$ 的等式。这是裴蜀等式，我们接下来的内容可以证明它一定有解。</p><p>我们知道：</p><p>$$<br>\gcd(a, b) &#x3D; \gcd(b, a \bmod b)<br>$$</p><p>那么有：</p><p>$$<br>\begin{align}<br>ax + by &amp; &#x3D; \gcd(a, b) \newline<br>&amp; &#x3D; \gcd(b, a \bmod b)<br>\end{align}<br>\Rightarrow<br>bx’ + (a \bmod b) y’ &#x3D; \gcd(b, a\bmod b) &#x3D; \gcd(a, b)<br>$$</p><p>联系到欧几里德算法的终止条件 <code>b == 0</code>，此时不难直接得到 $x &#x3D; 1$，$y$ 取值任意。我们发现，迭代的下一层的解一定比上一层的要早得到，考虑如何转移：</p><p>$$<br>\begin{align}<br>bx’ + (a \bmod b) y’ &amp; &#x3D; bx’ + (a - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot b) y’ \newline<br>&amp; &#x3D; bx’ + ay’ - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot b y’ \newline<br>&amp; &#x3D; ay’ + b(x’ - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot y’) \newline<br>&amp; &#x3D; ax + by<br>\end{align}<br>\Rightarrow<br>\begin{cases}<br>x &#x3D; y’ \newline<br>y &#x3D; x’ - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot y’<br>\end{cases}<br>$$</p><p>实现：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">exgcd</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b, <span class="hljs-type">int</span> &amp;x, <span class="hljs-type">int</span> &amp;y)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) &#123;<br>        x = <span class="hljs-number">1</span>, y = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">return</span> a;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span> tmp = <span class="hljs-built_in">exgcd</span>(b, a % b, y, x);<br>    y -= a / b * x;<br>    <span class="hljs-keyword">return</span> tmp;<br>&#125;<br></code></pre></td></tr></table></figure><p>如果我们尝试回代，可以发现裴蜀等式一定有解。</p><h2 id="求解同余方程"><a href="#求解同余方程" class="headerlink" title="求解同余方程"></a>求解同余方程</h2><p>$$<br>ax \equiv b \pmod m<br>$$</p><p>对于上式，可以转化为：<br>$$<br>ax + km &#x3D; b<br>$$<br>设 $d &#x3D; \dfrac{b}{\gcd(a, m)}$，对上式两边同除 $d$，得到：<br>$$<br>a \cdot \dfrac{x}{d} + m \cdot \dfrac{k}{d} &#x3D; \gcd(a, m)<br>$$<br>那么我们可以先求出 $\dfrac{x}{d}$ 与 $\dfrac{k}{d}$，同乘 $d$ 即为原方程解。</p><p>同时，不难发现 $ax \equiv b \pmod m$ 有解的充要条件即为 $\gcd(a, m) \mid b$。</p>]]></content>
     
     
     
@@ -314,48 +354,6 @@
   
   
   <entry>
-    <title>扩展欧几里得</title>
-    <link href="/2024/10/01/exgcd/"/>
-    <url>/2024/10/01/exgcd/</url>
-    
-    <content type="html"><![CDATA[<h2 id="裴蜀定理"><a href="#裴蜀定理" class="headerlink" title="裴蜀定理"></a>裴蜀定理</h2><p>扩展欧几里德算法用于求解形如 $ax + by &#x3D; \gcd(a, b)$ 的等式。这是裴蜀等式，我们接下来的内容可以证明它一定有解。</p><p>我们知道：</p><p>$$<br>\gcd(a, b) &#x3D; \gcd(b, a \bmod b)<br>$$</p><p>那么有：</p><p>$$<br>\begin{align}<br>ax + by &amp; &#x3D; \gcd(a, b) \newline<br>&amp; &#x3D; \gcd(b, a \bmod b)<br>\end{align}<br>\Rightarrow<br>bx’ + (a \bmod b) y’ &#x3D; \gcd(b, a\bmod b) &#x3D; \gcd(a, b)<br>$$</p><p>联系到欧几里德算法的终止条件 <code>b == 0</code>，此时不难直接得到 $x &#x3D; 1$，$y$ 取值任意。我们发现，迭代的下一层的解一定比上一层的要早得到，考虑如何转移：</p><p>$$<br>\begin{align}<br>bx’ + (a \bmod b) y’ &amp; &#x3D; bx’ + (a - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot b) y’ \newline<br>&amp; &#x3D; bx’ + ay’ - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot b y’ \newline<br>&amp; &#x3D; ay’ + b(x’ - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot y’) \newline<br>&amp; &#x3D; ax + by<br>\end{align}<br>\Rightarrow<br>\begin{cases}<br>x &#x3D; y’ \newline<br>y &#x3D; x’ - \left\lfloor \dfrac{a}{b} \right\rfloor \cdot y’<br>\end{cases}<br>$$</p><p>实现：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">exgcd</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b, <span class="hljs-type">int</span> &amp;x, <span class="hljs-type">int</span> &amp;y)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) &#123;<br>        x = <span class="hljs-number">1</span>, y = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">return</span> a;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span> tmp = <span class="hljs-built_in">exgcd</span>(b, a % b, y, x);<br>    y -= a / b * x;<br>    <span class="hljs-keyword">return</span> tmp;<br>&#125;<br></code></pre></td></tr></table></figure><p>如果我们尝试回代，可以发现裴蜀等式一定有解。</p><h2 id="求解同余方程"><a href="#求解同余方程" class="headerlink" title="求解同余方程"></a>求解同余方程</h2><p>$$<br>ax \equiv b \pmod m<br>$$</p><p>对于上式，可以转化为：<br>$$<br>ax + km &#x3D; b<br>$$<br>设 $d &#x3D; \dfrac{b}{\gcd(a, m)}$，对上式两边同除 $d$，得到：<br>$$<br>a \cdot \dfrac{x}{d} + m \cdot \dfrac{k}{d} &#x3D; \gcd(a, m)<br>$$<br>那么我们可以先求出 $\dfrac{x}{d}$ 与 $\dfrac{k}{d}$，同乘 $d$ 即为原方程解。</p><p>同时，不难发现 $ax \equiv b \pmod m$ 有解的充要条件即为 $\gcd(a, m) \mid b$。</p>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>数学</tag>
-      
-      <tag>数论</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>数论函数</title>
-    <link href="/2024/10/01/%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/"/>
-    <url>/2024/10/01/%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/</url>
-    
-    <content type="html"><![CDATA[<p>定义：定义域是 $\mathbb{Z^+}$，值域是 $\mathbb{C}$ 的函数。</p><h2 id="积性函数"><a href="#积性函数" class="headerlink" title="积性函数"></a>积性函数</h2><p>我们称当 $\gcd(i, j) &#x3D; 1$ 时满足<br>$f(i \times j) &#x3D; f(i) \times f(j)$<br>的数论函数为<strong>积性函数</strong>；称 $\forall i, j \in \mathbb{Z^+}$ 满足 $f(i \times j) &#x3D; f(i) \times f(j)$<br>的数论函数为<strong>完全积性函数</strong>。本文中提到的所有函数均是积性函数，其中单位函数，幂函数是完全积性函数。</p><h2 id="单位函数"><a href="#单位函数" class="headerlink" title="单位函数"></a>单位函数</h2><p>$$<br>\varepsilon(n) &#x3D; [n &#x3D; 1]<br>$$</p><h2 id="幂函数"><a href="#幂函数" class="headerlink" title="幂函数"></a>幂函数</h2><p>$$<br>\operatorname{Id}_k(n) &#x3D; n ^ k<br>$$</p><p>一般不写下标的情况，指的就是 $k &#x3D; 1$。</p><h2 id="除数函数"><a href="#除数函数" class="headerlink" title="除数函数"></a>除数函数</h2><p>$$<br>\sigma_k(n) &#x3D; \sum\limits_{d \mid n} d^k<br>$$</p><h2 id="常数函数"><a href="#常数函数" class="headerlink" title="常数函数"></a>常数函数</h2><p>即为 $f(x) &#x3D; m$（$m$ 是常数）的函数，注意到它是完全积性函数、偶函数，最常用的是 $\mathbf{1}(x) &#x3D; 1$，注意函数名上的 $\mathbf{1}$ 要写成粗体。</p><h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><p>$$<br>\varphi(n) &#x3D; \sum\limits_{i &#x3D; 1}^n [\gcd(i, n) &#x3D; 1]<br>$$</p><p>性质：</p><ul><li>$\varphi$ 是积性函数。</li><li>$n &#x3D; \sum\limits_{d \mid n} \varphi(d)$，也就是说 $\varphi * \mathbf1 &#x3D; \operatorname{Id}_1$，反过来也有 $\mu * \operatorname{Id}_1 &#x3D; \varphi$，证明参见狄利克雷卷积。</li><li>若 $n &#x3D; p^k \mid p \in \mathbb{P}$，则有 $p^{k - 1}$ 个数与 $n$ 不互质，那么 $\varphi(n) &#x3D; p^k - p^{k - 1} &#x3D; p^{k - 1} \cdot(p - 1)$。</li><li>设 $n &#x3D; \prod\limits_{i &#x3D; 1}^k p_i^{c_i} \mid p \in \mathbb{P}$，则 $\varphi(n) &#x3D; n \prod\limits_{p|n} (1 - \frac{1}{p}) \mid p \in \mathbb{P}$。</li></ul><h2 id="莫比乌斯函数"><a href="#莫比乌斯函数" class="headerlink" title="莫比乌斯函数"></a>莫比乌斯函数</h2><p>莫比乌斯函数 $\mu$ 定义为：<br>$$<br>\mu(n) &#x3D;<br>\begin{cases}<br>1 &amp; n &#x3D; 1 \newline<br>0 &amp; n \ 含有两个及以上个相同的因子\newline<br>(-1) ^ k &amp; k \ 为 \ n \ 本质不同的因数个数<br>\end{cases}<br>$$<br>容易发现莫比乌斯函数是积性函数，因此可以线性筛求。</p><p>莫比乌斯函数具有以下性质：<br>$$<br>\sum_{d \mid n} \mu(d) &#x3D; [n &#x3D; 1]<br>$$<br>证明：</p><p>设 $n &#x3D; \prod\limits_{i &#x3D; 1}^k p_i^{c_i}, n’ &#x3D; \prod\limits_{i &#x3D; 1}^k p_i$。那么根据定义，显然有 $\sum\limits_{d \mid n} \mu(d) &#x3D; \sum\limits_{d \mid n’} \mu(d)$，这是因为右侧中比左侧少统计的 $\mu(d)$ 的答案一定为 $0$。统计答案为 $(-1)^i$ 的答案个数，为 $ki$。我们将求和式转为枚举 $\mu(d)$ 的值，有：<br>$$<br>\sum_{d \mid n’} \mu(d) &#x3D; \sum_{i &#x3D; 0}^k {k \choose i} (-1)^i &#x3D; \sum_{i &#x3D; 0}^k {k \choose i} (-1)^i \cdot 1^{k - i}<br>$$<br>根据二项式定理：上式为 $(1 + (-1))^k$。Q.E.D.</p>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>数学</tag>
-      
-      <tag>数论</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>分块奇妙题</title>
     <link href="/2024/10/01/%E5%88%86%E5%9D%97%E5%A5%87%E5%A6%99%E9%A2%98/"/>
     <url>/2024/10/01/%E5%88%86%E5%9D%97%E5%A5%87%E5%A6%99%E9%A2%98/</url>
@@ -377,11 +375,11 @@
   
   
   <entry>
-    <title>欧拉定理</title>
-    <link href="/2024/10/01/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86%E4%B8%8E%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/"/>
-    <url>/2024/10/01/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86%E4%B8%8E%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/</url>
+    <title>数论函数</title>
+    <link href="/2024/10/01/%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/"/>
+    <url>/2024/10/01/%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/</url>
     
-    <content type="html"><![CDATA[<h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>$$<br>\varphi(n) &#x3D; \sum\limits_{i &#x3D; 1}^n [\gcd(i, n) &#x3D; 1]<br>$$</p><h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul><li>$\varphi$ 是<strong>积性函数</strong>。</li><li>$n &#x3D; \sum\limits_{d \mid n} \varphi(d)$，也就是说 $\varphi * \mathbf1 &#x3D; \operatorname{Id}_1$，反过来也有 $\mu * \operatorname{Id}_1 &#x3D; \varphi$，证明参见狄利克雷卷积。</li><li>若 $n &#x3D; p^k \mid p \in \mathbb{P}$，则有 $p^{k - 1}$ 个数与 $n$ 不互质，那么 $\varphi(n) &#x3D; p^k - p^{k - 1} &#x3D; p^{k - 1} \cdot(p - 1)$。</li><li>设 $n &#x3D; \prod\limits_{i &#x3D; 1}^k p_i^{c_i} \mid p \in \mathbb{P}$，则 $\varphi(n) &#x3D; n \prod\limits_{p|n} (1 - \frac{1}{p}) \mid p \in \mathbb{P}$。</li></ul><h2 id="欧拉定理"><a href="#欧拉定理" class="headerlink" title="欧拉定理"></a>欧拉定理</h2><h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><p>当 $a$，$m$ 满足 $\gcd(m, a) &#x3D; 1$，有：<br>$$<br>a^{\varphi(m)} \equiv 1 \pmod m<br>$$</p><h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>设一个 $\bmod m$ 下的既约剩余系为 ${r_1, r_2, \dots, r_{\varphi(m)}}$，根据<em>既约剩余系与既约同余类的基本性质</em>，得到 ${ar_1, ar_2, \dots, ar_{\varphi(m)}}$ 也是 $\bmod m$ 意义下的既约剩余系，得到：<br>$$<br>\begin{align}<br>\prod_{i &#x3D; 1}^{\varphi(m)} r_i &amp;\equiv \prod_{i &#x3D; 1}^{\varphi(m)} ar_i &amp;\pmod m\newline<br>\prod_{i &#x3D; 1}^{\varphi(m)} r_i &amp;\equiv a^{\varphi(m)} \prod_{i &#x3D; 1}^{\varphi(m)} r_i &amp;\pmod m\newline<br>a^{\varphi(m)} &amp;\equiv 1 &amp;\pmod m\newline<br>\end{align}<br>$$</p><h2 id="扩展欧拉定理"><a href="#扩展欧拉定理" class="headerlink" title="扩展欧拉定理"></a>扩展欧拉定理</h2><h3 id="定理-1"><a href="#定理-1" class="headerlink" title="定理"></a>定理</h3><p>$$<br>a^{c} &#x3D;<br>\begin{cases}<br>a^{c \bmod \varphi(m)} &amp; \gcd(a, m) &#x3D; 1\newline<br>a^c &amp; \gcd(a, m) \neq 1,c &lt; \varphi(m)\newline<br>a^{c \bmod \varphi(m) + \varphi(m)} &amp; \gcd(a, m) \neq 1,c \ge \varphi(m)\newline<br>\end{cases}<br>$$</p><h3 id="证明-1"><a href="#证明-1" class="headerlink" title="证明"></a>证明</h3><h4 id="case-1"><a href="#case-1" class="headerlink" title="case 1"></a>case 1</h4><p>由欧拉定理易证。</p><h4 id="case-2"><a href="#case-2" class="headerlink" title="case 2"></a>case 2</h4><p>这部分说明了什么时候无法进行降幂操作，同余式显然成立。</p><h4 id="case-3"><a href="#case-3" class="headerlink" title="case 3"></a>case 3</h4><p>为了证明 case 3，我们只需证明对于 $a$ 的任意一个质因子 $p$，都满足：<br>$$<br>p^c \equiv p^{c \bmod \varphi(m) + \varphi(m)} \pmod m<br>$$<br>考虑证明。若 $\gcd(m,p) &#x3D; 1$，符合 case 1 的性质，无需再次证明。</p><p>若 $\gcd(m, p) \neq 1$ 且 $p$ 是质数，那么得到 $m \ge 2p$，设 $m &#x3D; s \cdot p^r (\gcd(s, p) &#x3D; 1)$，这就相当于我们把 $m$ 分成两部分，$p^r$ 含有 $m$ 中所有质因子 $p$，而 $s$ 是 $m$ 去掉所有质因子 $p$ 之后剩下的部分。可以得到 $p^{\varphi(s)} \equiv 1 \pmod s$ 和 $\varphi(m) &#x3D; \varphi(s) \cdot \varphi(p^r)$。进一步的：<br>$$<br>p^{\varphi(m)} \equiv (p^{\varphi(s)})^{\varphi(p^r)} \equiv 1^{\varphi(p^r)} \equiv 1 \pmod s<br>$$<br>同乘 $p^r$：<br>$$<br>p^{\varphi(m) + r}  \equiv p^r \pmod {s \cdot p^r}<br>$$<br>由于 $m &#x3D; s \cdot p^r$，有：<br>$$<br>p^{\varphi(m) + r}  \equiv p^r \pmod m<br>$$<br>根据题设，有 $c \ge \varphi(m)$，下面我们先证明 $\varphi(m) \ge r$：</p><blockquote><p>首先 $\varphi(m) &#x3D; \varphi(s) \cdot \varphi(p^r)$，若能证明 $\varphi(p^r) \ge r$，则原式得证。</p><p>$\varphi(p^r) &#x3D; p^r - p^{r - 1} \ge p^{r - 1}$，若能证明 $p^{r - 1} \ge r$，则原式得证。采用<strong>第一数学归纳法</strong>，易知 $r &#x3D; 1$ 时不等式成立，假设 $r &#x3D; k$ 时不等式成立，欲证明 $r &#x3D; k + 1$ 时不等式成立：<br>$$<br>p^{k + 1} &#x3D; p^k \cdot p \ge 2 p^k &#x3D; p^k + p^k \ge p^k + 1 \ge (k + 1) + 1 &#x3D; k + 2<br>$$<br>证毕。</p></blockquote><p>通过以上证明，我们得到（上一步证明是必须的，我们不能保证 $p$ 在 $\bmod m$ 意义下一定有逆元，因此只有这样才能避免在同余方程中出现负数次幂），$p^c \equiv p^{c - r} \cdot p^{r + \varphi(m)} \equiv p^{c + \varphi(m)} \pmod m$。</p><p>设 $f(x) &#x3D; p^x \bmod m \ (x \ge \varphi(m))$，从上式得到 $f(x) &#x3D; f(x + \varphi(x))$，同理有 $f(x) &#x3D; f(x - \varphi(x))$。此时可以递推。但是更进一步的，我们发现一直递推后会得到 $0 \le c \le \varphi(m)$，为了避免它不符合定义域，只要减少一步递推即可，实际上就是 $c \bmod \varphi(m) + \varphi(m)$。则 case 3 得证。</p>]]></content>
+    <content type="html"><![CDATA[<p>定义：定义域是 $\mathbb{Z^+}$，值域是 $\mathbb{C}$ 的函数。</p><h2 id="积性函数"><a href="#积性函数" class="headerlink" title="积性函数"></a>积性函数</h2><p>我们称当 $\gcd(i, j) &#x3D; 1$ 时满足<br>$f(i \times j) &#x3D; f(i) \times f(j)$<br>的数论函数为<strong>积性函数</strong>；称 $\forall i, j \in \mathbb{Z^+}$ 满足 $f(i \times j) &#x3D; f(i) \times f(j)$<br>的数论函数为<strong>完全积性函数</strong>。本文中提到的所有函数均是积性函数，其中单位函数，幂函数是完全积性函数。</p><h2 id="单位函数"><a href="#单位函数" class="headerlink" title="单位函数"></a>单位函数</h2><p>$$<br>\varepsilon(n) &#x3D; [n &#x3D; 1]<br>$$</p><h2 id="幂函数"><a href="#幂函数" class="headerlink" title="幂函数"></a>幂函数</h2><p>$$<br>\operatorname{Id}_k(n) &#x3D; n ^ k<br>$$</p><p>一般不写下标的情况，指的就是 $k &#x3D; 1$。</p><h2 id="除数函数"><a href="#除数函数" class="headerlink" title="除数函数"></a>除数函数</h2><p>$$<br>\sigma_k(n) &#x3D; \sum\limits_{d \mid n} d^k<br>$$</p><h2 id="常数函数"><a href="#常数函数" class="headerlink" title="常数函数"></a>常数函数</h2><p>即为 $f(x) &#x3D; m$（$m$ 是常数）的函数，注意到它是完全积性函数、偶函数，最常用的是 $\mathbf{1}(x) &#x3D; 1$，注意函数名上的 $\mathbf{1}$ 要写成粗体。</p><h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><p>$$<br>\varphi(n) &#x3D; \sum\limits_{i &#x3D; 1}^n [\gcd(i, n) &#x3D; 1]<br>$$</p><p>性质：</p><ul><li>$\varphi$ 是积性函数。</li><li>$n &#x3D; \sum\limits_{d \mid n} \varphi(d)$，也就是说 $\varphi * \mathbf1 &#x3D; \operatorname{Id}_1$，反过来也有 $\mu * \operatorname{Id}_1 &#x3D; \varphi$，证明参见狄利克雷卷积。</li><li>若 $n &#x3D; p^k \mid p \in \mathbb{P}$，则有 $p^{k - 1}$ 个数与 $n$ 不互质，那么 $\varphi(n) &#x3D; p^k - p^{k - 1} &#x3D; p^{k - 1} \cdot(p - 1)$。</li><li>设 $n &#x3D; \prod\limits_{i &#x3D; 1}^k p_i^{c_i} \mid p \in \mathbb{P}$，则 $\varphi(n) &#x3D; n \prod\limits_{p|n} (1 - \frac{1}{p}) \mid p \in \mathbb{P}$。</li></ul><h2 id="莫比乌斯函数"><a href="#莫比乌斯函数" class="headerlink" title="莫比乌斯函数"></a>莫比乌斯函数</h2><p>莫比乌斯函数 $\mu$ 定义为：<br>$$<br>\mu(n) &#x3D;<br>\begin{cases}<br>1 &amp; n &#x3D; 1 \newline<br>0 &amp; n \ 含有两个及以上个相同的因子\newline<br>(-1) ^ k &amp; k \ 为 \ n \ 本质不同的因数个数<br>\end{cases}<br>$$<br>容易发现莫比乌斯函数是积性函数，因此可以线性筛求。</p><p>莫比乌斯函数具有以下性质：<br>$$<br>\sum_{d \mid n} \mu(d) &#x3D; [n &#x3D; 1]<br>$$<br>证明：</p><p>设 $n &#x3D; \prod\limits_{i &#x3D; 1}^k p_i^{c_i}, n’ &#x3D; \prod\limits_{i &#x3D; 1}^k p_i$。那么根据定义，显然有 $\sum\limits_{d \mid n} \mu(d) &#x3D; \sum\limits_{d \mid n’} \mu(d)$，这是因为右侧中比左侧少统计的 $\mu(d)$ 的答案一定为 $0$。统计答案为 $(-1)^i$ 的答案个数，为 $ki$。我们将求和式转为枚举 $\mu(d)$ 的值，有：<br>$$<br>\sum_{d \mid n’} \mu(d) &#x3D; \sum_{i &#x3D; 0}^k {k \choose i} (-1)^i &#x3D; \sum_{i &#x3D; 0}^k {k \choose i} (-1)^i \cdot 1^{k - i}<br>$$<br>根据二项式定理：上式为 $(1 + (-1))^k$。Q.E.D.</p>]]></content>
     
     
     
@@ -421,19 +419,19 @@
   
   
   <entry>
-    <title>莫队杂题</title>
-    <link href="/2024/10/01/%E8%8E%AB%E9%98%9F%E6%9D%82%E9%A2%98/"/>
-    <url>/2024/10/01/%E8%8E%AB%E9%98%9F%E6%9D%82%E9%A2%98/</url>
+    <title>欧拉定理</title>
+    <link href="/2024/10/01/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86%E4%B8%8E%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/"/>
+    <url>/2024/10/01/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86%E4%B8%8E%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/</url>
     
-    <content type="html"><![CDATA[<h2 id="莫队的本质"><a href="#莫队的本质" class="headerlink" title="莫队的本质"></a>莫队的本质</h2><p>大部分参考资料认为，莫队指的是用于处理满足能够将 $[l, r]$ 的答案在 $\mathcal O(1)$ 时间复杂度内扩展到 $[l, r - 1][l, r + 1][l - 1, r][l + 1, r]$ 的问题的一种思想，并且允许离线。实际上，随着对莫队研究的不断深入，笔者认为莫队的过程<strong>并不一定是在</strong> $\mathcal O(1)$ <strong>时间复杂度内对答案的扩展，而是对可以用于求得答案的数据结构&#x2F;变量&#x2F;的扩展</strong>。所谓最终的答案可能并不能在莫队左右端点移动的情况下 $\mathcal O(1)$ 求出，而是以一种更高的复杂度在莫队移动完成、最终处理答案时获得。</p><p>我们结合莫队时间复杂度的分析来进一步体会以上理论：</p><p>设我们将询问分块的块长为 $d$，操作数为 $m$，按左端点分块，右端点在每个块内单调，从左右端点的移动分别考虑：</p><ul><li>左端点：卡满的情况是相邻两个询问恰好在一个块的两端，复杂度为 $\mathcal O(m \cdot d)$；</li><li>右端点：每一个块的移动最多是 $\mathcal O(n)$ 的，总时间复杂度为 $\mathcal O(n \cdot \frac{n}{d})$。</li></ul><p>两者加起来，则为 $\mathcal O(m \cdot d + n \cdot \frac{n}{d})$。根据均值不等式，$m \cdot d + n \cdot \frac{n}{d} \ge 2\sqrt{n^2m}$，等号成立当且仅当 $m \cdot d &#x3D; n \cdot \frac{n}{d}$ 即 $d &#x3D; \frac{n}{\sqrt m}$，此时莫队的时间复杂度为 $\mathcal O(n \sqrt m)$。</p><p>可以发现，莫队的时间复杂度分析成立在于 $\mathcal O(1)$ 移动左右端点，答案计算的时间复杂度与移动的复杂度成和的关系，这也启示我们利用一种 $\mathcal O(1)$ 修改，较慢复杂度查询的数据结构与莫队结合，一般都是块状数组（值域分块）或 bitset。</p><h2 id="P1972-SDOI2009-HH的项链"><a href="#P1972-SDOI2009-HH的项链" class="headerlink" title="P1972 [SDOI2009] HH的项链"></a>P1972 [SDOI2009] HH的项链</h2><p>板板，但是一般的莫队过不去。利用经典 trick：<strong>记录一个数在序列中的前驱后继，若删除&#x2F;插入时前驱&#x2F;后继在当前区间之外则修改答案</strong>。有效利用 cache miss，跑得飞快。</p><h2 id="P3709-大爷的字符串题"><a href="#P3709-大爷的字符串题" class="headerlink" title="P3709 大爷的字符串题"></a>P3709 大爷的字符串题</h2><p>sb 题面。</p><blockquote><p>无修改求区间众数，离散化。</p></blockquote><p><del>左转[Violet]蒲公英分块</del>。</p><p>但是我们还是拿莫队做，维护的时候注意存一个出现个数的桶。方便判断一个数从区间删除之后是否需要更新答案。</p><h2 id="P1903-国家集训队-数颜色-维护队列"><a href="#P1903-国家集训队-数颜色-维护队列" class="headerlink" title="P1903 [国家集训队] 数颜色 &#x2F; 维护队列"></a>P1903 [国家集训队] 数颜色 &#x2F; 维护队列</h2><p>带修莫队。设 $l$ 为横轴，$r$ 为纵轴，普通莫队大概是这样：</p><p><img src="/img/71508.png" alt="图片"></p><p>那么进一步的，带修莫队即为引入一个时间维，移动过程中如果莫队的修改次数大于询问的修改次数，就把它改回来，否则改过去，以为莫队保证了可以 $\mathcal O(1)$ 扩展区间，那么修改一般也可以 $\mathcal O(1)$ 做（如果不可以就不能带修莫队）。</p><p>大概长这样：</p><p><img src="/img/71519.png" alt="图片"></p><p>块长一般都设为 $n^{\frac 2 3}$，证明不会。</p><h2 id="P3674-小清新人渣的本愿"><a href="#P3674-小清新人渣的本愿" class="headerlink" title="P3674 小清新人渣的本愿"></a>P3674 小清新人渣的本愿</h2><p>莫队 + <code>bitset</code>。</p><ul><li>减法：注意到 $a - b &#x3D; x$ 可以转换为 $a &#x3D; b + x$，开个 <code>bitset</code>，表示 $i$ 是否在区间内出现。如果条件满足，就相当于 <code>bitset</code> 上的第 $i$ 位和 $i + x$ 位都是 $1$。不难发现这就是一个左移操作然后取与（<code>&amp;</code>）；</li><li>加法：与减法同理，可以再开一个 <code>bitset</code> 表示 $10000 - i$ 是否在区间内出现，如出一辙的右移 + 取与；</li><li>乘法：枚举因数，直接查询，复杂度 $\mathcal O(\sqrt x)$。</li></ul><p><img src="/img/4629.png" alt="图片"></p><h2 id="P5355-Ynoi2017-由乃的玉米田"><a href="#P5355-Ynoi2017-由乃的玉米田" class="headerlink" title="P5355 [Ynoi2017] 由乃的玉米田"></a>P5355 [Ynoi2017] 由乃的玉米田</h2><p>比上一题多了一个除法。</p><p>采用类似于根号分治的思想，对于 $x &gt; \sqrt{N}$，直接枚举倍数即可，复杂度 $\mathcal O(\frac{N}{x}) \le O(\sqrt{N})$；对于 $x \le \sqrt{N}$，对每一个 $x$ 维护一个 <code>lst[x][i]</code>，表示满足 $\frac {a_i} {a_j} &#x3D; x (i \le j)$ 的 $i$ 的最大位置。具体的：遍历序列时存一个 <code>pos</code> 表示在 $i$ 之前每个值出现的位置，使用 <code>lst[x][i - 1], pos[a[i] * x], pos[a[i] / x]</code> 更新 <code>lst[x][i]</code>。</p><p>甚至不用卡常。</p><p><img src="/img/58222.png" alt="图片"></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>$$<br>\varphi(n) &#x3D; \sum\limits_{i &#x3D; 1}^n [\gcd(i, n) &#x3D; 1]<br>$$</p><h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul><li>$\varphi$ 是<strong>积性函数</strong>。</li><li>$n &#x3D; \sum\limits_{d \mid n} \varphi(d)$，也就是说 $\varphi * \mathbf1 &#x3D; \operatorname{Id}_1$，反过来也有 $\mu * \operatorname{Id}_1 &#x3D; \varphi$，证明参见狄利克雷卷积。</li><li>若 $n &#x3D; p^k \mid p \in \mathbb{P}$，则有 $p^{k - 1}$ 个数与 $n$ 不互质，那么 $\varphi(n) &#x3D; p^k - p^{k - 1} &#x3D; p^{k - 1} \cdot(p - 1)$。</li><li>设 $n &#x3D; \prod\limits_{i &#x3D; 1}^k p_i^{c_i} \mid p \in \mathbb{P}$，则 $\varphi(n) &#x3D; n \prod\limits_{p|n} (1 - \frac{1}{p}) \mid p \in \mathbb{P}$。</li></ul><h2 id="欧拉定理"><a href="#欧拉定理" class="headerlink" title="欧拉定理"></a>欧拉定理</h2><h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><p>当 $a$，$m$ 满足 $\gcd(m, a) &#x3D; 1$，有：<br>$$<br>a^{\varphi(m)} \equiv 1 \pmod m<br>$$</p><h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>设一个 $\bmod m$ 下的既约剩余系为 ${r_1, r_2, \dots, r_{\varphi(m)}}$，根据<em>既约剩余系与既约同余类的基本性质</em>，得到 ${ar_1, ar_2, \dots, ar_{\varphi(m)}}$ 也是 $\bmod m$ 意义下的既约剩余系，得到：<br>$$<br>\begin{align}<br>\prod_{i &#x3D; 1}^{\varphi(m)} r_i &amp;\equiv \prod_{i &#x3D; 1}^{\varphi(m)} ar_i &amp;\pmod m\newline<br>\prod_{i &#x3D; 1}^{\varphi(m)} r_i &amp;\equiv a^{\varphi(m)} \prod_{i &#x3D; 1}^{\varphi(m)} r_i &amp;\pmod m\newline<br>a^{\varphi(m)} &amp;\equiv 1 &amp;\pmod m\newline<br>\end{align}<br>$$</p><h2 id="扩展欧拉定理"><a href="#扩展欧拉定理" class="headerlink" title="扩展欧拉定理"></a>扩展欧拉定理</h2><h3 id="定理-1"><a href="#定理-1" class="headerlink" title="定理"></a>定理</h3><p>$$<br>a^{c} &#x3D;<br>\begin{cases}<br>a^{c \bmod \varphi(m)} &amp; \gcd(a, m) &#x3D; 1\newline<br>a^c &amp; \gcd(a, m) \neq 1,c &lt; \varphi(m)\newline<br>a^{c \bmod \varphi(m) + \varphi(m)} &amp; \gcd(a, m) \neq 1,c \ge \varphi(m)\newline<br>\end{cases}<br>$$</p><h3 id="证明-1"><a href="#证明-1" class="headerlink" title="证明"></a>证明</h3><h4 id="case-1"><a href="#case-1" class="headerlink" title="case 1"></a>case 1</h4><p>由欧拉定理易证。</p><h4 id="case-2"><a href="#case-2" class="headerlink" title="case 2"></a>case 2</h4><p>这部分说明了什么时候无法进行降幂操作，同余式显然成立。</p><h4 id="case-3"><a href="#case-3" class="headerlink" title="case 3"></a>case 3</h4><p>为了证明 case 3，我们只需证明对于 $a$ 的任意一个质因子 $p$，都满足：<br>$$<br>p^c \equiv p^{c \bmod \varphi(m) + \varphi(m)} \pmod m<br>$$<br>考虑证明。若 $\gcd(m,p) &#x3D; 1$，符合 case 1 的性质，无需再次证明。</p><p>若 $\gcd(m, p) \neq 1$ 且 $p$ 是质数，那么得到 $m \ge 2p$，设 $m &#x3D; s \cdot p^r (\gcd(s, p) &#x3D; 1)$，这就相当于我们把 $m$ 分成两部分，$p^r$ 含有 $m$ 中所有质因子 $p$，而 $s$ 是 $m$ 去掉所有质因子 $p$ 之后剩下的部分。可以得到 $p^{\varphi(s)} \equiv 1 \pmod s$ 和 $\varphi(m) &#x3D; \varphi(s) \cdot \varphi(p^r)$。进一步的：<br>$$<br>p^{\varphi(m)} \equiv (p^{\varphi(s)})^{\varphi(p^r)} \equiv 1^{\varphi(p^r)} \equiv 1 \pmod s<br>$$<br>同乘 $p^r$：<br>$$<br>p^{\varphi(m) + r}  \equiv p^r \pmod {s \cdot p^r}<br>$$<br>由于 $m &#x3D; s \cdot p^r$，有：<br>$$<br>p^{\varphi(m) + r}  \equiv p^r \pmod m<br>$$<br>根据题设，有 $c \ge \varphi(m)$，下面我们先证明 $\varphi(m) \ge r$：</p><blockquote><p>首先 $\varphi(m) &#x3D; \varphi(s) \cdot \varphi(p^r)$，若能证明 $\varphi(p^r) \ge r$，则原式得证。</p><p>$\varphi(p^r) &#x3D; p^r - p^{r - 1} \ge p^{r - 1}$，若能证明 $p^{r - 1} \ge r$，则原式得证。采用<strong>第一数学归纳法</strong>，易知 $r &#x3D; 1$ 时不等式成立，假设 $r &#x3D; k$ 时不等式成立，欲证明 $r &#x3D; k + 1$ 时不等式成立：<br>$$<br>p^{k + 1} &#x3D; p^k \cdot p \ge 2 p^k &#x3D; p^k + p^k \ge p^k + 1 \ge (k + 1) + 1 &#x3D; k + 2<br>$$<br>证毕。</p></blockquote><p>通过以上证明，我们得到（上一步证明是必须的，我们不能保证 $p$ 在 $\bmod m$ 意义下一定有逆元，因此只有这样才能避免在同余方程中出现负数次幂），$p^c \equiv p^{c - r} \cdot p^{r + \varphi(m)} \equiv p^{c + \varphi(m)} \pmod m$。</p><p>设 $f(x) &#x3D; p^x \bmod m \ (x \ge \varphi(m))$，从上式得到 $f(x) &#x3D; f(x + \varphi(x))$，同理有 $f(x) &#x3D; f(x - \varphi(x))$。此时可以递推。但是更进一步的，我们发现一直递推后会得到 $0 \le c \le \varphi(m)$，为了避免它不符合定义域，只要减少一步递推即可，实际上就是 $c \bmod \varphi(m) + \varphi(m)$。则 case 3 得证。</p>]]></content>
     
     
     
     <tags>
       
-      <tag>分块</tag>
+      <tag>数学</tag>
       
-      <tag>数据结构</tag>
+      <tag>数论</tag>
       
     </tags>
     
@@ -455,6 +453,27 @@
       <tag>数学</tag>
       
       <tag>数论</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>莫队杂题</title>
+    <link href="/2024/10/01/%E8%8E%AB%E9%98%9F%E6%9D%82%E9%A2%98/"/>
+    <url>/2024/10/01/%E8%8E%AB%E9%98%9F%E6%9D%82%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h2 id="莫队的本质"><a href="#莫队的本质" class="headerlink" title="莫队的本质"></a>莫队的本质</h2><p>大部分参考资料认为，莫队指的是用于处理满足能够将 $[l, r]$ 的答案在 $\mathcal O(1)$ 时间复杂度内扩展到 $[l, r - 1][l, r + 1][l - 1, r][l + 1, r]$ 的问题的一种思想，并且允许离线。实际上，随着对莫队研究的不断深入，笔者认为莫队的过程<strong>并不一定是在</strong> $\mathcal O(1)$ <strong>时间复杂度内对答案的扩展，而是对可以用于求得答案的数据结构&#x2F;变量&#x2F;的扩展</strong>。所谓最终的答案可能并不能在莫队左右端点移动的情况下 $\mathcal O(1)$ 求出，而是以一种更高的复杂度在莫队移动完成、最终处理答案时获得。</p><p>我们结合莫队时间复杂度的分析来进一步体会以上理论：</p><p>设我们将询问分块的块长为 $d$，操作数为 $m$，按左端点分块，右端点在每个块内单调，从左右端点的移动分别考虑：</p><ul><li>左端点：卡满的情况是相邻两个询问恰好在一个块的两端，复杂度为 $\mathcal O(m \cdot d)$；</li><li>右端点：每一个块的移动最多是 $\mathcal O(n)$ 的，总时间复杂度为 $\mathcal O(n \cdot \frac{n}{d})$。</li></ul><p>两者加起来，则为 $\mathcal O(m \cdot d + n \cdot \frac{n}{d})$。根据均值不等式，$m \cdot d + n \cdot \frac{n}{d} \ge 2\sqrt{n^2m}$，等号成立当且仅当 $m \cdot d &#x3D; n \cdot \frac{n}{d}$ 即 $d &#x3D; \frac{n}{\sqrt m}$，此时莫队的时间复杂度为 $\mathcal O(n \sqrt m)$。</p><p>可以发现，莫队的时间复杂度分析成立在于 $\mathcal O(1)$ 移动左右端点，答案计算的时间复杂度与移动的复杂度成和的关系，这也启示我们利用一种 $\mathcal O(1)$ 修改，较慢复杂度查询的数据结构与莫队结合，一般都是块状数组（值域分块）或 bitset。</p><h2 id="P1972-SDOI2009-HH的项链"><a href="#P1972-SDOI2009-HH的项链" class="headerlink" title="P1972 [SDOI2009] HH的项链"></a>P1972 [SDOI2009] HH的项链</h2><p>板板，但是一般的莫队过不去。利用经典 trick：<strong>记录一个数在序列中的前驱后继，若删除&#x2F;插入时前驱&#x2F;后继在当前区间之外则修改答案</strong>。有效利用 cache miss，跑得飞快。</p><h2 id="P3709-大爷的字符串题"><a href="#P3709-大爷的字符串题" class="headerlink" title="P3709 大爷的字符串题"></a>P3709 大爷的字符串题</h2><p>sb 题面。</p><blockquote><p>无修改求区间众数，离散化。</p></blockquote><p><del>左转[Violet]蒲公英分块</del>。</p><p>但是我们还是拿莫队做，维护的时候注意存一个出现个数的桶。方便判断一个数从区间删除之后是否需要更新答案。</p><h2 id="P1903-国家集训队-数颜色-维护队列"><a href="#P1903-国家集训队-数颜色-维护队列" class="headerlink" title="P1903 [国家集训队] 数颜色 &#x2F; 维护队列"></a>P1903 [国家集训队] 数颜色 &#x2F; 维护队列</h2><p>带修莫队。设 $l$ 为横轴，$r$ 为纵轴，普通莫队大概是这样：</p><p><img src="/img/71508.png" alt="图片"></p><p>那么进一步的，带修莫队即为引入一个时间维，移动过程中如果莫队的修改次数大于询问的修改次数，就把它改回来，否则改过去，以为莫队保证了可以 $\mathcal O(1)$ 扩展区间，那么修改一般也可以 $\mathcal O(1)$ 做（如果不可以就不能带修莫队）。</p><p>大概长这样：</p><p><img src="/img/71519.png" alt="图片"></p><p>块长一般都设为 $n^{\frac 2 3}$，证明不会。</p><h2 id="P3674-小清新人渣的本愿"><a href="#P3674-小清新人渣的本愿" class="headerlink" title="P3674 小清新人渣的本愿"></a>P3674 小清新人渣的本愿</h2><p>莫队 + <code>bitset</code>。</p><ul><li>减法：注意到 $a - b &#x3D; x$ 可以转换为 $a &#x3D; b + x$，开个 <code>bitset</code>，表示 $i$ 是否在区间内出现。如果条件满足，就相当于 <code>bitset</code> 上的第 $i$ 位和 $i + x$ 位都是 $1$。不难发现这就是一个左移操作然后取与（<code>&amp;</code>）；</li><li>加法：与减法同理，可以再开一个 <code>bitset</code> 表示 $10000 - i$ 是否在区间内出现，如出一辙的右移 + 取与；</li><li>乘法：枚举因数，直接查询，复杂度 $\mathcal O(\sqrt x)$。</li></ul><p><img src="/img/4629.png" alt="图片"></p><h2 id="P5355-Ynoi2017-由乃的玉米田"><a href="#P5355-Ynoi2017-由乃的玉米田" class="headerlink" title="P5355 [Ynoi2017] 由乃的玉米田"></a>P5355 [Ynoi2017] 由乃的玉米田</h2><p>比上一题多了一个除法。</p><p>采用类似于根号分治的思想，对于 $x &gt; \sqrt{N}$，直接枚举倍数即可，复杂度 $\mathcal O(\frac{N}{x}) \le O(\sqrt{N})$；对于 $x \le \sqrt{N}$，对每一个 $x$ 维护一个 <code>lst[x][i]</code>，表示满足 $\frac {a_i} {a_j} &#x3D; x (i \le j)$ 的 $i$ 的最大位置。具体的：遍历序列时存一个 <code>pos</code> 表示在 $i$ 之前每个值出现的位置，使用 <code>lst[x][i - 1], pos[a[i] * x], pos[a[i] / x]</code> 更新 <code>lst[x][i]</code>。</p><p>甚至不用卡常。</p><p><img src="/img/58222.png" alt="图片"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>分块</tag>
+      
+      <tag>数据结构</tag>
       
     </tags>
     

@@ -21,24 +21,22 @@
   <meta name="author" content="Kurisu M">
   <meta name="keywords" content="">
   
-    <meta name="description" content="第一类斯特林数 圆排列将数字排成一个环，我们认为两个环本质不同当且仅当存在某个位置的前驱或后继不同.   例如：1, 2, 3 与 3, 1, 2 是本质相同的两个圆排列，1, 2, 3 与 1, 3, 2 是本质不同的两个圆排列。  记 ${n \brack m}$ 为将 $n$ 个互不相同的元素划分为 $m$ 个互不区分的非空圆排列的方案数，有递推式：$${n \brack m} &#x3D;">
+    <meta name="description" content="ABC407F直接做一定是不好做的，那么考虑拆贡献。一个数字 $a_i$ 个贡献与它左边第一个大于它的位置 $L_i$ 和它右边第一个大于它的位置 $R_i $有关，推式子后贡献形如分段函数，每一段都是一次函数，累计到答案上即可。$L_i, R_i$ 可以利用单调栈求。 ABC407G大概是典题，简单转化之后求二分图最小权匹配，可以用费用流做。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="斯特林数">
-<meta property="og:url" content="https://invinciblepeach.github.io/2024/10/01/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/index.html">
+<meta property="og:title" content="TrickInABC">
+<meta property="og:url" content="https://invinciblepeach.github.io/2025/05/27/TrickInABC/index.html">
 <meta property="og:site_name" content="kncjjdr05&#39;s Blog">
-<meta property="og:description" content="第一类斯特林数 圆排列将数字排成一个环，我们认为两个环本质不同当且仅当存在某个位置的前驱或后继不同.   例如：1, 2, 3 与 3, 1, 2 是本质相同的两个圆排列，1, 2, 3 与 1, 3, 2 是本质不同的两个圆排列。  记 ${n \brack m}$ 为将 $n$ 个互不相同的元素划分为 $m$ 个互不区分的非空圆排列的方案数，有递推式：$${n \brack m} &#x3D;">
+<meta property="og:description" content="ABC407F直接做一定是不好做的，那么考虑拆贡献。一个数字 $a_i$ 个贡献与它左边第一个大于它的位置 $L_i$ 和它右边第一个大于它的位置 $R_i $有关，推式子后贡献形如分段函数，每一段都是一次函数，累计到答案上即可。$L_i, R_i$ 可以利用单调栈求。 ABC407G大概是典题，简单转化之后求二分图最小权匹配，可以用费用流做。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-01T04:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-27T07:37:16.857Z">
+<meta property="article:published_time" content="2025-05-27T07:39:12.000Z">
+<meta property="article:modified_time" content="2025-05-27T07:49:52.095Z">
 <meta property="article:author" content="Kurisu M">
-<meta property="article:tag" content="数学">
-<meta property="article:tag" content="数论">
-<meta property="article:tag" content="组合计数">
+<meta property="article:tag" content="AtCoder">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>斯特林数 - kncjjdr05&#39;s Blog</title>
+  <title>TrickInABC - kncjjdr05&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -180,7 +178,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="斯特林数"></span>
+            <span id="subtitle" data-typed-text="TrickInABC"></span>
           
         </div>
 
@@ -191,8 +189,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-01 12:00" pubdate>
-          2024年10月1日 中午
+        <time datetime="2025-05-27 15:39" pubdate>
+          2025年5月27日 下午
         </time>
       </span>
     
@@ -203,7 +201,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          123 字
         
       </span>
     
@@ -214,7 +212,7 @@
         
         
         
-          10 分钟
+          2 分钟
         
       </span>
     
@@ -251,75 +249,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">斯特林数</h1>
+            <h1 id="seo-header">TrickInABC</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="第一类斯特林数"><a href="#第一类斯特林数" class="headerlink" title="第一类斯特林数"></a>第一类斯特林数</h2><blockquote>
-<p>圆排列将数字排成一个环，我们认为两个环本质不同当且仅当存在某个位置的前驱或后继不同.</p>
-</blockquote>
-<blockquote>
-<p>例如：<code>1, 2, 3</code> 与 <code>3, 1, 2</code> 是本质相同的两个圆排列，<code>1, 2, 3</code> 与 <code>1, 3, 2</code> 是本质不同的两个圆排列。</p>
-</blockquote>
-<p>记 ${n \brack m}$ 为将 $n$ 个互不相同的元素划分为 $m$ 个互不区分的非空圆排列的方案数，有递推式：<br>$$<br>{n \brack m} &#x3D; {n - 1 \brack m - 1} + (n - 1) {n - 1 \brack m}<br>$$</p>
-<blockquote>
-<p>证明：左侧即为将新来的元素单独放到一个空圆排列中，右侧为将新来的元素放到原有的 $n - 1$ 个数的后继。</p>
-</blockquote>
-<h2 id="第二类斯特林数"><a href="#第二类斯特林数" class="headerlink" title="第二类斯特林数"></a>第二类斯特林数</h2><p>记 ${n \brace m}$ 为将 $n$ 个互不相同的元素划分为 $m$ 个互不区分的非空集合的方案数，即为：将 $n$ 个有标号小球放入 $m$ 个无标号盒子（每个盒子至少有一个小球）的方案数。有递推式：<br>$$<br>{n \brace m} &#x3D; {n - 1 \brace m - 1} + m \cdot {n - 1 \brace m}<br>$$</p>
-<blockquote>
-<p>证明：左侧即为将新来的元素单独放到一个空集合中，右侧为将新来的元素放到原有的集合中。</p>
-</blockquote>
-<p>那么相互区分的集合怎么办？显然只需乘上 $m!$。</p>
-<p>同时，有通项公式：<br>$$<br>{n \brace m} &#x3D; \frac{1}{m!} \sum_{i &#x3D; 0}^m (-1)^i {m \choose i} (m - i)^n<br>$$</p>
-<blockquote>
-<p>证明：考虑更简单的情况：盒子有标号，那么只要将答案除以 $m!$ 即为无标号的结果。</p>
-</blockquote>
-<blockquote>
-<p>进一步的，假如集合可以为空，设 $f(x)$ 为钦定有 $x$ 个集合为空的方案数，$g(x)$ 为恰好 $x$ 个集合为空的方案数。不难得到：<br>$$<br>f(x) &#x3D; \sum_{i &#x3D; x}^m {i \choose x} g(i) &#x3D; {m \choose x} (m - x)^n<br>$$<br>二项式反演：<br>$$<br>\begin{align}<br>g(x) &amp; &#x3D; \sum_{i &#x3D; x}^m {i \choose x} (-1)^{i - x} f(i) \newline<br>&amp; &#x3D; \sum_{i &#x3D; x}^m {i \choose x} (-1)^{i - x} {m \choose i} (m - i)^n<br>\end{align}<br>$$<br>得到集合不可以为空的情况为 $g(0)$，证毕。</p>
-</blockquote>
-<p>我们还可对通项公式进行二项式反演，得到：<br>$$<br>m^n &#x3D; \sum_{i &#x3D; 0}^m {m \choose i} i! {n \brace i}<br>$$<br>组合意义上，这指的是将 $n$ 个有标号小球放入 $m$ 个有标号盒子内、盒子可空的方案数（还可以通过枚举空盒子个数结合第二类斯特林数进行证明）。</p>
-<h2 id="上升-下降幂"><a href="#上升-下降幂" class="headerlink" title="上升&#x2F;下降幂"></a>上升&#x2F;下降幂</h2><p>上升幂：<br>$$<br>n^\overline m &#x3D; \prod_{i &#x3D; n}^{n + m - 1} i<br>$$</p>
-<p>下降幂：<br>$$<br>n^\underline m &#x3D; \prod_{i &#x3D; n}^{n - m + 1} i &#x3D; \frac{n!}{(n - m)!}<br>$$</p>
-<p>不难发现下降幂即为排列数，为 $m! {n \choose m}$。</p>
-<h3 id="上升-下降幂间的转换"><a href="#上升-下降幂间的转换" class="headerlink" title="上升&#x2F;下降幂间的转换"></a>上升&#x2F;下降幂间的转换</h3><p>$$<br>\begin{align}<br>x^\overline n &#x3D; (-1)^n (-x)^\underline n\newline<br>x^\underline n &#x3D; (-1)^n (-x)^\overline n<br>\end{align}<br>$$</p>
-<blockquote>
-<p>证明： 以上式为例，强行展开：<br>$$<br>\begin{align}<br>x^\overline n &amp;&#x3D; \prod_{i &#x3D; 1}^{n} x + i - 1 \newline<br>&amp;&#x3D; (-1)^n \prod_{i &#x3D; 1}^n -x - i + 1\newline<br>&amp;&#x3D; (-1)^n (-x)^\overline n<br>\end{align}<br>$$</p>
-</blockquote>
-<blockquote>
-<p>下式以此类推。</p>
-</blockquote>
-<h2 id="斯特林数结合上升-下降幂"><a href="#斯特林数结合上升-下降幂" class="headerlink" title="斯特林数结合上升&#x2F;下降幂"></a>斯特林数结合上升&#x2F;下降幂</h2><h3 id="通常幂转下降幂"><a href="#通常幂转下降幂" class="headerlink" title="通常幂转下降幂"></a>通常幂转下降幂</h3><p>$$<br>n^m &#x3D; \sum_{i &#x3D; 0}^m {m \brace i} n^\underline i<br>$$</p>
-<blockquote>
-<p>证明考虑组合意义：</p>
-</blockquote>
-<blockquote>
-<p>$n^m$ 表示将 $m$ 个有标号球放到 $n$ 个有标号盒子的方案数，无其他限制。</p>
-</blockquote>
-<blockquote>
-<p>则枚举非空的盒子个数（第二类斯特林数）并乘上排列数即可得到原式。</p>
-</blockquote>
-<h3 id="上升幂转通常幂"><a href="#上升幂转通常幂" class="headerlink" title="上升幂转通常幂"></a>上升幂转通常幂</h3><p>$$<br>n^\overline m &#x3D; \sum_{i &#x3D; 0}^m {m \brack i} n^i<br>$$</p>
-<blockquote>
-<p>证明考虑数学归纳：</p>
-</blockquote>
-<blockquote>
-<p>当 $m &#x3D; 1$ 时，显然成立。</p>
-</blockquote>
-<blockquote>
-<p>当 $m &gt; 1$ 时，归纳得 $m - 1$ 时成立。</p>
-</blockquote>
-<blockquote>
-<p>左侧拆开：<br>$$<br>n^\overline m &#x3D; n^\overline{m - 1} (n + m - 1)<br>$$<br>代入结论：<br>$$<br>\begin{align}<br>&amp;n^\overline{m - 1} (n + m - 1)\newline<br>&#x3D;&amp; \sum_{i &#x3D; 0}^{m - 1} {m - 1 \brack i} n^i (n + m - 1)\newline<br>&#x3D;&amp; \sum_{i &#x3D; 0}^{m - 1} {m - 1 \brack i} n^{i + 1} + \sum_{i &#x3D; 0}^{m - 1} {m - 1 \brack i} n^i(m - 1)\newline<br>&#x3D;&amp; \sum_{i &#x3D; 1}^{m} {m - 1 \brack i - 1} n^{i} + \sum_{i &#x3D; 0}^{m - 1} (m - 1){m - 1 \brack i} n^i\newline<br>&#x3D;&amp; \sum_{i &#x3D; 0}^{m} \left({m - 1 \brack i - 1} + (m - 1){m - 1 \brack i}\right) n^i - {m - 1 \brack 0 - 1} n^0 - (m - 1){m - 1 \brack m} n^m<br>\end{align}<br>$$<br>多出来的两项无意义，直接就为 $0$ 了。</p>
-</blockquote>
-<blockquote>
-<p>然后求和式中间的是第一类斯特林数的递推式，得：<br>$$<br>\sum_{i &#x3D; 0}^m {m \brack i} n^i<br>$$<br>原式得证。</p>
-</blockquote>
-<h2 id="斯特林反演"><a href="#斯特林反演" class="headerlink" title="斯特林反演"></a>斯特林反演</h2><p>$$<br>f(n) &#x3D; \sum_{i &#x3D; 0}^n {n \brace i} g(i) \Leftrightarrow g(n) &#x3D; \sum_{i &#x3D; 0}^n (-1)^{n - i}{n \brack i} f(i)<br>$$</p>
-<h3 id="反转公式"><a href="#反转公式" class="headerlink" title="反转公式"></a>反转公式</h3><p>根据反演的前提条件，需证明：<br>$$<br>\left{<br>\begin{align}<br>\sum_{i &#x3D; j}^n(-1)^{n - i} {n \brack i} {i \brace j} &#x3D; [j &#x3D; n]\newline<br>\sum_{i &#x3D; j}^n(-1)^{n - i} {n \brack i} {i \brace j} &#x3D; [j &#x3D; n]\newline<br>\end{align}<br>\right.<br>$$<br>这个公式也被称为反转公式。</p>
-<blockquote>
-<p>证明</p>
-</blockquote>
+                <h3 id="ABC407F"><a href="#ABC407F" class="headerlink" title="ABC407F"></a>ABC407F</h3><p>直接做一定是不好做的，那么考虑拆贡献。一个数字 $a_i$ 个贡献与<strong>它左边第一个大于它的位置</strong> $L_i$ 和<strong>它右边第一个大于它的位置</strong> $R_i $有关，推式子后贡献形如分段函数，每一段都是一次函数，累计到答案上即可。$L_i, R_i$ 可以利用单调栈求。</p>
+<h3 id="ABC407G"><a href="#ABC407G" class="headerlink" title="ABC407G"></a>ABC407G</h3><p>大概是典题，简单转化之后求二分图最小权匹配，可以用费用流做。</p>
 
                 
               </div>
@@ -332,11 +268,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
-      
-        <a href="/tags/%E6%95%B0%E8%AE%BA/" class="print-no-link">#数论</a>
-      
-        <a href="/tags/%E7%BB%84%E5%90%88%E8%AE%A1%E6%95%B0/" class="print-no-link">#组合计数</a>
+        <a href="/tags/AtCoder/" class="print-no-link">#AtCoder</a>
       
     </div>
   
@@ -348,8 +280,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>斯特林数</div>
-      <div>https://invinciblepeach.github.io/2024/10/01/斯特林数/</div>
+      <div>TrickInABC</div>
+      <div>https://invinciblepeach.github.io/2025/05/27/TrickInABC/</div>
     </div>
     <div class="license-meta">
       
@@ -361,7 +293,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月1日</div>
+          <div>2025年5月27日</div>
         </div>
       
       
@@ -393,18 +325,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/01/%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0/" title="数论函数">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">数论函数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/01/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86%E4%B8%8E%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" title="欧拉定理">
-                        <span class="hidden-mobile">欧拉定理</span>
+                      <a href="/2024/11/01/%E8%AE%A1%E6%95%B0%E5%A5%87%E5%A6%99%E9%A2%98(Updated)/" title="计数奇妙题">
+                        <span class="hidden-mobile">计数奇妙题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
