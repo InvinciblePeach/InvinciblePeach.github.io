@@ -21,15 +21,15 @@
   <meta name="author" content="Kurisu M">
   <meta name="keywords" content="">
   
-    <meta name="description" content="CF285E设钦定有 $m$ 部分符合要求的方案数为 $f(m)$，恰好有 $m$ 部分符合要求的方案数为 $g(m)$，那么有：$$f(m) &#x3D; \sum_{i &#x3D; m}^n {i \choose m} g(i)$$其中 $i \choose m$ 指的是枚举 $f(m)$ 的 $m$ 个数分别代表了 $g(i)$ 中 $i$ 个位置的哪 $m$ 个。这个时候我们二项式反演：">
+    <meta name="description" content="二项式反演 由于之前对钦定与恰好间有诸多误解，重整理一遍。  二项式反演有两种常用形式： 形式一：$$f(n)  &#x3D; \sum_{i &#x3D; 0}^{n} {n \choose i} g(i) \\Updownarrow \g(n)  &#x3D; \sum_{i &#x3D; 0}^{n} (-1)^{n - i} {n \choose i} f(i)$$形式二：$$f(n)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计数奇妙题">
-<meta property="og:url" content="https://invinciblepeach.github.io/2025/04/29/%E8%AE%A1%E6%95%B0%E5%A5%87%E5%A6%99%E9%A2%98/index.html">
+<meta property="og:url" content="https://invinciblepeach.github.io/2025/11/01/%E8%AE%A1%E6%95%B0%E5%A5%87%E5%A6%99%E9%A2%98(Updated)/index.html">
 <meta property="og:site_name" content="kncjjdr05&#39;s Blog">
-<meta property="og:description" content="CF285E设钦定有 $m$ 部分符合要求的方案数为 $f(m)$，恰好有 $m$ 部分符合要求的方案数为 $g(m)$，那么有：$$f(m) &#x3D; \sum_{i &#x3D; m}^n {i \choose m} g(i)$$其中 $i \choose m$ 指的是枚举 $f(m)$ 的 $m$ 个数分别代表了 $g(i)$ 中 $i$ 个位置的哪 $m$ 个。这个时候我们二项式反演：">
+<meta property="og:description" content="二项式反演 由于之前对钦定与恰好间有诸多误解，重整理一遍。  二项式反演有两种常用形式： 形式一：$$f(n)  &#x3D; \sum_{i &#x3D; 0}^{n} {n \choose i} g(i) \\Updownarrow \g(n)  &#x3D; \sum_{i &#x3D; 0}^{n} (-1)^{n - i} {n \choose i} f(i)$$形式二：$$f(n)">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-29T04:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-08T10:37:58.141Z">
+<meta property="article:published_time" content="2025-11-01T04:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-27T07:26:47.604Z">
 <meta property="article:author" content="Kurisu M">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="组合计数">
@@ -191,8 +191,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-29 12:00" pubdate>
-          2025年4月29日 中午
+        <time datetime="2025-11-01 12:00" pubdate>
+          2025年11月1日 中午
         </time>
       </span>
     
@@ -203,7 +203,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          893 字
+          1.5k 字
         
       </span>
     
@@ -214,7 +214,7 @@
         
         
         
-          8 分钟
+          13 分钟
         
       </span>
     
@@ -256,7 +256,22 @@
             
               <div class="markdown-body">
                 
-                <h2 id="CF285E"><a href="#CF285E" class="headerlink" title="CF285E"></a>CF285E</h2><p>设<strong>钦定</strong>有 $m$ 部分符合要求的方案数为 $f(m)$，<strong>恰好</strong>有 $m$ 部分符合要求的方案数为 $g(m)$，那么有：<br>$$<br>f(m) &#x3D; \sum_{i &#x3D; m}^n {i \choose m} g(i)<br>$$<br>其中 $i \choose m$ 指的是枚举 $f(m)$ 的 $m$ 个数分别代表了 $g(i)$ 中 $i$ 个位置的哪 $m$ 个。这个时候我们二项式反演：<br>$$<br>g(m) &#x3D; \sum_{i &#x3D; m}^n (-1)^{i - m} {i \choose m} f(i)<br>$$<br>就可以通过 $f$ 得到答案 $g(m)$。</p>
+                <h2 id="二项式反演"><a href="#二项式反演" class="headerlink" title="二项式反演"></a>二项式反演</h2><blockquote>
+<p>由于之前对<strong>钦定</strong>与<strong>恰好</strong>间有诸多误解，重整理一遍。</p>
+</blockquote>
+<p>二项式反演有两种常用形式：</p>
+<p>形式一：<br>$$<br>f(n)  &#x3D; \sum_{i &#x3D; 0}^{n} {n \choose i} g(i) \<br>\Updownarrow \<br>g(n)  &#x3D; \sum_{i &#x3D; 0}^{n} (-1)^{n - i} {n \choose i} f(i)<br>$$<br>形式二：<br>$$<br>f(n)  &#x3D; \sum_{i &#x3D; n}^{m} {i \choose n} g(i) \<br>\Updownarrow \<br>g(n)  &#x3D; \sum_{i &#x3D; n}^{n} (-1)^{i - n} {i \choose n} f(i)<br>$$</p>
+<p>由于不难发现以上两者等价，因此证明任意一个即可：</p>
+<p>直接将上式代入到下式中，如果成立则二项式反演显然成立：<br>$$<br>\begin{aligned}<br>g(n) &amp;&#x3D; \sum_{i &#x3D; 0}^{n} (-1)^{n - i} {n \choose i} \sum_{j &#x3D; 0}^{i} {i \choose j} g(j)\<br>&amp;&#x3D; \sum_{i &#x3D; 0}^{n} \sum_{j &#x3D; 0}^{i} (-1)^{n - i} {n \choose i} {i \choose j} g(j)\<br>&amp;&#x3D; \sum_{i &#x3D; 0}^{n} \sum_{j &#x3D; 0}^{i} (-1)^{n - i} {n \choose j} {n - j \choose i - j} g(j)\<br>&amp;&#x3D; \sum_{j &#x3D; 0}^{n}  g(j)  {n \choose j} \sum_{i &#x3D; j}^{n} (-1)^{n - i} {n - j \choose i - j}\<br>&amp;&#x3D; \sum_{j &#x3D; 0}^{n}  g(j)  {n \choose j} \sum_{k &#x3D; 0}^{n - j} (-1)^{(n - j) - k} {n - j \choose k}\<br>&amp;&#x3D; \sum_{j &#x3D; 0}^{n}  g(j)  {n \choose j} \sum_{k &#x3D; 0}^{n - j} (-1)^{(n - j) - k} 1^k {n - j \choose k}<br>\end{aligned}<br>$$<br>最后的部分利用二项式定理，$n - j &#x3D; 0$ 时单独算，得到：</p>
+<p>$$<br>\begin{aligned}<br>g(n) &amp;&#x3D; \sum_{j &#x3D; 0}^{n}  g(j)  {n \choose j} [n &#x3D; j]\<br>&amp;&#x3D; g(n) {n \choose n} &#x3D; g(n)<br>\end{aligned}<br>$$</p>
+<blockquote>
+<p><strong>钦定</strong>与<strong>恰好</strong>：</p>
+<p>我们经常会遇到：求恰好有 $n$ 个位置满足条件的方案数或求至少 $n$ 个位置满足条件的方案数，因为后者我们可以对前者做和得到，即只要完成前者，则两个问题都可以被解决。</p>
+<p>这里，我们设 $f(n)$ 表示钦定有 $n$ 个位置满足要求、其余位置随意的方案数，$g(n)$ 表示恰好 $n$ 个位置满足要求的方案数。枚举我们所钦定的位置是什么，不难得到以下关系 $f(n)  &#x3D; \sum_{i &#x3D; n}^{m} {i \choose n} g(i)$，然后可以二项式反演。</p>
+<p>然而，问题在于，初学者经常无法理解<em>钦定</em>与<em>至少</em>间的差别，这里我们举以下例子：</p>
+<p><code>1 0 0 1 0 1 1</code> 是一个状态，它会在至少有 $1, 2, 3, 4$ 符合要求的时候被计算一次贡献。但是，注意，它会在钦定有 $2$ 个位置满足要求时被统计 $4 \choose 2$ 次，二项式系数取决于 $4$ 个 $1$ 中的哪两个位置是被钦定的，当钦定 $1, 3, 4$ 个位置满足要求时同理。</p>
+</blockquote>
+<h2 id="CF285E"><a href="#CF285E" class="headerlink" title="CF285E"></a>CF285E</h2><p>设<strong>钦定</strong>有 $m$ 部分符合要求的方案数为 $f(m)$，<strong>恰好</strong>有 $m$ 部分符合要求的方案数为 $g(m)$，那么有：<br>$$<br>f(m) &#x3D; \sum_{i &#x3D; m}^n {i \choose m} g(i)<br>$$<br>其中 $i \choose m$ 指的是枚举 $f(m)$ 的 $m$ 个数分别代表了 $g(i)$ 中 $i$ 个位置的哪 $m$ 个。这个时候我们二项式反演：<br>$$<br>g(m) &#x3D; \sum_{i &#x3D; m}^n (-1)^{i - m} {i \choose m} f(i)<br>$$<br>就可以通过 $f$ 得到答案 $g(m)$。</p>
 <p>函数 $f$ 可以通过 dp 求得。具体的，设 $dp_{i, j, 0&#x2F;1, 0&#x2F;1}$ 表示考虑到前 $i$ 个数，有 $j$ 部分满足要求，$i&#x2F;i + 1$ 选或不选，转移：</p>
 <ul>
 <li>当前位置是完美数，选 $i - 1$；</li>
@@ -308,7 +323,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>计数奇妙题</div>
-      <div>https://invinciblepeach.github.io/2025/04/29/计数奇妙题/</div>
+      <div>https://invinciblepeach.github.io/2025/11/01/计数奇妙题(Updated)/</div>
     </div>
     <div class="license-meta">
       
@@ -320,7 +335,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月29日</div>
+          <div>2025年11月1日</div>
         </div>
       
       
@@ -352,15 +367,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/29/%E8%8E%AB%E9%98%9F%E6%9D%82%E9%A2%98/" title="莫队杂题">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">莫队杂题</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2025/04/29/CF1602/" title="CF1602 题解">
+                        <span class="hidden-mobile">CF1602 题解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
