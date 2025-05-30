@@ -21,28 +21,19 @@
   <meta name="author" content="Kurisu M">
   <meta name="keywords" content="">
   
-    <meta name="description" content="莫队的本质大部分参考资料认为，莫队指的是用于处理满足能够将 $[l, r]$ 的答案在 $\mathcal O(1)$ 时间复杂度内扩展到 $[l, r - 1][l, r + 1][l - 1, r][l + 1, r]$ 的问题的一种思想，并且允许离线。实际上，随着对莫队研究的不断深入，笔者认为莫队的过程并不一定是在 $\mathcal O(1)$ 时间复杂度内对答案的扩展，而是对可以用于求得">
-<meta property="og:type" content="article">
-<meta property="og:title" content="莫队杂题">
-<meta property="og:url" content="https://invinciblepeach.github.io/2024/10/01/%E8%8E%AB%E9%98%9F%E6%9D%82%E9%A2%98/index.html">
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Hall 婚配定理">
+<meta property="og:url" content="https://invinciblepeach.github.io/2025/05/30/Hall-sTheorem/index.html">
 <meta property="og:site_name" content="kncjjdr05&#39;s Blog">
-<meta property="og:description" content="莫队的本质大部分参考资料认为，莫队指的是用于处理满足能够将 $[l, r]$ 的答案在 $\mathcal O(1)$ 时间复杂度内扩展到 $[l, r - 1][l, r + 1][l - 1, r][l + 1, r]$ 的问题的一种思想，并且允许离线。实际上，随着对莫队研究的不断深入，笔者认为莫队的过程并不一定是在 $\mathcal O(1)$ 时间复杂度内对答案的扩展，而是对可以用于求得">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://invinciblepeach.github.io/img/71508.png">
-<meta property="og:image" content="https://invinciblepeach.github.io/img/71519.png">
-<meta property="og:image" content="https://invinciblepeach.github.io/img/4629.png">
-<meta property="og:image" content="https://invinciblepeach.github.io/img/58222.png">
-<meta property="article:published_time" content="2024-10-01T04:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-27T07:36:17.830Z">
+<meta property="article:published_time" content="2025-05-30T03:25:37.000Z">
+<meta property="article:modified_time" content="2025-05-30T03:26:05.294Z">
 <meta property="article:author" content="Kurisu M">
-<meta property="article:tag" content="分块">
-<meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://invinciblepeach.github.io/img/71508.png">
   
   
   
-  <title>莫队杂题 - kncjjdr05&#39;s Blog</title>
+  <title>Hall 婚配定理 - kncjjdr05&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +175,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="莫队杂题"></span>
+            <span id="subtitle" data-typed-text="Hall 婚配定理"></span>
           
         </div>
 
@@ -195,8 +186,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-01 12:00" pubdate>
-          2024年10月1日 中午
+        <time datetime="2025-05-30 11:25" pubdate>
+          2025年5月30日 上午
         </time>
       </span>
     
@@ -207,7 +198,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          0 字
         
       </span>
     
@@ -218,7 +209,7 @@
         
         
         
-          9 分钟
+          1 分钟
         
       </span>
     
@@ -255,45 +246,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">莫队杂题</h1>
+            <h1 id="seo-header">Hall 婚配定理</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="莫队的本质"><a href="#莫队的本质" class="headerlink" title="莫队的本质"></a>莫队的本质</h2><p>大部分参考资料认为，莫队指的是用于处理满足能够将 $[l, r]$ 的答案在 $\mathcal O(1)$ 时间复杂度内扩展到 $[l, r - 1][l, r + 1][l - 1, r][l + 1, r]$ 的问题的一种思想，并且允许离线。实际上，随着对莫队研究的不断深入，笔者认为莫队的过程<strong>并不一定是在</strong> $\mathcal O(1)$ <strong>时间复杂度内对答案的扩展，而是对可以用于求得答案的数据结构&#x2F;变量&#x2F;的扩展</strong>。所谓最终的答案可能并不能在莫队左右端点移动的情况下 $\mathcal O(1)$ 求出，而是以一种更高的复杂度在莫队移动完成、最终处理答案时获得。</p>
-<p>我们结合莫队时间复杂度的分析来进一步体会以上理论：</p>
-<p>设我们将询问分块的块长为 $d$，操作数为 $m$，按左端点分块，右端点在每个块内单调，从左右端点的移动分别考虑：</p>
-<ul>
-<li>左端点：卡满的情况是相邻两个询问恰好在一个块的两端，复杂度为 $\mathcal O(m \cdot d)$；</li>
-<li>右端点：每一个块的移动最多是 $\mathcal O(n)$ 的，总时间复杂度为 $\mathcal O(n \cdot \frac{n}{d})$。</li>
-</ul>
-<p>两者加起来，则为 $\mathcal O(m \cdot d + n \cdot \frac{n}{d})$。根据均值不等式，$m \cdot d + n \cdot \frac{n}{d} \ge 2\sqrt{n^2m}$，等号成立当且仅当 $m \cdot d &#x3D; n \cdot \frac{n}{d}$ 即 $d &#x3D; \frac{n}{\sqrt m}$，此时莫队的时间复杂度为 $\mathcal O(n \sqrt m)$。</p>
-<p>可以发现，莫队的时间复杂度分析成立在于 $\mathcal O(1)$ 移动左右端点，答案计算的时间复杂度与移动的复杂度成和的关系，这也启示我们利用一种 $\mathcal O(1)$ 修改，较慢复杂度查询的数据结构与莫队结合，一般都是块状数组（值域分块）或 bitset。</p>
-<h2 id="P1972-SDOI2009-HH的项链"><a href="#P1972-SDOI2009-HH的项链" class="headerlink" title="P1972 [SDOI2009] HH的项链"></a>P1972 [SDOI2009] HH的项链</h2><p>板板，但是一般的莫队过不去。利用经典 trick：<strong>记录一个数在序列中的前驱后继，若删除&#x2F;插入时前驱&#x2F;后继在当前区间之外则修改答案</strong>。有效利用 cache miss，跑得飞快。</p>
-<h2 id="P3709-大爷的字符串题"><a href="#P3709-大爷的字符串题" class="headerlink" title="P3709 大爷的字符串题"></a>P3709 大爷的字符串题</h2><p>sb 题面。</p>
-<blockquote>
-<p>无修改求区间众数，离散化。</p>
-</blockquote>
-<p><del>左转[Violet]蒲公英分块</del>。</p>
-<p>但是我们还是拿莫队做，维护的时候注意存一个出现个数的桶。方便判断一个数从区间删除之后是否需要更新答案。</p>
-<h2 id="P1903-国家集训队-数颜色-维护队列"><a href="#P1903-国家集训队-数颜色-维护队列" class="headerlink" title="P1903 [国家集训队] 数颜色 &#x2F; 维护队列"></a>P1903 [国家集训队] 数颜色 &#x2F; 维护队列</h2><p>带修莫队。设 $l$ 为横轴，$r$ 为纵轴，普通莫队大概是这样：</p>
-<p><img src="/img/71508.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
-<p>那么进一步的，带修莫队即为引入一个时间维，移动过程中如果莫队的修改次数大于询问的修改次数，就把它改回来，否则改过去，以为莫队保证了可以 $\mathcal O(1)$ 扩展区间，那么修改一般也可以 $\mathcal O(1)$ 做（如果不可以就不能带修莫队）。</p>
-<p>大概长这样：</p>
-<p><img src="/img/71519.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
-<p>块长一般都设为 $n^{\frac 2 3}$，证明不会。</p>
-<h2 id="P3674-小清新人渣的本愿"><a href="#P3674-小清新人渣的本愿" class="headerlink" title="P3674 小清新人渣的本愿"></a>P3674 小清新人渣的本愿</h2><p>莫队 + <code>bitset</code>。</p>
-<ul>
-<li>减法：注意到 $a - b &#x3D; x$ 可以转换为 $a &#x3D; b + x$，开个 <code>bitset</code>，表示 $i$ 是否在区间内出现。如果条件满足，就相当于 <code>bitset</code> 上的第 $i$ 位和 $i + x$ 位都是 $1$。不难发现这就是一个左移操作然后取与（<code>&amp;</code>）；</li>
-<li>加法：与减法同理，可以再开一个 <code>bitset</code> 表示 $10000 - i$ 是否在区间内出现，如出一辙的右移 + 取与；</li>
-<li>乘法：枚举因数，直接查询，复杂度 $\mathcal O(\sqrt x)$。</li>
-</ul>
-<p><img src="/img/4629.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
-<h2 id="P5355-Ynoi2017-由乃的玉米田"><a href="#P5355-Ynoi2017-由乃的玉米田" class="headerlink" title="P5355 [Ynoi2017] 由乃的玉米田"></a>P5355 [Ynoi2017] 由乃的玉米田</h2><p>比上一题多了一个除法。</p>
-<p>采用类似于根号分治的思想，对于 $x &gt; \sqrt{N}$，直接枚举倍数即可，复杂度 $\mathcal O(\frac{N}{x}) \le O(\sqrt{N})$；对于 $x \le \sqrt{N}$，对每一个 $x$ 维护一个 <code>lst[x][i]</code>，表示满足 $\frac {a_i} {a_j} &#x3D; x (i \le j)$ 的 $i$ 的最大位置。具体的：遍历序列时存一个 <code>pos</code> 表示在 $i$ 之前每个值出现的位置，使用 <code>lst[x][i - 1], pos[a[i] * x], pos[a[i] / x]</code> 更新 <code>lst[x][i]</code>。</p>
-<p>甚至不用卡常。</p>
-<p><img src="/img/58222.png" srcset="/img/loading.gif" lazyload alt="图片"></p>
-
+                
                 
               </div>
             
@@ -301,15 +259,6 @@
             <div>
               <div class="post-metas my-3">
   
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E5%88%86%E5%9D%97/" class="print-no-link">#分块</a>
-      
-        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="print-no-link">#数据结构</a>
-      
-    </div>
   
 </div>
 
@@ -319,8 +268,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>莫队杂题</div>
-      <div>https://invinciblepeach.github.io/2024/10/01/莫队杂题/</div>
+      <div>Hall 婚配定理</div>
+      <div>https://invinciblepeach.github.io/2025/05/30/Hall-sTheorem/</div>
     </div>
     <div class="license-meta">
       
@@ -332,7 +281,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月1日</div>
+          <div>2025年5月30日</div>
         </div>
       
       
@@ -364,18 +313,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/01/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86%E4%B8%8E%E6%89%A9%E5%B1%95%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86/" title="欧拉定理">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">欧拉定理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/01/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" title="莫比乌斯反演">
-                        <span class="hidden-mobile">莫比乌斯反演</span>
+                      <a href="/2025/05/29/%E8%99%9A%E6%A0%91/" title="虚树">
+                        <span class="hidden-mobile">虚树</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

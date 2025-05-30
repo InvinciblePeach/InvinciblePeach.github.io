@@ -21,15 +21,15 @@
   <meta name="author" content="Kurisu M">
   <meta name="keywords" content="">
   
-    <meta name="description" content="二项式反演 由于之前对钦定与恰好间有诸多误解，重整理一遍。  二项式反演有两种常用形式： 形式一：$$f(n)  &#x3D; \sum_{i &#x3D; 0}^{n} {n \choose i} g(i) \newline\Updownarrow \newlineg(n)  &#x3D; \sum_{i &#x3D; 0}^{n} (-1)^{n - i} {n \choose i} f(i)">
+    <meta name="description" content="二项式反演 由于之前对钦定与恰好间有诸多误解，重整理一遍。  二项式反演有两种常用形式： 形式一：$$f(n)  &#x3D; \sum_{i &#x3D; 0}^{n} {n \choose i} g(i)\Longleftrightarrowg(n)  &#x3D; \sum_{i &#x3D; 0}^{n} (-1)^{n - i} {n \choose i} f(i)$$形式二：$$f(n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计数奇妙题">
 <meta property="og:url" content="https://invinciblepeach.github.io/2024/11/01/%E8%AE%A1%E6%95%B0%E5%A5%87%E5%A6%99%E9%A2%98(Updated)/index.html">
 <meta property="og:site_name" content="kncjjdr05&#39;s Blog">
-<meta property="og:description" content="二项式反演 由于之前对钦定与恰好间有诸多误解，重整理一遍。  二项式反演有两种常用形式： 形式一：$$f(n)  &#x3D; \sum_{i &#x3D; 0}^{n} {n \choose i} g(i) \newline\Updownarrow \newlineg(n)  &#x3D; \sum_{i &#x3D; 0}^{n} (-1)^{n - i} {n \choose i} f(i)">
+<meta property="og:description" content="二项式反演 由于之前对钦定与恰好间有诸多误解，重整理一遍。  二项式反演有两种常用形式： 形式一：$$f(n)  &#x3D; \sum_{i &#x3D; 0}^{n} {n \choose i} g(i)\Longleftrightarrowg(n)  &#x3D; \sum_{i &#x3D; 0}^{n} (-1)^{n - i} {n \choose i} f(i)$$形式二：$$f(n">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-01T04:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-27T07:37:16.000Z">
+<meta property="article:modified_time" content="2025-05-30T03:39:11.063Z">
 <meta property="article:author" content="Kurisu M">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="DP">
@@ -260,7 +260,7 @@
 <p>由于之前对<strong>钦定</strong>与<strong>恰好</strong>间有诸多误解，重整理一遍。</p>
 </blockquote>
 <p>二项式反演有两种常用形式：</p>
-<p>形式一：<br>$$<br>f(n)  &#x3D; \sum_{i &#x3D; 0}^{n} {n \choose i} g(i) \newline<br>\Updownarrow \newline<br>g(n)  &#x3D; \sum_{i &#x3D; 0}^{n} (-1)^{n - i} {n \choose i} f(i)<br>$$<br>形式二：<br>$$<br>f(n)  &#x3D; \sum_{i &#x3D; n}^{m} {i \choose n} g(i) \newline<br>\Updownarrow \newline<br>g(n)  &#x3D; \sum_{i &#x3D; n}^{n} (-1)^{i - n} {i \choose n} f(i)<br>$$</p>
+<p>形式一：<br>$$<br>f(n)  &#x3D; \sum_{i &#x3D; 0}^{n} {n \choose i} g(i)<br>\Longleftrightarrow<br>g(n)  &#x3D; \sum_{i &#x3D; 0}^{n} (-1)^{n - i} {n \choose i} f(i)<br>$$<br>形式二：<br>$$<br>f(n)  &#x3D; \sum_{i &#x3D; n}^{m} {i \choose n} g(i) \Longleftrightarrow<br>g(n)  &#x3D; \sum_{i &#x3D; n}^{n} (-1)^{i - n} {i \choose n} f(i)<br>$$</p>
 <p>由于不难发现以上两者等价，因此证明任意一个即可：</p>
 <p>直接将上式代入到下式中，如果成立则二项式反演显然成立：<br>$$<br>\begin{aligned}<br>g(n) &amp;&#x3D; \sum_{i &#x3D; 0}^{n} (-1)^{n - i} {n \choose i} \sum_{j &#x3D; 0}^{i} {i \choose j} g(j)\newline<br>&amp;&#x3D; \sum_{i &#x3D; 0}^{n} \sum_{j &#x3D; 0}^{i} (-1)^{n - i} {n \choose i} {i \choose j} g(j)\newline<br>&amp;&#x3D; \sum_{i &#x3D; 0}^{n} \sum_{j &#x3D; 0}^{i} (-1)^{n - i} {n \choose j} {n - j \choose i - j} g(j)\newline<br>&amp;&#x3D; \sum_{j &#x3D; 0}^{n}  g(j)  {n \choose j} \sum_{i &#x3D; j}^{n} (-1)^{n - i} {n - j \choose i - j}\newline<br>&amp;&#x3D; \sum_{j &#x3D; 0}^{n}  g(j)  {n \choose j} \sum_{k &#x3D; 0}^{n - j} (-1)^{(n - j) - k} {n - j \choose k}\newline<br>&amp;&#x3D; \sum_{j &#x3D; 0}^{n}  g(j)  {n \choose j} \sum_{k &#x3D; 0}^{n - j} (-1)^{(n - j) - k} 1^k {n - j \choose k}<br>\end{aligned}<br>$$<br>最后的部分利用二项式定理，$n - j &#x3D; 0$ 时单独算，得到：</p>
 <p>$$<br>\begin{aligned}<br>g(n) &amp;&#x3D; \sum_{j &#x3D; 0}^{n}  g(j)  {n \choose j} [n &#x3D; j]\newline<br>&amp;&#x3D; g(n) {n \choose n} &#x3D; g(n)<br>\end{aligned}<br>$$</p>
@@ -377,8 +377,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/01/BSGS/" title="大步小步（BSGS）">
-                        <span class="hidden-mobile">大步小步（BSGS）</span>
+                      <a href="/2024/10/01/CF1794/" title="CF1794 题解">
+                        <span class="hidden-mobile">CF1794 题解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
