@@ -21,22 +21,22 @@
   <meta name="author" content="Kurisu M">
   <meta name="keywords" content="">
   
-    <meta name="description" content="CF1805 题解A按位贪心，$x$ 里每一位的 $1$ 会使 $b$ 中的 $0,1$ 个数的奇偶性取反，使得每一位 $1$ 的个数为偶数即可。 B结论：将最小的字符提到最前，若有相同的取最后的。 接下来我们来证明以上结论：  字符串的第一位一定是最小的可以使答案最优。第一条得证。 考虑我们有两个可选的位置 $l, r \mid a[l] &#x3D; a[r] &#x3D; \min{a} &amp;">
+    <meta name="description" content="简单口胡. 首先在反图上跑 dij 建最短路树, 那么为什么是反图呢, 显然你要知道每个点到终点的最短距离, 这个与你从哪里扩展有关. 因为一开始从 $1$ 不断扩展, 所以 $1 \rightarrow x$ 的长度你是知道的, 其余的路径只剩 $x \rightarrow n$ 了. 然后有重边, 要注意. 剩下的就可以看题解了. 1234567891011121314151617181920">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CF1805 题解">
-<meta property="og:url" content="https://invinciblepeach.github.io/2024/10/01/CF1805/index.html">
+<meta property="og:title" content="k 短路">
+<meta property="og:url" content="https://invinciblepeach.github.io/2025/06/03/k-thPath/index.html">
 <meta property="og:site_name" content="kncjjdr05&#39;s Blog">
-<meta property="og:description" content="CF1805 题解A按位贪心，$x$ 里每一位的 $1$ 会使 $b$ 中的 $0,1$ 个数的奇偶性取反，使得每一位 $1$ 的个数为偶数即可。 B结论：将最小的字符提到最前，若有相同的取最后的。 接下来我们来证明以上结论：  字符串的第一位一定是最小的可以使答案最优。第一条得证。 考虑我们有两个可选的位置 $l, r \mid a[l] &#x3D; a[r] &#x3D; \min{a} &amp;">
+<meta property="og:description" content="简单口胡. 首先在反图上跑 dij 建最短路树, 那么为什么是反图呢, 显然你要知道每个点到终点的最短距离, 这个与你从哪里扩展有关. 因为一开始从 $1$ 不断扩展, 所以 $1 \rightarrow x$ 的长度你是知道的, 其余的路径只剩 $x \rightarrow n$ 了. 然后有重边, 要注意. 剩下的就可以看题解了. 1234567891011121314151617181920">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-01T04:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-27T07:36:17.000Z">
+<meta property="article:published_time" content="2025-06-03T08:48:11.000Z">
+<meta property="article:modified_time" content="2025-06-03T11:11:32.000Z">
 <meta property="article:author" content="Kurisu M">
-<meta property="article:tag" content="Codeforces">
+<meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>CF1805 题解 - kncjjdr05&#39;s Blog</title>
+  <title>k 短路 - kncjjdr05&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -178,7 +178,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CF1805 题解"></span>
+            <span id="subtitle" data-typed-text="k 短路"></span>
           
         </div>
 
@@ -189,8 +189,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-01 12:00" pubdate>
-          2024年10月1日 中午
+        <time datetime="2025-06-03 16:48" pubdate>
+          2025年6月3日 下午
         </time>
       </span>
     
@@ -201,7 +201,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          457 字
+          616 字
         
       </span>
     
@@ -212,7 +212,7 @@
         
         
         
-          4 分钟
+          6 分钟
         
       </span>
     
@@ -249,37 +249,16 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CF1805 题解</h1>
+            <h1 id="seo-header">k 短路</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="CF1805-题解"><a href="#CF1805-题解" class="headerlink" title="CF1805 题解"></a>CF1805 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>按位贪心，$x$ 里每一位的 $1$ 会使 $b$ 中的 $0,1$ 个数的奇偶性取反，使得每一位 $1$ 的个数为偶数即可。</p>
-<h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>结论：将最小的字符提到最前，若有相同的取最后的。</p>
-<p>接下来我们来证明以上结论：</p>
-<blockquote>
-<p>字符串的第一位一定是最小的可以使答案最优。第一条得证。</p>
-<p>考虑我们有两个可选的位置 $l, r \mid a[l] &#x3D; a[r] &#x3D; \min{a} &#x3D; c$。如果选择 $l$，答案为 $c + [1, l -1] + [l + 1, r - 1] + c + [r + 1, n]$；如果选择 $r$，答案为 $c + [1, l - 1] + c + [l + 1, r - 1] + [r + 1, n]$。</p>
-<p>注意到一定有 $c + [l + 1, r - 1] &lt; [l + 1, r - 1] + c$，因此我们证明了对于任意两个最小值一定是选最小的更优，可以推广到整个串的情况。</p>
-</blockquote>
-<h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p>考虑到大家都上过初中，我们直接计算 + 二分找 $k$ 即可。</p>
-<h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>有以下结论：</p>
-<ol>
-<li>若点 $x$ 到最远的点的距离 $&lt; k$，说明 $x$ 自成一个联通块；</li>
-<li>若点 $x$ 到直径某一个端点的距离 $\ge k$，则 $x$ 与端点共联通块；</li>
-<li>因此，每一个点要么单独成联通块，要么与直径端点共联通块；</li>
-</ol>
-<p>那么我们直接找出直径，开桶统计最远距离即可。</p>
-<h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/2mx8b4i3">https://www.luogu.com.cn/article/2mx8b4i3</a></p>
-<blockquote>
-<p>考虑对每个数值做：</p>
-<ul>
-<li>这个数值只出现了一次：没用。</li>
-<li>出现了至少三次：这个数值对整棵树所有边都有贡献。证明割了一条边后两棵肯定是一棵一个，另一棵两个。</li>
-<li>正好两次：对于这两个点之间的边没贡献，其他都有贡献。</li>
-</ul>
-<p>考虑直接写个树剖跑这个东西。可以套线段树区间赋值。</p>
-</blockquote>
+                <p>简单口胡.</p>
+<p>首先在反图上跑 dij 建最短路树, 那么为什么是反图呢, 显然你要知道每个点到终点的最短距离, 这个与你从哪里扩展有关. 因为一开始从 $1$ 不断扩展, 所以 $1 \rightarrow x$ 的长度你是知道的, 其余的路径只剩 $x \rightarrow n$ 了.</p>
+<p>然后有重边, 要注意.</p>
+<p>剩下的就可以看题解了.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-keyword">typedef</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> ll;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> MAXN = <span class="hljs-number">5010</span>, MAXM = <span class="hljs-number">1e6</span> + <span class="hljs-number">10</span>;<br><span class="hljs-type">int</span> n, m, cnt, ans, fa[MAXN], from[MAXN], sec[MAXN], rt[MAXN];<br>bitset&lt;MAXN&gt; vis;<br><span class="hljs-type">double</span> E, dis[MAXN];<br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Edge</span> &#123;<br>    <span class="hljs-type">int</span> v;<br>    <span class="hljs-type">double</span> w;<br>    <span class="hljs-type">int</span> id;<br><br>    <span class="hljs-built_in">Edge</span>() &#123;&#125;<br>    <span class="hljs-built_in">Edge</span>(<span class="hljs-type">int</span> V, <span class="hljs-type">double</span> W, <span class="hljs-type">int</span> Id) : <span class="hljs-built_in">v</span>(V), <span class="hljs-built_in">w</span>(W), <span class="hljs-built_in">id</span>(Id) &#123;&#125;<br>&#125;;<br>vector&lt;Edge&gt; g[MAXN], h[MAXN];<br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> &#123;<br>    <span class="hljs-type">int</span> lc, rc;<br>    <span class="hljs-type">double</span> sum;<br>    <span class="hljs-type">int</span> dep, fa;<br>&#125; t[MAXM];<br><span class="hljs-type">int</span> tot;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">nw</span><span class="hljs-params">(<span class="hljs-type">int</span> f, <span class="hljs-type">double</span> val)</span> </span>&#123;<br>    t[++tot] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, val, <span class="hljs-number">0</span>, f&#125;;<br>    <span class="hljs-keyword">return</span> tot;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (!x || !y) <span class="hljs-keyword">return</span> x | y;<br>    <span class="hljs-keyword">if</span> (t[x].sum &gt; t[y].sum) <span class="hljs-built_in">swap</span>(x, y);<br>    <span class="hljs-type">int</span> p = ++tot;<br>    t[p] = t[x];<br>    t[p].rc = <span class="hljs-built_in">merge</span>(t[p].rc, y);<br>    <span class="hljs-keyword">if</span> (t[t[p].lc].dep &lt; t[t[p].rc].dep) <span class="hljs-built_in">swap</span>(t[p].lc, t[p].rc);<br>    t[p].dep = t[t[p].rc].dep + <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">return</span> p;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">dijkstra</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) dis[i] = INFINITY;<br>    priority_queue&lt;pair&lt;<span class="hljs-type">double</span>, <span class="hljs-type">int</span>&gt;, vector&lt;pair&lt;<span class="hljs-type">double</span>, <span class="hljs-type">int</span>&gt;&gt;, greater&lt;&gt;&gt; pq;<br>    pq.<span class="hljs-built_in">emplace</span>(dis[n] = <span class="hljs-number">0</span>, n);<br>    <span class="hljs-keyword">while</span> (!pq.<span class="hljs-built_in">empty</span>()) &#123;<br>        <span class="hljs-keyword">auto</span> [c, u] = pq.<span class="hljs-built_in">top</span>();<br>        pq.<span class="hljs-built_in">pop</span>();<br>        <span class="hljs-keyword">if</span> (vis[u]) <span class="hljs-keyword">continue</span>;<br>        vis[u] = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> [v, w, id] : h[u]) &#123;<br>            <span class="hljs-keyword">if</span> (dis[v] &gt; c + w) pq.<span class="hljs-built_in">emplace</span>(dis[v] = c + w, v), from[v] = id, fa[v] = u;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">signed</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    ios::<span class="hljs-built_in">sync_with_stdio</span>(<span class="hljs-number">0</span>);<br>    cin.<span class="hljs-built_in">tie</span>(<span class="hljs-number">0</span>), cout.<span class="hljs-built_in">tie</span>(<span class="hljs-number">0</span>);<br><br>    cin &gt;&gt; n &gt;&gt; m &gt;&gt; E;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) &#123;<br>        <span class="hljs-type">static</span> <span class="hljs-type">int</span> u, v;<br>        <span class="hljs-type">static</span> <span class="hljs-type">double</span> w;<br>        cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;<br>        <span class="hljs-keyword">if</span> (u == n) &#123;<br>            i--, m--;<br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br>        g[u].<span class="hljs-built_in">emplace_back</span>(v, w, ++cnt);<br>        h[v].<span class="hljs-built_in">emplace_back</span>(u, w, cnt);<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) sec[i] = i;<br>    <span class="hljs-built_in">dijkstra</span>();<br>    <span class="hljs-built_in">sort</span>(sec + <span class="hljs-number">1</span>, sec + <span class="hljs-number">1</span> + n, [](<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b) -&gt; <span class="hljs-type">bool</span> &#123; <span class="hljs-keyword">return</span> dis[a] &lt; dis[b]; &#125;);<br>    t[<span class="hljs-number">0</span>].dep = <span class="hljs-number">-1</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>        <span class="hljs-type">int</span> u = sec[i];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> [v, w, id] : g[u]) &#123;<br>            <span class="hljs-keyword">if</span> (id == from[u]) <span class="hljs-keyword">continue</span>;<br>            rt[u] = <span class="hljs-built_in">merge</span>(rt[u], <span class="hljs-built_in">nw</span>(v, w - dis[u] + dis[v]));<br>        &#125;<br>        rt[u] = <span class="hljs-built_in">merge</span>(rt[u], rt[fa[u]]);<br>    &#125;<br><br>    E -= dis[<span class="hljs-number">1</span>], ans = <span class="hljs-number">1</span>;<br>    priority_queue&lt;pair&lt;<span class="hljs-type">double</span>, <span class="hljs-type">int</span>&gt;, vector&lt;pair&lt;<span class="hljs-type">double</span>, <span class="hljs-type">int</span>&gt;&gt;, greater&lt;&gt;&gt; pq;<br>    pq.<span class="hljs-built_in">emplace</span>(t[rt[<span class="hljs-number">1</span>]].sum, rt[<span class="hljs-number">1</span>]);<br>    <span class="hljs-keyword">while</span> (!pq.<span class="hljs-built_in">empty</span>()) &#123;<br>        <span class="hljs-keyword">auto</span> [c, v] = pq.<span class="hljs-built_in">top</span>();<br>        pq.<span class="hljs-built_in">pop</span>();<br>        <span class="hljs-keyword">if</span> (E &lt; c + dis[<span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span> cout &lt;&lt; ans &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-number">0</span>;<br>        E -= c + dis[<span class="hljs-number">1</span>], ans++;<br>        <span class="hljs-keyword">if</span> (t[v].lc) pq.<span class="hljs-built_in">emplace</span>(c - t[v].sum + t[t[v].lc].sum, t[v].lc);<br>        <span class="hljs-keyword">if</span> (t[v].rc) pq.<span class="hljs-built_in">emplace</span>(c - t[v].sum + t[t[v].rc].sum, t[v].rc);<br>        <span class="hljs-keyword">if</span> (rt[t[v].fa]) pq.<span class="hljs-built_in">emplace</span>(c + t[rt[t[v].fa]].sum, rt[t[v].fa]);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> cout &lt;&lt; ans &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -292,7 +271,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Codeforces/" class="print-no-link">#Codeforces</a>
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="print-no-link">#数据结构</a>
       
     </div>
   
@@ -304,8 +283,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CF1805 题解</div>
-      <div>https://invinciblepeach.github.io/2024/10/01/CF1805/</div>
+      <div>k 短路</div>
+      <div>https://invinciblepeach.github.io/2025/06/03/k-thPath/</div>
     </div>
     <div class="license-meta">
       
@@ -317,7 +296,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月1日</div>
+          <div>2025年6月3日</div>
         </div>
       
       
@@ -349,9 +328,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/01/CF1794/" title="CF1794 题解">
+                      <a href="/2025/06/08/Basic-Abstract-Algebra/" title="抽象代数基础 (群环域理论)">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CF1794 题解</span>
+                        <span class="hidden-mobile">抽象代数基础 (群环域理论)</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -359,8 +338,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/01/CF1918/" title="CF1918 题解">
-                        <span class="hidden-mobile">CF1918 题解</span>
+                      <a href="/2025/05/30/Hall-sTheorem/" title="Hall 婚配定理">
+                        <span class="hidden-mobile">Hall 婚配定理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

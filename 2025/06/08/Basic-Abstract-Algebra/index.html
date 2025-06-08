@@ -21,22 +21,23 @@
   <meta name="author" content="Kurisu M">
   <meta name="keywords" content="">
   
-    <meta name="description" content="CF1805 题解A按位贪心，$x$ 里每一位的 $1$ 会使 $b$ 中的 $0,1$ 个数的奇偶性取反，使得每一位 $1$ 的个数为偶数即可。 B结论：将最小的字符提到最前，若有相同的取最后的。 接下来我们来证明以上结论：  字符串的第一位一定是最小的可以使答案最优。第一条得证。 考虑我们有两个可选的位置 $l, r \mid a[l] &#x3D; a[r] &#x3D; \min{a} &amp;">
+    <meta name="description" content="相比于其他学科而言, 抽象代数更多研究具有某些性质的代数结构, 而非具体的某种运算或数学元素. 抽象代数也可结合图论应用. 利用抽象代数描述某些算法更容易定义算法的可扩展范围. 二元运算基础抽代的研究大多基于二元运算, 称 $\otimes$ 是 $G$ 上的二元运算, 当且仅当 $\forall x, y \in G, x \otimes y \in G$​ (也有人将其称为二元运算的封闭性).">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CF1805 题解">
-<meta property="og:url" content="https://invinciblepeach.github.io/2024/10/01/CF1805/index.html">
+<meta property="og:title" content="抽象代数基础 (群环域理论)">
+<meta property="og:url" content="https://invinciblepeach.github.io/2025/06/08/Basic-Abstract-Algebra/index.html">
 <meta property="og:site_name" content="kncjjdr05&#39;s Blog">
-<meta property="og:description" content="CF1805 题解A按位贪心，$x$ 里每一位的 $1$ 会使 $b$ 中的 $0,1$ 个数的奇偶性取反，使得每一位 $1$ 的个数为偶数即可。 B结论：将最小的字符提到最前，若有相同的取最后的。 接下来我们来证明以上结论：  字符串的第一位一定是最小的可以使答案最优。第一条得证。 考虑我们有两个可选的位置 $l, r \mid a[l] &#x3D; a[r] &#x3D; \min{a} &amp;">
+<meta property="og:description" content="相比于其他学科而言, 抽象代数更多研究具有某些性质的代数结构, 而非具体的某种运算或数学元素. 抽象代数也可结合图论应用. 利用抽象代数描述某些算法更容易定义算法的可扩展范围. 二元运算基础抽代的研究大多基于二元运算, 称 $\otimes$ 是 $G$ 上的二元运算, 当且仅当 $\forall x, y \in G, x \otimes y \in G$​ (也有人将其称为二元运算的封闭性).">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-01T04:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-27T07:36:17.000Z">
+<meta property="article:published_time" content="2025-06-08T09:06:24.000Z">
+<meta property="article:modified_time" content="2025-06-08T10:13:31.421Z">
 <meta property="article:author" content="Kurisu M">
-<meta property="article:tag" content="Codeforces">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="抽象代数">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>CF1805 题解 - kncjjdr05&#39;s Blog</title>
+  <title>抽象代数基础 (群环域理论) - kncjjdr05&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -178,7 +179,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CF1805 题解"></span>
+            <span id="subtitle" data-typed-text="抽象代数基础 (群环域理论)"></span>
           
         </div>
 
@@ -189,8 +190,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-01 12:00" pubdate>
-          2024年10月1日 中午
+        <time datetime="2025-06-08 17:06" pubdate>
+          2025年6月8日 下午
         </time>
       </span>
     
@@ -201,7 +202,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          457 字
+          1.2k 字
         
       </span>
     
@@ -212,7 +213,7 @@
         
         
         
-          4 分钟
+          11 分钟
         
       </span>
     
@@ -249,37 +250,62 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CF1805 题解</h1>
+            <h1 id="seo-header">抽象代数基础 (群环域理论)</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="CF1805-题解"><a href="#CF1805-题解" class="headerlink" title="CF1805 题解"></a>CF1805 题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p>按位贪心，$x$ 里每一位的 $1$ 会使 $b$ 中的 $0,1$ 个数的奇偶性取反，使得每一位 $1$ 的个数为偶数即可。</p>
-<h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p>结论：将最小的字符提到最前，若有相同的取最后的。</p>
-<p>接下来我们来证明以上结论：</p>
+                <p>相比于其他学科而言, 抽象代数更多研究具有某些性质的代数结构, 而非具体的某种运算或数学元素. 抽象代数也可结合图论应用. 利用抽象代数描述某些算法更容易定义算法的可扩展范围.</p>
+<h3 id="二元运算"><a href="#二元运算" class="headerlink" title="二元运算"></a>二元运算</h3><p>基础抽代的研究大多基于二元运算, 称 $\otimes$ 是 $G$ 上的<strong>二元运算</strong>, 当且仅当 $\forall x, y \in G, x \otimes y \in G$​ (也有人将其称为二元运算的封闭性).</p>
+<h4 id="广义结合律"><a href="#广义结合律" class="headerlink" title="广义结合律"></a>广义结合律</h4><p><strong>广义结合律</strong>可以描述为: 对于系列二元运算, 运算的结果与加括号的形式无关. 例如: 矩阵乘法, 复数上的四则运算.</p>
+<p>证明一个运算 $\otimes$ 具有广义结合律, 实际上只需证明 $(x \otimes y) \otimes z &#x3D; x \otimes(y \otimes z)$ (结合律).</p>
 <blockquote>
-<p>字符串的第一位一定是最小的可以使答案最优。第一条得证。</p>
-<p>考虑我们有两个可选的位置 $l, r \mid a[l] &#x3D; a[r] &#x3D; \min{a} &#x3D; c$。如果选择 $l$，答案为 $c + [1, l -1] + [l + 1, r - 1] + c + [r + 1, n]$；如果选择 $r$，答案为 $c + [1, l - 1] + c + [l + 1, r - 1] + [r + 1, n]$。</p>
-<p>注意到一定有 $c + [l + 1, r - 1] &lt; [l + 1, r - 1] + c$，因此我们证明了对于任意两个最小值一定是选最小的更优，可以推广到整个串的情况。</p>
+<p>证明(假设 $(x \otimes y) \otimes z &#x3D; x \otimes(y \otimes z)$ 成立):</p>
+<p>我们如下递归地定义运算顺序:<br>$$<br>x_1 \otimes x_2 \otimes \cdots \otimes x_n &#x3D; (x_1 \otimes x_2 \otimes \cdots \otimes x_{n - 1}) \otimes x_n<br>$$<br>进而我们发现, 结合律等价于:<br>$$<br>(x_1 \otimes \cdots \otimes x_n) \otimes (y_1 \otimes \cdots \otimes y_m) &#x3D; x_1 \otimes \cdots \otimes x_n \otimes y_1 \otimes \cdots \otimes y_m<br>$$<br>也就是说只需证明上式成立, 考虑数学归纳:</p>
+<p>$m &#x3D; 1$ 时, 原式显然成立.</p>
+<p>假设 $(x_1 \otimes \cdots \otimes x_n) \otimes (y_1 \otimes \cdots \otimes y_m) &#x3D; x_1 \otimes \cdots \otimes x_n \otimes y_1 \otimes \cdots \otimes y_m$ 成立.</p>
+<p>那么:<br>$$<br>\begin{aligned}<br>&amp; x_1 \otimes \cdots \otimes x_n \otimes y_1 \otimes \cdots \otimes y_m \otimes y_{m + 1}\newline<br>&#x3D;&amp; (x_1 \otimes \cdots \otimes x_n) \otimes (y_1 \otimes \cdots \otimes y_m) \otimes y_{m + 1}\newline<br>&#x3D;&amp; (x_1 \otimes \cdots \otimes x_n) \otimes ((y_1 \otimes \cdots \otimes y_m) \otimes y_{m + 1})\newline<br>&#x3D;&amp; (x_1 \otimes \cdots \otimes x_n) \otimes (y_1 \otimes \cdots \otimes y_m \otimes y_{m + 1})<br>\end{aligned}<br>$$<br>根据数学归纳法, 问题得证.</p>
 </blockquote>
-<h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p>考虑到大家都上过初中，我们直接计算 + 二分找 $k$ 即可。</p>
-<h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p>有以下结论：</p>
-<ol>
-<li>若点 $x$ 到最远的点的距离 $&lt; k$，说明 $x$ 自成一个联通块；</li>
-<li>若点 $x$ 到直径某一个端点的距离 $\ge k$，则 $x$ 与端点共联通块；</li>
-<li>因此，每一个点要么单独成联通块，要么与直径端点共联通块；</li>
-</ol>
-<p>那么我们直接找出直径，开桶统计最远距离即可。</p>
-<h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/article/2mx8b4i3">https://www.luogu.com.cn/article/2mx8b4i3</a></p>
+<h4 id="交换律"><a href="#交换律" class="headerlink" title="交换律"></a>交换律</h4><p>大部分运算都不具有交换律, 这点需要清楚.</p>
+<h3 id="群"><a href="#群" class="headerlink" title="群"></a>群</h3><h4 id="半群"><a href="#半群" class="headerlink" title="半群"></a>半群</h4><p>对于非空集合 $G$ 和其上的二元运算 $\otimes$, 如果该运算满足结合律, 则称 $(G,\otimes)$​ 是一个<strong>半群</strong> (semigroup).</p>
+<p>值得注意的是, 线段树可以维护半群 (标记可合并).</p>
+<h4 id="幺半群"><a href="#幺半群" class="headerlink" title="幺半群"></a>幺半群</h4><p>对于半群 $(G, \otimes)$, 如果它还存在单位元 (幺), 则称 $(G,\otimes)$ 是一个<strong>幺半群</strong>（monoid).</p>
 <blockquote>
-<p>考虑对每个数值做：</p>
+<p>什么是<strong>幺</strong>:</p>
+<p>幺在汉语中具有 $1$ 的含义 (幺九牌). 若 $e$ 满足 $e \otimes x &#x3D; x \otimes e &#x3D; x$, 则称 $e$ 是二元运算 $\otimes$ 的幺.</p>
+<p>不难发现一种二元运算最多只有一个幺, 考虑反证:</p>
+<p>假设 $e_1 \neq e_2$, 则<br>$$<br>e_1 \otimes e_2 &#x3D; e_2 \otimes e_1 &#x3D; e_2 &#x3D; e_1<br>$$<br>与假设相悖, 因此原命题成立.</p>
+</blockquote>
+<p>必须清楚<strong>具有幺元不代表具有交换律.</strong></p>
+<h4 id="群-1"><a href="#群-1" class="headerlink" title="群"></a>群</h4><p>群是对幺半群限制更紧的情况. 对于幺半群 $(G, \otimes)$, 若满足 $\forall x \in G, \exists y \in G, x \otimes y &#x3D; y \otimes x &#x3D; e$, 则称 $(G, \otimes)$ 构成<strong>群</strong> (group), 其中, 我们称 $y$ 是 $x$ 的<strong>逆元</strong>, 记作 $y &#x3D; x^{-1}$.</p>
+<blockquote>
+<p>逆元的唯一性:</p>
+<p>依旧考虑反证法:</p>
+<p>假设 $y_1 \neq y_2$, 则<br>$$<br>y_1 &#x3D; y_1 \otimes e &#x3D; y_1 \otimes x \otimes y_2 &#x3D; e \otimes y_2 &#x3D; y_2<br>$$<br>与假设相悖, 因此原命题成立.</p>
+</blockquote>
+<p>必须清楚<strong>对于任意元素都具有逆元依旧不代表具有交换律.</strong></p>
+<h4 id="Abel-群"><a href="#Abel-群" class="headerlink" title="Abel 群"></a>Abel 群</h4><p>又译阿贝尔群; 又名交换群.</p>
+<p>对于群 $(G, \otimes)$, 若满足 $\forall x, y \in G, x \otimes y &#x3D; y \otimes x$ (交换律), 则称 $(G, \otimes)$ 构成<strong>Abel 群</strong> (Abelian group) 或<strong>交换群</strong> (communicate group).</p>
+<h3 id="环"><a href="#环" class="headerlink" title="环"></a>环</h3><p>对于非空集合 $G$ 和其上的两个二元运算 $+:G\times G\rightarrow G$ 和 $\cdot:G\times G\rightarrow G$, 如果它们满足以下性质，则称 $(G,+,\cdot)$ 是一个<strong>环</strong> (ring):</p>
 <ul>
-<li>这个数值只出现了一次：没用。</li>
-<li>出现了至少三次：这个数值对整棵树所有边都有贡献。证明割了一条边后两棵肯定是一棵一个，另一棵两个。</li>
-<li>正好两次：对于这两个点之间的边没贡献，其他都有贡献。</li>
+<li>$(G,+)$ 构成 Abel 群, 其单位元记作 $0$, 元素 $a\in G$ 在 $+$ 下的逆元记作 $-a$;</li>
+<li>$(G,\cdot)$ 构成半群, 即 $\cdot$ 满足结合律;</li>
+<li><strong>分配律</strong> (distributive property): 对于所有 $a,b,c\in G$，成立 $a\cdot(b+c)&#x3D;a\cdot b+a\cdot c$ 和 $(a+b)\cdot c&#x3D;a\cdot c+b\cdot c$.</li>
 </ul>
-<p>考虑直接写个树剖跑这个东西。可以套线段树区间赋值。</p>
-</blockquote>
+<p>为表述方便, 这两个二元运算 $+$ 和 $\cdot$​ 常称作该环的加法和乘法, 相应地, 加法单位元称作<strong>零元</strong> (zero), 乘法单位元 (如果存在) 称作<strong>幺元</strong> (identity). <strong>千万不要将环的加法乘法与复数上的加法乘法相混淆</strong>.</p>
+<p>继承环的定义, 进一步加以限制, 得到:</p>
+<ul>
+<li>如果 $(G, \cdot)$ 构成幺半群, 那么称为幺环.</li>
+<li>如果 $(G, \cdot)$​ 构成群, 那么称为除环.</li>
+<li>如果 $\cdot$ 具有交换律, 那么称为交换环.</li>
+</ul>
+<h3 id="域"><a href="#域" class="headerlink" title="域"></a>域</h3><p>域是比环限制还要强的代数结构:</p>
+<p>简单来说, 要求 $(G, \cdot)$​ 构成 Abel 群, 那么称为<strong>域</strong>或<strong>交换除环</strong>. 换句话说, 域是对加减乘除四则运算都封闭的代数结构.</p>
+<p>举例而言:</p>
+<ul>
+<li>复数域: 复数在通常意义的加法和乘法下构成域。</li>
+<li>有限域 (finite field): 以质数 $p$ 为模的整数同余类的集合 $\mathbf Z&#x2F;p\mathbf Z$ 在同余类的加法和乘法下构成域. 当然, 除此之外还有其他的有限域, 它们的结构由其大小唯一确定, 且大小必然是质数幂的形式.</li>
+</ul>
 
                 
               </div>
@@ -292,7 +318,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Codeforces/" class="print-no-link">#Codeforces</a>
+        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
+      
+        <a href="/tags/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0/" class="print-no-link">#抽象代数</a>
       
     </div>
   
@@ -304,8 +332,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CF1805 题解</div>
-      <div>https://invinciblepeach.github.io/2024/10/01/CF1805/</div>
+      <div>抽象代数基础 (群环域理论)</div>
+      <div>https://invinciblepeach.github.io/2025/06/08/Basic-Abstract-Algebra/</div>
     </div>
     <div class="license-meta">
       
@@ -317,7 +345,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月1日</div>
+          <div>2025年6月8日</div>
         </div>
       
       
@@ -349,18 +377,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/01/CF1794/" title="CF1794 题解">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CF1794 题解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/01/CF1918/" title="CF1918 题解">
-                        <span class="hidden-mobile">CF1918 题解</span>
+                      <a href="/2025/06/03/k-thPath/" title="k 短路">
+                        <span class="hidden-mobile">k 短路</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
